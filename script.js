@@ -143,5 +143,5 @@ y2 -=4;
 drawBullet();
 } 
 
-} 
+}
 setInterval(draw, 10)
