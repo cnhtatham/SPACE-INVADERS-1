@@ -22,6 +22,7 @@ var canvas = document.getElementById("myCanvas");var ctx = canvas.getContext("2d
 //CHARLIE'S COMMMENT
 //HARRY'S COMMENT
 //BEN'S COMMENT
+// dan's final comment
 var invaders = [];
 for (c=0; c<invaderColumnCount; c++) {
     invaders[c] = [];
