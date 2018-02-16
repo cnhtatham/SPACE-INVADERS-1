@@ -18,7 +18,7 @@ var canvas = document.getElementById("myCanvas");var ctx = canvas.getContext("2d
     var invaderPadding = 10;
     var invaderOffsetTop = 30;
     var invaderOffsetLeft = 30;
-
+//DANS COMMENT
 var invaders = [];
 for (c=0; c<invaderColumnCount; c++) {
     invaders[c] = [];
