@@ -20,6 +20,7 @@ var canvas = document.getElementById("myCanvas");var ctx = canvas.getContext("2d
     var invaderOffsetLeft = 30;
 //DANS COMMENT
 //CHARLIE'S COMMMENT
+//BENS COMMENT
 var invaders = [];
 for (c=0; c<invaderColumnCount; c++) {
     invaders[c] = [];
