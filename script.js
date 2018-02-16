@@ -1,6 +1,6 @@
 var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext("2d");
-
+// HELLLOOOO
 var x = canvas.width/2;
 var y = canvas.height-30
 var x2 = x2
