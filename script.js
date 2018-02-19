@@ -205,7 +205,7 @@ function collisionDetection() {
                     y2 = canvas.height - 30;
                     bulletCount = 0
                     score += i.score;
-                    if (score == 990) {
+                    if (score >= 1100) {
                         alert("YOU WIN, CONGRATULATIONS!");
                         document.location.reload();
                     }
