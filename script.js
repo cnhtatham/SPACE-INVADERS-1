@@ -4,6 +4,12 @@ var ctx = canvas.getContext("2d");
 var ship = document.getElementById("ship");
 ship.style.display = 'none';
 
+var explosion = document.getElementById("explode");
+explosion.style.display = "none";
+
+var shot = document.getElementById("fireSound");
+var iKilled = document.getElementById("killed");
+
 var x = canvas.width / 2;
 var y = canvas.height - 55
 var x2 = x2
@@ -21,8 +27,8 @@ var invaderColumnCount = 11;
 var invaderWidth = 40;
 var invaderHeight = 20;
 var invaderPadding = 10;
-var invaderOffsetTop = 30;
-var invaderOffsetLeft = 30;
+var invaderOffsetTop = 80;
+var invaderOffsetLeft = 25;
 var score = 0;
 var moveLeft = true; 
 var moveRight = false;
@@ -67,13 +73,13 @@ function spaceBarHandler(e) {
     }
 }
 
-function drawBall() {
+
+function drawShip() {
+
     ctx.beginPath();
     ctx.drawImage(ship, x, y, 50, 50);
     ctx.closePath();
 }
-
-
 
 function drawBullet() {
     if (bulletActive == false) {
@@ -91,6 +97,7 @@ function drawBullet() {
         }
     }
 }
+
 
 function moveInvaders () {
     if (moveLeft == true && moveRight == false) {
@@ -119,9 +126,6 @@ function sideDetection() {
     moveInvaders()
 }
 
-
-
-
 function drawInvaders() { //create a 2 day array and paint each invader in it's location
     for (c = 0; c < invaderColumnCount; c++) {
         for (r = 0; r < invaderRowCount; r++) {
@@ -138,10 +142,17 @@ function drawInvaders() { //create a 2 day array and paint each invader in it's 
             }
         }
     }
-    //setInterval(invaderOffsetLeft++, 10)
 }
 
+function drawExplosion() {
+    ctx.beginPath();
+    ctx.drawImage(explosion, i.x, i.y);
+    ctx.closePath();
+}
 
+function removeExplosion() {
+    explosion.style.display = "none";
+}
 
 // check each invader if the bullet has hit
 function collisionDetection() {
@@ -151,9 +162,7 @@ function collisionDetection() {
             if (i.status == 1) {
                 //check to see if the bullets x value is greater than the x position of the invader including it's width, then check if the bullet has reached it's y value plus 27 for better effect.
                 if (x2 > i.x && x2 < i.x + invaderWidth && y2 > i.y && y2 < i.y + invaderHeight + 27) {
-                    i.status = 0
-                    bulletActive = true;
-                    spacePressed = false;
+
                     y2 = canvas.height - 30;
                     bulletCount = 0
                     score++;
@@ -161,6 +170,11 @@ function collisionDetection() {
                         alert("YOU WIN, CONGRATULATIONS!");
                         document.location.reload();
                     }
+                    bulletActive = true;
+                    spacePressed = false;
+                    iKilled.play();
+                    drawExplosion();
+                    setTimeout(removeExplosion, 3000)
                 }
             }
         }
@@ -177,10 +191,11 @@ function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     drawInvaders();
-    drawBall();
+    drawShip();
     drawScore();
     collisionDetection();
-    sideDetection();
+
+
     // stops ball moving too far
     if (rightPressed && x < canvas.width - ballRadius || rightPressed && x < ballRadius) {
         x += 3;
@@ -188,13 +203,20 @@ function draw() {
         x -= 3;
     }
 
+
+    //During firing
     if (spacePressed) {
         if (bulletCount === 0) { //Take the first x position of the ship at fire
             x2 = x + 24.5;
+            //audio
+            shot.play();
+
         }
         y2 -= 6; //bullet will travel up the screen
         drawBullet();
     }
 
-}
+} //end of draw
+
+
 setInterval(draw, 10)
