@@ -148,47 +148,47 @@ function drawInvaders() { //create a 2 day array and paint each invader in it's 
                 var invaderY = (r * (invaderHeight + invaderPadding)) + invaderOffsetTop;
                 invaders[c][r].x = invaderX
                 invaders[c][r].y = invaderY
-                if (r==1){
-                ctx.beginPath();
-                ctx.rect(invaderX, invaderY, invaderWidth, invaderHeight);
-                ctx.fillStyle = 'green';
-                ctx.fill();
-                ctx.closePath();
-                }
-                else if(r==2){
+                if (r==0){
                     ctx.beginPath();
                     ctx.rect(invaderX, invaderY, invaderWidth, invaderHeight);
-                    ctx.fillStyle = 'green';
+                    ctx.fillStyle = 'yellow';
                     ctx.fill();
                     ctx.closePath();
                 }
-                else if(r==3){
+                else if(r==1){
                     ctx.beginPath();
                     ctx.rect(invaderX, invaderY, invaderWidth, invaderHeight);
                     ctx.fillStyle = 'blue';
                     ctx.fill();
                     ctx.closePath();
                 }
-                else if(r==4){
+                else if(r==2){
                     ctx.beginPath();
                     ctx.rect(invaderX, invaderY, invaderWidth, invaderHeight);
                     ctx.fillStyle = 'red';
                     ctx.fill();
                     ctx.closePath();
                 }
-                else if(r==5){
+                else if(r==3){
                     ctx.beginPath();
                     ctx.rect(invaderX, invaderY, invaderWidth, invaderHeight);
                     ctx.fillStyle = 'green';
                     ctx.fill();
                     ctx.closePath();
+                }
+                else if(r==4){
+                    ctx.beginPath();
+                    ctx.rect(invaderX, invaderY, invaderWidth, invaderHeight);
+                    ctx.fillStyle = 'green';
+                    ctx.fill();
+                    ctx.closePath();
+                }
                 if (invaderY >= 450) {
                     alert('GAME OVER')
                 }
             }
         }
     }
-    //setInterval(invaderOffsetLeft++, 10)
 }
 
 // check each invader if the bullet has hit
