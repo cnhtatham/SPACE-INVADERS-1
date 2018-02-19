@@ -190,6 +190,10 @@ function drawInvaders() { //create a 2 day array and paint each invader in it's 
     }
 }
 
+function disapear() {
+    i.style.display = "none";
+}
+
 // check each invader if the bullet has hit
 function collisionDetection() {
     for (c = 0; c < invaderColumnCount; c++) {
@@ -198,8 +202,11 @@ function collisionDetection() {
             if (i.status == 1) {
                 //check to see if the bullets x value is greater than the x position of the invader including it's width, then check if the bullet has reached it's y value plus 27 for better effect.
                 if (x2 > i.x && x2 < i.x + invaderWidth && y2 > i.y && y2 < i.y + invaderHeight + 27) {
-                    i.status = 0;
+                    i.status = 2;
                     explode.play();
+                    ctx.beginPath();
+                    ctx.drawImage(kill, i.x+10, i.y, 20, 20);
+                    ctx.closePath();
                     bulletActive = true;
                     spacePressed = false;
                     y2 = canvas.height - 30;
