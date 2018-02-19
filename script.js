@@ -28,19 +28,35 @@ var invaderOffsetLeft = 30;
 var score = 0;
 var moveLeft = true; 
 var moveRight = false;
+var invaderSpeed = 0.5;
 
 var invaders = []; // create a 2d array of space invaders
 for (c = 0; c < invaderColumnCount; c++) {
     invaders[c] = [];
     for (r = 0; r < invaderRowCount; r++) {
         invaders[c][r] = {
-            x: 0,
-            y: 0,
-            status: 1
+        x: 0,
+        y: 0,
+        status: 1,
+        score: 0
+       }
+        if (r==1){
+            invaders[c][r].score = 40 
+        }
+        else if(r==2){
+            invaders[c][r].score = 20
+        }
+        else if(r==3){
+            invaders[c][r].score = 20
+        }
+        else if(r==4){
+            invaders[c][r].score = 10
+        }
+        else if(r==5){
+            invaders[c][r].score = 10
         }
     }
 }
-
 
 document.addEventListener("keydown", keyDownHandler, false);
 document.addEventListener("keyup", keyUpHandler, false);
@@ -75,8 +91,6 @@ function drawBall() {
     ctx.closePath();
 }
 
-
-
 function drawBullet() {
     if (bulletActive == false) {
         ctx.beginPath();
@@ -96,10 +110,10 @@ function drawBullet() {
 
 function moveInvaders () {
     if (moveLeft == true && moveRight == false) {
-        invaderOffsetLeft++
+        invaderOffsetLeft += invaderSpeed;
     }
     else if (moveLeft == false && moveRight == true) {
-        invaderOffsetLeft -- 
+        invaderOffsetLeft -= invaderSpeed;
     }
 }
 
@@ -110,19 +124,17 @@ function sideDetection() {
             if (i.x + invaderWidth > canvas.width) {
                 moveLeft = false;
                 moveRight = true
-                invaderOffsetTop = invaderOffsetTop + 5;
+                invaderOffsetTop = invaderOffsetTop + 3;
             } else if (i.x < 0) {
                 moveLeft = true
                 moveRight = false
-                invaderOffsetTop = invaderOffsetTop + 5;
+                invaderOffsetTop = invaderOffsetTop + 3;
+                invaderSpeed += 0.02;
             }
         }
     }
     moveInvaders()
 }
-
-
-
 
 function drawInvaders() { //create a 2 day array and paint each invader in it's location
     for (c = 0; c < invaderColumnCount; c++) {
@@ -132,18 +144,46 @@ function drawInvaders() { //create a 2 day array and paint each invader in it's 
                 var invaderY = (r * (invaderHeight + invaderPadding)) + invaderOffsetTop;
                 invaders[c][r].x = invaderX
                 invaders[c][r].y = invaderY
+                if (r==1){
                 ctx.beginPath();
                 ctx.rect(invaderX, invaderY, invaderWidth, invaderHeight);
                 ctx.fillStyle = 'green';
                 ctx.fill();
                 ctx.closePath();
+                }
+                else if(r==2){
+                    ctx.beginPath();
+                    ctx.rect(invaderX, invaderY, invaderWidth, invaderHeight);
+                    ctx.fillStyle = 'green';
+                    ctx.fill();
+                    ctx.closePath();
+                }
+                else if(r==3){
+                    ctx.beginPath();
+                    ctx.rect(invaderX, invaderY, invaderWidth, invaderHeight);
+                    ctx.fillStyle = 'blue';
+                    ctx.fill();
+                    ctx.closePath();
+                }
+                else if(r==4){
+                    ctx.beginPath();
+                    ctx.rect(invaderX, invaderY, invaderWidth, invaderHeight);
+                    ctx.fillStyle = 'red';
+                    ctx.fill();
+                    ctx.closePath();
+                }
+                else if(r==5){
+                    ctx.beginPath();
+                    ctx.rect(invaderX, invaderY, invaderWidth, invaderHeight);
+                    ctx.fillStyle = 'green';
+                    ctx.fill();
+                    ctx.closePath();
+                }
             }
         }
     }
     //setInterval(invaderOffsetLeft++, 10)
 }
-
-
 
 // check each invader if the bullet has hit
 function collisionDetection() {
@@ -158,8 +198,8 @@ function collisionDetection() {
                     spacePressed = false;
                     y2 = canvas.height - 30;
                     bulletCount = 0
-                    score++;
-                    if (score == 55) {
+                    score += i.score;
+                    if (score == 990) {
                         alert("YOU WIN, CONGRATULATIONS!");
                         document.location.reload();
                     }
