@@ -99,6 +99,8 @@ function drawInvaders() { //create a 2 day array and paint each invader in it's 
             ctx.fillStyle = 'green';
             ctx.fill();
             ctx.closePath();
+            invaderX ++;
+            invaderY ++;
             }
         }
     }
@@ -153,7 +155,7 @@ if(spacePressed) {
 if (bulletCount === 0) { //Take the first x position of the ship at fire
     x2 = x
 }
-y2 -=4; //bullet will travel up the screen
+y2 -=6; //bullet will travel up the screen
 drawBullet();
 } 
 
