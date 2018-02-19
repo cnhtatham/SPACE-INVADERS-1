@@ -30,6 +30,8 @@ var invaderPadding = 10;
 var invaderOffsetTop = 80;
 var invaderOffsetLeft = 25;
 var score = 0;
+var moveLeft = true; 
+var moveRight = false;
 
 var invaders = []; // create a 2d array of space invaders
 for (c = 0; c < invaderColumnCount; c++) {
@@ -71,7 +73,9 @@ function spaceBarHandler(e) {
     }
 }
 
+
 function drawShip() {
+
     ctx.beginPath();
     ctx.drawImage(ship, x, y, 50, 50);
     ctx.closePath();
@@ -92,6 +96,34 @@ function drawBullet() {
             bulletCount = 0
         }
     }
+}
+
+
+function moveInvaders () {
+    if (moveLeft == true && moveRight == false) {
+        invaderOffsetLeft++
+    }
+    else if (moveLeft == false && moveRight == true) {
+        invaderOffsetLeft -- 
+    }
+}
+
+function sideDetection() {
+    for (c = 0; c < invaderColumnCount; c++) {
+        for (r = 0; r < invaderRowCount; r++) { 
+            var i = invaders[c][r];
+            if (i.x + invaderWidth > canvas.width) {
+                moveLeft = false;
+                moveRight = true
+                invaderOffsetTop = invaderOffsetTop + 5;
+            } else if (i.x < 0) {
+                moveLeft = true
+                moveRight = false
+                invaderOffsetTop = invaderOffsetTop + 5;
+            }
+        }
+    }
+    moveInvaders()
 }
 
 function drawInvaders() { //create a 2 day array and paint each invader in it's location
@@ -130,7 +162,7 @@ function collisionDetection() {
             if (i.status == 1) {
                 //check to see if the bullets x value is greater than the x position of the invader including it's width, then check if the bullet has reached it's y value plus 27 for better effect.
                 if (x2 > i.x && x2 < i.x + invaderWidth && y2 > i.y && y2 < i.y + invaderHeight + 27) {
-                    i.status = 0;
+
                     y2 = canvas.height - 30;
                     bulletCount = 0
                     score++;
@@ -143,7 +175,6 @@ function collisionDetection() {
                     iKilled.play();
                     drawExplosion();
                     setTimeout(removeExplosion, 3000)
-
                 }
             }
         }
@@ -158,10 +189,12 @@ function drawScore() {
 
 function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+
     drawInvaders();
     drawShip();
     drawScore();
     collisionDetection();
+
 
     // stops ball moving too far
     if (rightPressed && x < canvas.width - ballRadius || rightPressed && x < ballRadius) {
@@ -170,17 +203,20 @@ function draw() {
         x -= 3;
     }
 
+
     //During firing
     if (spacePressed) {
         if (bulletCount === 0) { //Take the first x position of the ship at fire
             x2 = x + 24.5;
             //audio
             shot.play();
+
         }
         y2 -= 6; //bullet will travel up the screen
         drawBullet();
     }
 
 } //end of draw
+
 
 setInterval(draw, 10)
