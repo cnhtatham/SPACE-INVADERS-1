@@ -21,8 +21,8 @@ var invaderColumnCount = 11;
 var invaderWidth = 40;
 var invaderHeight = 20;
 var invaderPadding = 10;
-var invaderOffsetTop = 30;
-var invaderOffsetLeft = 30;
+var invaderOffsetTop = 80;
+var invaderOffsetLeft = 25;
 var score = 0;
 
 var invaders = []; // create a 2d array of space invaders
