@@ -1,6 +1,6 @@
 var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext("2d");
-// HELLLOOOO
+
 var x = canvas.width/2;
 var y = canvas.height-30
 var x2 = x2
@@ -20,31 +20,16 @@ var invaderHeight = 20;
 var invaderPadding = 10;
 var invaderOffsetTop = 30;
 var invaderOffsetLeft = 30;
-//DANS COMMENT
+var score = 0;
 
-var invaders = [];
+var invaders = []; // create a 2d array of space invaders
 for (c=0; c<invaderColumnCount; c++) {
 invaders[c] = [];
 for (r=0; r<invaderRowCount; r++) {
-    invaders[c][r] = { x:0, y:0}
+    invaders[c][r] = { x:0, y:0, status: 1}
 }
 } 
 
-function drawInvaders() {
-for(c=0; c<invaderColumnCount; c++) {
-    for(r=0; r<invaderRowCount; r++) {
-        var invaderX = (c*(invaderWidth+invaderPadding))+invaderOffsetLeft;
-        var invaderY = (r*(invaderHeight+invaderPadding))+invaderOffsetTop;
-        invaders[c][r].x = invaderX
-        invaders[c][r].y = invaderY
-        ctx.beginPath();
-        ctx.rect(invaderX, invaderY, invaderWidth, invaderHeight);
-        ctx.fillStyle = 'green';
-        ctx.fill();
-        ctx.closePath();
-    }
-}
-}
 
 document.addEventListener("keydown", keyDownHandler, false);
 document.addEventListener("keyup", keyUpHandler, false);
@@ -71,6 +56,7 @@ else if(e.keyCode == 37) {
 function spaceBarHandler(e) {
 if(e.keyCode == 32) {
     spacePressed = true;
+    bulletActive = false;
 }
 }
 
@@ -85,7 +71,7 @@ ctx.closePath();
 function drawBullet() {
 if (bulletActive == false) {
     ctx.beginPath();
-    ctx.rect(x2, y2 - 25, 1, 15, );
+    ctx.rect(x2, y2 - 25, 1, 15);
     ctx.fillStyle = "black"
     ctx.fill();
     ctx.stroke();
@@ -99,47 +85,74 @@ if (bulletActive == false) {
 }
 }   
 
-function collisionDetection() {
-for(c=0; c<invaderColumnCount; c++) {
-    for(r=0; r<invaderRowCount; r++) {
-        var i = invaders[c][r];
-        if (i.status == 1) {
-            if(x > b.x && x < b.x+invaderWidth && y > b.y &&+invaderHeight) {
-                b.status = 0
-                bulletActive = true;
+function drawInvaders() { //create a 2 day array and paint each invader in it's location
+    for(c=0; c<invaderColumnCount; c++) {
+        for(r=0; r<invaderRowCount; r++) {
+            if(invaders[c][r].status == 1) {
+            var invaderX = (c*(invaderWidth+invaderPadding))+invaderOffsetLeft;
+            var invaderY = (r*(invaderHeight+invaderPadding))+invaderOffsetTop;
+            invaders[c][r].x = invaderX
+            invaders[c][r].y = invaderY
+            ctx.beginPath();
+            ctx.rect(invaderX, invaderY, invaderWidth, invaderHeight);
+            ctx.fillStyle = 'green';
+            ctx.fill();
+            ctx.closePath();
             }
-        }  
+        }
     }
-}
+    }
+
+// check each invader if the bullet has hit
+function collisionDetection() {
+        for(c=0; c<invaderColumnCount; c++) {
+            for(r=0; r<invaderRowCount; r++) {
+                var i = invaders[c][r];
+                if (i.status == 1) {
+//check to see if the bullets x value is greater than the x position of the invader including it's width, then check if the bullet has reached it's y value plus 27 for better effect.
+                    if(x2 > i.x && x2 < i.x + invaderWidth && y2 > i.y && y2 < i.y + invaderHeight + 27) {
+                        i.status = 0
+                        bulletActive = true;
+                        spacePressed = false;
+                        y2 = canvas.height-30;
+                        bulletCount = 0
+                        score ++;
+                        if(score == 55) {
+                            alert("YOU WIN, CONGRATULATIONS!");
+                            document.location.reload();
+                        }
+                    }
+                }  
+            }
+        }
 }
 
-
+function drawScore() {
+    ctx.font = "16px Arial";
+    ctx.fillStyle = "#0095DD";
+    ctx.fillText("Score: "+score, 8, 20);
+}
 
 function draw() {
 ctx.clearRect(0, 0, canvas.width, canvas.height);
 drawInvaders();
-
 drawBall();
-// stops ball moving too far
-if(x > canvas.width-ballRadius || x < ballRadius) {
-    dx = -dx;
-}
-if(y > canvas.height-ballRadius || y < ballRadius) {
-    dy = -dy;
-}
+drawScore();
+collisionDetection();
 
-if(rightPressed && x < canvas.width-ballRadius || x < ballRadius) {
+// stops ball moving too far
+if(rightPressed && x < canvas.width-ballRadius || rightPressed && x < ballRadius) {
 x += 3;
 } 
-else if(leftPressed && x < 0 | x > ballRadius) {
+else if(leftPressed && x > 0 + ballRadius || leftPressed && x > ballRadius) {
 x -= 3;
 }
 
 if(spacePressed) {
-if (bulletCount === 0) {
+if (bulletCount === 0) { //Take the first x position of the ship at fire
     x2 = x
 }
-y2 -=4;
+y2 -=4; //bullet will travel up the screen
 drawBullet();
 } 
 
