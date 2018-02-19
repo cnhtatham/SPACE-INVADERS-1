@@ -105,17 +105,19 @@ function moveInvaders () {
     }
 }
 
+
+
 function sideDetection() {
     for (c = 0; c < invaderColumnCount; c++) {
         for (r = 0; r < invaderRowCount; r++) { 
             var i = invaders[c][r];
             if (i.x + invaderWidth > canvas.width) {
                 moveLeft = false;
-                moveRight = true
+                moveRight = true;
                 invaderOffsetTop = invaderOffsetTop + 5;
             } else if (i.x < 0) {
-                moveLeft = true
-                moveRight = false
+                moveLeft = true;
+                moveRight = false;
                 invaderOffsetTop = invaderOffsetTop + 5;
             }
         }
@@ -139,6 +141,9 @@ function drawInvaders() { //create a 2 day array and paint each invader in it's 
                 ctx.fillStyle = 'green';
                 ctx.fill();
                 ctx.closePath();
+                if (invaderY >= 450) {
+                    alert('GAME OVER')
+                }
             }
         }
     }
