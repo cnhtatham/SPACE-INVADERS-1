@@ -4,6 +4,8 @@ var ctx = canvas.getContext("2d");
 var ship = document.getElementById("ship");
 ship.style.display = 'none';
 
+//audio's
+var explode = document.getElementById("explosion");
 var shot = document.getElementById("fireSound");
 
 var x = canvas.width / 2;
@@ -12,7 +14,7 @@ var x2 = x2
 var y2 = canvas.height - 30
 var dx = 2;
 var dy = -2;
-var ballRadius = 10
+var ballRadius = 52
 var rightPressed = false
 var leftPressed = false
 var spacePressed = false
@@ -117,6 +119,8 @@ function moveInvaders () {
     }
 }
 
+
+
 function sideDetection() {
     for (c = 0; c < invaderColumnCount; c++) {
         for (r = 0; r < invaderRowCount; r++) { 
@@ -178,6 +182,8 @@ function drawInvaders() { //create a 2 day array and paint each invader in it's 
                     ctx.fillStyle = 'green';
                     ctx.fill();
                     ctx.closePath();
+                if (invaderY >= 450) {
+                    alert('GAME OVER')
                 }
             }
         }
@@ -193,7 +199,8 @@ function collisionDetection() {
             if (i.status == 1) {
                 //check to see if the bullets x value is greater than the x position of the invader including it's width, then check if the bullet has reached it's y value plus 27 for better effect.
                 if (x2 > i.x && x2 < i.x + invaderWidth && y2 > i.y && y2 < i.y + invaderHeight + 27) {
-                    i.status = 0
+                    i.status = 0;
+                    explode.play();
                     bulletActive = true;
                     spacePressed = false;
                     y2 = canvas.height - 30;
@@ -233,6 +240,7 @@ function draw() {
     if (spacePressed) {
         if (bulletCount === 0) { //Take the first x position of the ship at fire
             x2 = x + 24.5;
+            //audio
             shot.play();
         }
         y2 -= 6; //bullet will travel up the screen
