@@ -1,8 +1,11 @@
 var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext("2d");
 
+var ship = document.getElementById("ship");
+ship.style.display = 'none';
+
 var x = canvas.width/2;
-var y = canvas.height-30
+var y = canvas.height-55
 var x2 = x2
 var y2 = canvas.height-30
 var dx = 2;
@@ -62,11 +65,11 @@ if(e.keyCode == 32) {
 
 function drawBall() {
 ctx.beginPath();
-ctx.arc(x, y, ballRadius, 0, Math.PI*2, false);
-ctx.fillStyle = "green";
-ctx.fill();
+ctx.drawImage(ship, x, y, 50, 50);
 ctx.closePath();
 }
+
+
 
 function drawBullet() {
 if (bulletActive == false) {
@@ -150,9 +153,9 @@ x -= 3;
 
 if(spacePressed) {
 if (bulletCount === 0) { //Take the first x position of the ship at fire
-    x2 = x
+    x2 = x + 24.5;
 }
-y2 -=4; //bullet will travel up the screen
+y2 -=6; //bullet will travel up the screen
 drawBullet();
 } 
 
