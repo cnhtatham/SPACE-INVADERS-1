@@ -30,7 +30,7 @@ var invaderOffsetLeft = 30;
 var score = 0;
 var moveLeft = true; 
 var moveRight = false;
-var invaderSpeed = 0.5;
+var invaderSpeed = 0.3;
 
 var invaders = []; // create a 2d array of space invaders
 for (c = 0; c < invaderColumnCount; c++) {
@@ -42,19 +42,19 @@ for (c = 0; c < invaderColumnCount; c++) {
         status: 1,
         score: 0
        }
-        if (r==1){
+        if (r==0){
             invaders[c][r].score = 40 
+        }
+        else if(r==1){
+            invaders[c][r].score = 20
         }
         else if(r==2){
             invaders[c][r].score = 20
         }
         else if(r==3){
-            invaders[c][r].score = 20
-        }
-        else if(r==4){
             invaders[c][r].score = 10
         }
-        else if(r==5){
+        else if(r==4){
             invaders[c][r].score = 10
         }
     }
@@ -133,7 +133,7 @@ function sideDetection() {
                 moveLeft = true
                 moveRight = false
                 invaderOffsetTop = invaderOffsetTop + 3;
-                invaderSpeed += 0.02;
+                invaderSpeed += 0.03;
             }
         }
     }
@@ -182,9 +182,6 @@ function drawInvaders() { //create a 2 day array and paint each invader in it's 
                     ctx.fillStyle = 'green';
                     ctx.fill();
                     ctx.closePath();
-                }
-                if (invaderY >= 450) {
-                    alert('GAME OVER')
                 }
             }
         }
