@@ -4,6 +4,8 @@ var ctx = canvas.getContext("2d");
 var ship = document.getElementById("ship");
 ship.style.display = 'none';
 
+//audio's
+var explode = document.getElementById("explosion");
 var shot = document.getElementById("fireSound");
 
 var x = canvas.width / 2;
@@ -153,7 +155,8 @@ function collisionDetection() {
             if (i.status == 1) {
                 //check to see if the bullets x value is greater than the x position of the invader including it's width, then check if the bullet has reached it's y value plus 27 for better effect.
                 if (x2 > i.x && x2 < i.x + invaderWidth && y2 > i.y && y2 < i.y + invaderHeight + 27) {
-                    i.status = 0
+                    i.status = 0;
+                    explode.play();
                     bulletActive = true;
                     spacePressed = false;
                     y2 = canvas.height - 30;
