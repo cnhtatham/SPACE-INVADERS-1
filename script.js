@@ -4,6 +4,8 @@ var ctx = canvas.getContext("2d");
 var ship = document.getElementById("ship");
 ship.style.display = 'none';
 
+var shot = document.getElementById("fireSound");
+
 var x = canvas.width / 2;
 var y = canvas.height - 55
 var x2 = x2
@@ -194,6 +196,7 @@ function draw() {
         }
         y2 -= 6; //bullet will travel up the screen
         drawBullet();
+        shot.play();
     }
 
 }
