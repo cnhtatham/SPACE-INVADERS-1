@@ -4,6 +4,8 @@ var ctx = canvas.getContext("2d");
 var ship = document.getElementById("ship");
 ship.style.display = 'none';
 
+var shot = document.getElementById("fireSound");
+
 var x = canvas.width/2;
 var y = canvas.height-55
 var x2 = x2
@@ -63,7 +65,7 @@ if(e.keyCode == 32) {
 }
 }
 
-function drawBall() {
+function drawShip() {
 ctx.beginPath();
 ctx.drawImage(ship, x, y, 50, 50);
 ctx.closePath();
@@ -139,7 +141,7 @@ function drawScore() {
 function draw() {
 ctx.clearRect(0, 0, canvas.width, canvas.height);
 drawInvaders();
-drawBall();
+drawShip();
 drawScore();
 collisionDetection();
 
@@ -151,13 +153,17 @@ else if(leftPressed && x > 0 + ballRadius || leftPressed && x > ballRadius) {
 x -= 3;
 }
 
+//During firing
 if(spacePressed) {
 if (bulletCount === 0) { //Take the first x position of the ship at fire
     x2 = x + 24.5;
+    //audio
+    shot.play();
 }
 y2 -=6; //bullet will travel up the screen
 drawBullet();
 } 
 
-}
+} //end of draw
+
 setInterval(draw, 10)
