@@ -193,6 +193,7 @@ function draw() {
     if (spacePressed) {
         if (bulletCount === 0) { //Take the first x position of the ship at fire
             x2 = x + 24.5;
+            //audio
             shot.play();
         }
         y2 -= 6; //bullet will travel up the screen
