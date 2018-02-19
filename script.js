@@ -2,7 +2,9 @@ var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext("2d");
 
 var ship = document.getElementById("ship");
-ship.style.display = 'none';
+ship.style.display = "none";
+var kill = document.getElementById("invaderKilled");
+kill.style.display = "none";
 
 //audio's
 var explode = document.getElementById("explosion");
