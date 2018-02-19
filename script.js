@@ -22,7 +22,6 @@ var invaderOffsetTop = 30;
 var invaderOffsetLeft = 30;
 var score = 0;
 
-
 var invaders = []; // create a 2d array of space invaders
 for (c=0; c<invaderColumnCount; c++) {
 invaders[c] = [];
@@ -159,5 +158,5 @@ y2 -=6; //bullet will travel up the screen
 drawBullet();
 } 
 
-} 
+}
 setInterval(draw, 10)
