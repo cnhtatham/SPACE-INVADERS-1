@@ -170,10 +170,17 @@ function change() {
     }
 }
 
+function drawGameOver() {
+    clearInterval();
+    ctx.clearRect(0, 0, canvas.width, canvas.height)
+    ctx.font = "32px Arial";
+    ctx.fillStyle = "white";
+    ctx.fillText("GAME OVER COCKMUNCHER!!", 150, 300);
+}
+
 setInterval(change, 600)
 
 function drawInvaders() { //create a 2 day array and paint each invader in it's location
-
     function switchHigh() {
         if (invaderChange == 0) {
             ctx.drawImage(highInvaderA, invaderX + 5, invaderY, 32, invaderHeight);
@@ -242,11 +249,11 @@ function drawInvaders() { //create a 2 day array and paint each invader in it's 
                     ctx.closePath();
                 }
             }
-            if (invaderY >= canvas.height - 60) {
-                clearInterval();
-                alert('GAME OVER COCKMUNCHER!!')
-                document.location.reload();
-                
+            if (invaderY >= canvas.height - 100) {
+                //clearInterval();
+                //ctx.clearRect(0, 0, canvas.width, canvas.height)
+                //document.location.reload();
+                drawGameOver();
             }
         }
     }
@@ -266,11 +273,9 @@ function collisionDetection() {
                 if (x2 > i.x && x2 < i.x + invaderWidth && y2 > i.y && y2 < i.y + invaderHeight + 27) {
                     i.status = 0;
                     explode.play();
-
                     /*ctx.beginPath();
                     ctx.drawImage(kill, i.x + 10, i.y, 20, 20);
                     ctx.closePath();*/
-
                     bulletActive = true;
                     spacePressed = false;
                     y2 = canvas.height - 30;
