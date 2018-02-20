@@ -170,9 +170,9 @@ function drawInvaders() { //create a 2 day array and paint each invader in it's 
 
     function switchHigh() {
         if (invaderChange == 0) {
-            ctx.drawImage(highInvaderA, invaderX, invaderY, invaderWidth, invaderHeight);
+            ctx.drawImage(highInvaderA, invaderX + 5, invaderY, 32, invaderHeight);
         } else if (invaderChange == 1) {
-            ctx.drawImage(highInvaderB, invaderX, invaderY, invaderWidth, invaderHeight);
+            ctx.drawImage(highInvaderB, invaderX + 5, invaderY, 32, invaderHeight);
         }
     }
 
