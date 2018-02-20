@@ -39,11 +39,12 @@ var spacePressed = false
 var bulletCount = 0
 var bulletActive = false;
 var invaderRowCount = 5;
-var invaderColumnCount = 11;
-var invaderWidth = 48;
-var invaderHeight = 32;
-var invaderPadding = 10;
-var invaderOffsetTop = 30;
+var invaderColumnCount = 15;
+var invaderWidth = 42; //individual sizing
+var invaderHeight = 30; //individual sizing
+var invaderPaddingLeft = 10; //between columns
+var invaderPaddingHeight = 20; //between rows
+var invaderOffsetTop = 50;
 var invaderOffsetLeft = 30;
 var score = 0;
 var moveLeft = true;
@@ -208,8 +209,8 @@ function drawInvaders() { //create a 2 day array and paint each invader in it's 
     for (c = 0; c < invaderColumnCount; c++) {
         for (r = 0; r < invaderRowCount; r++) {
             if (invaders[c][r].status == 1) {
-                var invaderX = (c * (invaderWidth + invaderPadding)) + invaderOffsetLeft;
-                var invaderY = (r * (invaderHeight + invaderPadding)) + invaderOffsetTop;
+                var invaderX = (c * (invaderWidth + invaderPaddingLeft)) + invaderOffsetLeft;
+                var invaderY = (r * (invaderHeight + invaderPaddingHeight)) + invaderOffsetTop;
                 invaders[c][r].x = invaderX
                 invaders[c][r].y = invaderY
                 if (r == 0) {
