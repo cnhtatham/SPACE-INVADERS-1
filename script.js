@@ -49,7 +49,7 @@ var invaderOffsetLeft = 30;
 var score = 0;
 var moveLeft = true;
 var moveRight = false;
-var invaderSpeed = 0.2;
+var invaderSpeed = 0.5;
 var invaderChange = 0;
 
 var Shield1 = []
@@ -130,7 +130,9 @@ function drawBullet() {
     }
 }
  
-
+function delayMove() {
+    invaderOffsetChange = 5;
+}
 
 function moveInvaders() {
     if (moveLeft == true && moveRight == false) {
@@ -149,16 +151,16 @@ function sideDetection() {
             if (i.x + invaderWidth > canvas.width) {
                 moveLeft = false;
                 moveRight = true
-                invaderOffsetTop = invaderOffsetTop + 2;
+                invaderOffsetTop = invaderOffsetTop + 1;
             } else if (i.x < 0) {
                 moveLeft = true
                 moveRight = false
-                invaderOffsetTop = invaderOffsetTop + 2;
-                invaderSpeed += 0.01;
+                invaderOffsetTop = invaderOffsetTop + 1;
+                //invaderSpeed += 0.01;
             }
         }
     }
-    moveInvaders()
+    setTimeout(moveInvaders(), 5000);
 }
 
 function change() {
@@ -299,7 +301,6 @@ function drawScore() {
 
 function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-
     drawInvaders();
     drawBall();
     drawScore();
@@ -324,4 +325,7 @@ function draw() {
     }
 
 }
-setInterval(draw, 10)
+
+//setInterval(drawInvaders, 20)
+
+setInterval(draw, 10) 
