@@ -46,7 +46,7 @@ var invaderPadding = 10;
 var invaderOffsetTop = 30;
 var invaderOffsetLeft = 30;
 var score = 0;
-var moveLeft = true; 
+var moveLeft = true;
 var moveRight = false;
 var invaderSpeed = 0.3;
 
@@ -55,24 +55,20 @@ for (c = 0; c < invaderColumnCount; c++) {
     invaders[c] = [];
     for (r = 0; r < invaderRowCount; r++) {
         invaders[c][r] = {
-        x: 0,
-        y: 0,
-        status: 1,
-        score: 0
-       }
-        if (r==0){
-            invaders[c][r].score = 40 
+            x: 0,
+            y: 0,
+            status: 1,
+            score: 0
         }
-        else if(r==1){
+        if (r == 0) {
+            invaders[c][r].score = 40
+        } else if (r == 1) {
             invaders[c][r].score = 20
-        }
-        else if(r==2){
+        } else if (r == 2) {
             invaders[c][r].score = 20
-        }
-        else if(r==3){
+        } else if (r == 3) {
             invaders[c][r].score = 10
-        }
-        else if(r==4){
+        } else if (r == 4) {
             invaders[c][r].score = 10
         }
     }
@@ -128,11 +124,10 @@ function drawBullet() {
     }
 }
 
-function moveInvaders () {
+function moveInvaders() {
     if (moveLeft == true && moveRight == false) {
         invaderOffsetLeft += invaderSpeed;
-    }
-    else if (moveLeft == false && moveRight == true) {
+    } else if (moveLeft == false && moveRight == true) {
         invaderOffsetLeft -= invaderSpeed;
     }
 }
@@ -141,7 +136,7 @@ function moveInvaders () {
 
 function sideDetection() {
     for (c = 0; c < invaderColumnCount; c++) {
-        for (r = 0; r < invaderRowCount; r++) { 
+        for (r = 0; r < invaderRowCount; r++) {
             var i = invaders[c][r];
             if (i.x + invaderWidth > canvas.width) {
                 moveLeft = false;
@@ -158,10 +153,32 @@ function sideDetection() {
     moveInvaders()
 }
 
+var invaderChange = 0;
+
 function drawInvaders() { //create a 2 day array and paint each invader in it's location
-        function switchLow() {
-            ctx.drawImage(lowInvaderB, invaderX, invaderY, invaderWidth, invaderHeight)
+    function switchHigh() {
+        if (invaderChange == 0) {
+            ctx.drawImage(highInvaderA, invaderX, invaderY, invaderWidth, invaderHeight);
+        } else if (invaderChange == 1) {
+            ctx.drawImage(highInvaderB, invaderX, invaderY, invaderWidth, invaderHeight);
         }
+    }
+
+    function switchMid() {
+        if (invaderChange == 0) {
+            ctx.drawImage(midInvaderA, invaderX, invaderY, invaderWidth, invaderHeight);
+        } else if (invaderChange == 1) {
+            ctx.drawImage(midInvaderB, invaderX, invaderY, invaderWidth, invaderHeight);
+        }
+    }
+
+    function switchLow() {
+        if (invaderChange == 0) {
+            ctx.drawImage(lowInvaderA, invaderX, invaderY, invaderWidth, invaderHeight);
+        } else if (invaderChange == 1) {
+            ctx.drawImage(lowInvaderB, invaderX, invaderY, invaderWidth, invaderHeight);
+        }
+    }
     for (c = 0; c < invaderColumnCount; c++) {
         for (r = 0; r < invaderRowCount; r++) {
             if (invaders[c][r].status == 1) {
@@ -169,34 +186,30 @@ function drawInvaders() { //create a 2 day array and paint each invader in it's 
                 var invaderY = (r * (invaderHeight + invaderPadding)) + invaderOffsetTop;
                 invaders[c][r].x = invaderX
                 invaders[c][r].y = invaderY
-                if (r==0){
+                if (r == 0) {
                     ctx.beginPath();
-                    ctx.drawImage(highInvaderA, invaderX, invaderY, invaderWidth, invaderHeight);
+                    switchHigh();
                     ctx.closePath();
                     //setTimeout(switchLow,1000);
-                }
-                else if(r==1){
+                } else if (r == 1) {
                     ctx.beginPath();
-                    ctx.drawImage(midInvaderA, invaderX, invaderY, invaderWidth, invaderHeight);
+                    switchMid();
                     ctx.closePath();
-                }
-                else if(r==2){
+                } else if (r == 2) {
                     ctx.beginPath();
-                    ctx.drawImage(midInvaderB, invaderX, invaderY, invaderWidth, invaderHeight);
+                    switchMid();
                     ctx.closePath();
-                }
-                else if(r==3){
+                } else if (r == 3) {
                     ctx.beginPath();
-                    ctx.drawImage(lowInvaderB, invaderX, invaderY, invaderWidth, invaderHeight);
+                    switchLow();
                     ctx.closePath();
-                }
-                else if(r==4){
+                } else if (r == 4) {
                     ctx.beginPath();
-                    ctx.drawImage(lowInvaderA, invaderX, invaderY, invaderWidth, invaderHeight);
+                    switchLow();
                     ctx.closePath();
                 }
             }
-            if (invaderY >= 430) {
+            if (invaderY >= 1000) {
                 alert('GAME OVER COCKMUNCHER!!')
                 document.location.reload();
                 clearInterval();
@@ -217,11 +230,11 @@ function collisionDetection() {
             if (i.status == 1) {
                 //check to see if the bullets x value is greater than the x position of the invader including it's width, then check if the bullet has reached it's y value plus 27 for better effect.
                 if (x2 > i.x && x2 < i.x + invaderWidth && y2 > i.y && y2 < i.y + invaderHeight + 27) {
-                    i.status = 2;
-                    explode.play();
+                    i.status = 0;
+                    /*explode.play();
                     ctx.beginPath();
-                    ctx.drawImage(kill, i.x+10, i.y, 20, 20);
-                    ctx.closePath();
+                    ctx.drawImage(kill, i.x + 10, i.y, 20, 20);
+                    ctx.closePath();*/
                     bulletActive = true;
                     spacePressed = false;
                     y2 = canvas.height - 30;
@@ -266,7 +279,7 @@ function draw() {
         }
         y2 -= 6; //bullet will travel up the screen
         drawBullet();
-        
+
     }
 
 }
