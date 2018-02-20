@@ -184,6 +184,11 @@ function drawInvaders() { //create a 2 day array and paint each invader in it's 
                     ctx.closePath();
                 }
             }
+            if (invaderY >= 430) {
+                alert('GAME OVER COCKMUNCHER!!')
+                document.location.reload();
+                clearInterval();
+            }
         }
     }
 }
@@ -203,7 +208,7 @@ function collisionDetection() {
                     y2 = canvas.height - 30;
                     bulletCount = 0
                     score += i.score;
-                    if (score == 990) {
+                    if (score == 1100) {
                         alert("YOU WIN, CONGRATULATIONS!");
                         document.location.reload();
                     }
