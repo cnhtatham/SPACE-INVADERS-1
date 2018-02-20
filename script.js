@@ -163,6 +163,14 @@ function change() {
     }
 }
 
+function drawGameOver() {
+    clearInterval();
+    ctx.clearRect(0, 0, canvas.width, canvas.height)
+    ctx.font = "32px Arial";
+    ctx.fillStyle = "white";
+    ctx.fillText("GAME OVER COCKMUNCHER!!", 150, 300);
+}
+
 setInterval(change, 600)
 
 function drawInvaders() { //create a 2 day array and paint each invader in it's location
@@ -234,11 +242,11 @@ function drawInvaders() { //create a 2 day array and paint each invader in it's 
                     ctx.closePath();
                 }
             }
-            if (invaderY >= canvas.height - 60) {
-                clearInterval();
-                alert('GAME OVER COCKMUNCHER!!')
-                document.location.reload();
-                
+            if (invaderY >= canvas.height - 100) {
+                //clearInterval();
+                //ctx.clearRect(0, 0, canvas.width, canvas.height)
+                //document.location.reload();
+                drawGameOver();
             }
         }
     }
