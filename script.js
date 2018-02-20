@@ -177,22 +177,22 @@ function drawInvaders() { //create a 2 day array and paint each invader in it's 
                 }
                 else if(r==1){
                     ctx.beginPath();
-                    ctx.drawImage(lowInvaderA, invaderX, invaderY, invaderWidth, invaderHeight);
+                    ctx.drawImage(midInvaderA, invaderX, invaderY, invaderWidth, invaderHeight);
                     ctx.closePath();
                 }
                 else if(r==2){
                     ctx.beginPath();
-                    ctx.drawImage(lowInvaderB, invaderX, invaderY, invaderWidth, invaderHeight);
+                    ctx.drawImage(midInvaderB, invaderX, invaderY, invaderWidth, invaderHeight);
                     ctx.closePath();
                 }
                 else if(r==3){
                     ctx.beginPath();
-                    ctx.drawImage(midInvaderB, invaderX, invaderY, invaderWidth, invaderHeight);
+                    ctx.drawImage(lowInvaderB, invaderX, invaderY, invaderWidth, invaderHeight);
                     ctx.closePath();
                 }
                 else if(r==4){
                     ctx.beginPath();
-                    ctx.drawImage(midInvaderA, invaderX, invaderY, invaderWidth, invaderHeight);
+                    ctx.drawImage(lowInvaderA, invaderX, invaderY, invaderWidth, invaderHeight);
                     ctx.closePath();
                 }
             }
