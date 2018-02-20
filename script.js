@@ -52,6 +52,11 @@ var moveRight = false;
 var invaderSpeed = 0.2;
 var invaderChange = 0;
 
+var Shield1 = []
+var Shield2 = []
+var Shield3 = []
+var Shield4 = []
+
 var invaders = []; // create a 2d array of space invaders
 for (c = 0; c < invaderColumnCount; c++) {
     invaders[c] = [];
@@ -113,9 +118,8 @@ function drawBullet() {
     if (bulletActive == false) {
         ctx.beginPath();
         ctx.rect(x2, y2 - 25, 1, 15);
-        ctx.fillStyle = "black"
+        ctx.fillStyle = "#ffffff"
         ctx.fill();
-        ctx.stroke();
         ctx.closePath;
         bulletCount++
         if (y2 < 0) {
@@ -125,6 +129,8 @@ function drawBullet() {
         }
     }
 }
+ 
+
 
 function moveInvaders() {
     if (moveLeft == true && moveRight == false) {
