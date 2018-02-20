@@ -26,7 +26,7 @@ highInvaderB.style.display = "none";
 var explode = document.getElementById("explosion");
 var shot = document.getElementById("fireSound");
 
-var x = canvas.width / 2;
+var x = canvas.width / 2 - 26;
 var y = canvas.height - 55
 var x2 = x2
 var y2 = canvas.height - 30
@@ -48,7 +48,8 @@ var invaderOffsetLeft = 30;
 var score = 0;
 var moveLeft = true;
 var moveRight = false;
-var invaderSpeed = 0.3;
+var invaderSpeed = 0.2;
+var invaderChange = 0;
 
 var invaders = []; // create a 2d array of space invaders
 for (c = 0; c < invaderColumnCount; c++) {
@@ -141,19 +142,28 @@ function sideDetection() {
             if (i.x + invaderWidth > canvas.width) {
                 moveLeft = false;
                 moveRight = true
-                invaderOffsetTop = invaderOffsetTop + 3;
+                invaderOffsetTop = invaderOffsetTop + 2;
             } else if (i.x < 0) {
                 moveLeft = true
                 moveRight = false
-                invaderOffsetTop = invaderOffsetTop + 3;
-                invaderSpeed += 0.03;
+                invaderOffsetTop = invaderOffsetTop + 2;
+                invaderSpeed += 0.01;
             }
         }
     }
     moveInvaders()
 }
 
-var invaderChange = 0;
+function change() {
+    if (invaderChange == 0) {
+        invaderChange = 1
+    } 
+    else if (invaderChange == 1) {
+        invaderChange = 0
+    }
+}
+
+setInterval(change, 600)
 
 function drawInvaders() { //create a 2 day array and paint each invader in it's location
     function switchHigh() {
@@ -171,6 +181,13 @@ function drawInvaders() { //create a 2 day array and paint each invader in it's 
             ctx.drawImage(midInvaderB, invaderX, invaderY, invaderWidth, invaderHeight);
         }
     }
+    function switchMid2() {
+        if (invaderChange == 0) {
+            ctx.drawImage(midInvaderB, invaderX, invaderY, invaderWidth, invaderHeight);
+        } else if (invaderChange == 1) {
+            ctx.drawImage(midInvaderA, invaderX, invaderY, invaderWidth, invaderHeight);
+        }
+    }
 
     function switchLow() {
         if (invaderChange == 0) {
@@ -179,6 +196,14 @@ function drawInvaders() { //create a 2 day array and paint each invader in it's 
             ctx.drawImage(lowInvaderB, invaderX, invaderY, invaderWidth, invaderHeight);
         }
     }
+    function switchLow2() {
+        if (invaderChange == 0) {
+            ctx.drawImage(lowInvaderB, invaderX, invaderY, invaderWidth, invaderHeight);
+        } else if (invaderChange == 1) {
+            ctx.drawImage(lowInvaderA, invaderX, invaderY, invaderWidth, invaderHeight);
+        }
+    }
+
     for (c = 0; c < invaderColumnCount; c++) {
         for (r = 0; r < invaderRowCount; r++) {
             if (invaders[c][r].status == 1) {
@@ -197,7 +222,7 @@ function drawInvaders() { //create a 2 day array and paint each invader in it's 
                     ctx.closePath();
                 } else if (r == 2) {
                     ctx.beginPath();
-                    switchMid();
+                    switchMid2();
                     ctx.closePath();
                 } else if (r == 3) {
                     ctx.beginPath();
@@ -205,14 +230,15 @@ function drawInvaders() { //create a 2 day array and paint each invader in it's 
                     ctx.closePath();
                 } else if (r == 4) {
                     ctx.beginPath();
-                    switchLow();
+                    switchLow2();
                     ctx.closePath();
                 }
             }
-            if (invaderY >= 1000) {
+            if (invaderY >= canvas.height - 60) {
+                clearInterval();
                 alert('GAME OVER COCKMUNCHER!!')
                 document.location.reload();
-                clearInterval();
+                
             }
         }
     }
@@ -231,8 +257,8 @@ function collisionDetection() {
                 //check to see if the bullets x value is greater than the x position of the invader including it's width, then check if the bullet has reached it's y value plus 27 for better effect.
                 if (x2 > i.x && x2 < i.x + invaderWidth && y2 > i.y && y2 < i.y + invaderHeight + 27) {
                     i.status = 0;
-                    /*explode.play();
-                    ctx.beginPath();
+                    explode.play();
+                    /*ctx.beginPath();
                     ctx.drawImage(kill, i.x + 10, i.y, 20, 20);
                     ctx.closePath();*/
                     bulletActive = true;
@@ -267,7 +293,7 @@ function draw() {
     // stops ball moving too far
     if (rightPressed && x < canvas.width - ballRadius || rightPressed && x < ballRadius) {
         x += 3;
-    } else if (leftPressed && x > 0 + ballRadius || leftPressed && x > ballRadius) {
+    } else if (leftPressed && x > 3 || leftPressed && x > ballRadius) {
         x -= 3;
     }
 
