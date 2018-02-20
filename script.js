@@ -196,6 +196,11 @@ function drawInvaders() { //create a 2 day array and paint each invader in it's 
                     ctx.closePath();
                 }
             }
+            if (invaderY >= 430) {
+                alert('GAME OVER COCKMUNCHER!!')
+                document.location.reload();
+                clearInterval();
+            }
         }
     }
 }
