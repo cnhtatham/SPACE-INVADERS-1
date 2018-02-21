@@ -52,7 +52,7 @@ var invaderOffsetLeft = 30;
 var score = 0;
 var moveLeft = true;
 var moveRight = false;
-var invaderSpeed = 0.2;
+var invaderSpeed = 0.5;
 var invaderChange = 0;
 
 var Shield1 = []
@@ -134,7 +134,10 @@ function drawBullet() {
         }
     }
 }
-
+ 
+function delayMove() {
+    invaderOffsetChange = 5;
+}
 
 
 function moveInvaders() { // function that moves the invaders left then right at a rate which is determined
@@ -154,16 +157,16 @@ function sideDetection() {
             if (i.x + invaderWidth > canvas.width) {//Checks to see if any invader has reached the right wall 
                 moveLeft = false; //and moves them down a peg and starts moving them left
                 moveRight = true
-                invaderOffsetTop = invaderOffsetTop + 2;
-            } else if (i.x < 0) {//Checks to see if any invader has reached the left wall and moves them down
-                moveLeft = true //a peg and starts moving them right
+                invaderOffsetTop = invaderOffsetTop + 1;
+            } else if (i.x < 0) {
+                moveLeft = true
                 moveRight = false
-                invaderOffsetTop = invaderOffsetTop + 2;
-                invaderSpeed += 0.01; // increases the rate at which the invaders move
+                invaderOffsetTop = invaderOffsetTop + 1;
+                //invaderSpeed += 0.01;
             }
         }
     }
-    moveInvaders()
+    setTimeout(moveInvaders(), 5000);
 }
 
 function change() {
@@ -301,7 +304,6 @@ function drawScore() {
 
 function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-
     drawInvaders();
     drawBall();
     drawScore();
@@ -326,4 +328,7 @@ function draw() {
     }
 
 }
-setInterval(draw, 10)
+
+//setInterval(drawInvaders, 20)
+
+setInterval(draw, 10) 
