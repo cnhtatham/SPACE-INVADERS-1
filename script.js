@@ -398,9 +398,9 @@ function lose() {
 
 function drawGameOver() {
     ctx.clearRect(0, 0, canvas.width, canvas.height)
-    ctx.font = "40px Arial";
+    ctx.font = "40px 'Press Start 2P', cursive";
     ctx.fillStyle = "white";
-    ctx.fillText("GAME OVER COCKMUNCHER!!", 270, 300);
+    ctx.fillText("GAME OVER COCKMUNCHER!!", 150, 300);
     alternate();
 }
 
@@ -416,9 +416,9 @@ function win() {
 
 function drawWin() {
     ctx.clearRect(0, 0, canvas.width, canvas.height)
-    ctx.font = "40px Arial";
+    ctx.font = "40px 'Press Start 2P', cursive";
     ctx.fillStyle = "white";
-    ctx.fillText("YOU WIN FUCK BRAINS", 280, 300);
+    ctx.fillText("YOU WIN FUCK BRAINS", 150, 300);
     alternate();
 }
 
@@ -610,15 +610,15 @@ function invaderShoot() {
 }
 
 function drawScore() {
-    ctx.font = "16px Arial";
+    ctx.font = "16px 'Press Start 2P', cursive";
     ctx.fillStyle = "#0095DD";
     ctx.fillText("Score: " + score, 8, 20);
 }
 
 function drawLives() {
-    ctx.font = "16px Arial";
+    ctx.font = "16px 'Press Start 2P', cursive";
     ctx.fillStyle = "#0095DD";
-    ctx.fillText("LIVES: " + lives, 600, 20);
+    ctx.fillText("LIVES: " + lives, 1000, 20);
 }
 
 function fire() {
