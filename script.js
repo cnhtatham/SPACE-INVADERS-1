@@ -27,6 +27,7 @@ highInvaderB.style.display = "none";
 
 var explode = document.getElementById("explosion");
 var shot = document.getElementById("fireSound");
+var playerDead = document.getElementById("playerDead");
 //audio variables
 
 var x = canvas.width / 2 - 26;
@@ -325,6 +326,11 @@ function drawBall() {
     ctx.beginPath();
     ctx.drawImage(ship, x, y, 60, 60);
     ctx.closePath();
+    if (rightPressed && x < canvas.width - ballRadius || rightPressed && x < ballRadius) {
+        x += 3;
+    } else if (leftPressed && x > 3 || leftPressed && x > ballRadius) {
+        x -= 3;
+    }
 }
 //Function to draw our ship at the current X and Y position whihc are changed when the movement keys are pressed
 function drawBullet() {
@@ -385,21 +391,35 @@ function change() {
     }
 }
 
+function lose() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    setInterval(drawGameOver, 10);
+}
+
 function drawGameOver() {
-    clearInterval();
     ctx.clearRect(0, 0, canvas.width, canvas.height)
     ctx.font = "40px Arial";
     ctx.fillStyle = "white";
     ctx.fillText("GAME OVER COCKMUNCHER!!", 270, 300);
+    alternate();
+}
+
+function alternate() {
+    drawBall();
+    fire();
+}
+
+function win() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    setInterval(drawWin, 10);
 }
 
 function drawWin() {
-    clearInterval();
     ctx.clearRect(0, 0, canvas.width, canvas.height)
     ctx.font = "40px Arial";
     ctx.fillStyle = "white";
     ctx.fillText("YOU WIN FUCK BRAINS", 280, 300);
-    drawBall();
+    alternate();
 }
 
 setInterval(change, 600)
@@ -478,6 +498,7 @@ function drawInvaders() { //create a 2 day array and paint each invader in it's 
                 }
             }
             if (invaderY >= canvas.height - 100) {
+                clearInterval();
                 drawGameOver();
             }
         }
@@ -577,6 +598,9 @@ function invaderShoot() {
             iShootCount = 0
             invaderShot = false;
             lives --;
+            playerDead.play();
+            x = canvas.width / 2 - 26;
+            y = canvas.height - 70;
         } else if (Yinvader > canvas.height) {
             iShoot = false;
             iShootCount = 0
@@ -597,32 +621,7 @@ function drawLives() {
     ctx.fillText("LIVES: " + lives, 600, 20);
 }
 
-function draw() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    drawInvaders();
-    drawBall();
-    drawScore();
-    drawLives();
-    collisionDetection();
-    sideDetection();
-    invaderShoot();
-    drawShields();
-    // stops ball moving too far
-    if (rightPressed && x < canvas.width - ballRadius || rightPressed && x < ballRadius) {
-        x += 3;
-    } else if (leftPressed && x > 3 || leftPressed && x > ballRadius) {
-        x -= 3;
-    }
-    if (lives <= 0 ) {
-        clearInterval();
-        drawGameOver();
-    }
-
-    if (score >= 1500) {
-        clearInterval();
-        drawWin();
-    }
-
+function fire() {
     if (spacePressed) {
         if (bulletCount === 0) { //Take the first x position of the ship at fire
             x2 = x + 27.8;
@@ -631,8 +630,32 @@ function draw() {
         }
         y2 -= 6; //bullet will travel up the screen
         drawBullet();
-
     }
+}
+
+function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    drawInvaders();
+    drawBall();
+    fire();
+    drawScore();
+    drawLives();
+    collisionDetection();
+    sideDetection();
+    invaderShoot();
+    drawShields();
+    // stops ball moving too far
+    
+    if (lives <= 0 ) {
+        clearInterval(game);
+        lose();
+    }
+
+    if (score >= 1500) {
+        clearInterval(game);
+        win();
+    }
+
     if (invaderShot == false) {
         selectRandom();
     }
@@ -642,5 +665,4 @@ function draw() {
     }
 
 }
-
-setInterval(draw, 10)
+var game = setInterval(draw, 10);
