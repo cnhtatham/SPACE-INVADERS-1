@@ -337,7 +337,7 @@ function drawBullet() {
         bulletCount++
         if (y2 < 0) {
             spacePressed = false;
-            y2 = canvas.height - 30;
+            y2 = canvas.height - 80;
             bulletCount = 0 // makes the bullet disappear when it hits the top of the canvas
         }
     }
@@ -399,6 +399,7 @@ function drawWin() {
     ctx.font = "40px Arial";
     ctx.fillStyle = "white";
     ctx.fillText("YOU WIN FUCK BRAINS", 280, 300);
+    drawBall();
 }
 
 setInterval(change, 600)
