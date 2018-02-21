@@ -1,13 +1,20 @@
 * { 
     padding: 0; 
     margin: 0; 
+    background: black;
 }
 
 canvas { 
-    background:black; 
+    background:transparent; 
     display: block; 
     margin: 0 auto; 
     margin-top: 20px;
-    /*border: 5px solid #9b59b6;*/
+    border: 5px solid #9b59b6; 
 }
 
+.canvas2 {
+    background: transparent;
+    display: block;
+    margin: 0 auto; 
+    margin-top: 20px;
+}
