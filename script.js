@@ -57,6 +57,7 @@ var invaderChange = 0;
 var iShoot = false
 var invaderShot = false;
 var lives = 3
+//These are all the global variables we use throughout the script in multiple functions
 
 var Shield1 = []
 var Shield2 = []
@@ -137,141 +138,6 @@ for(s = 0; s < 5; s++){
     }
     
 }
-//These are all the global variables we use throughout the script in multiple functions
-
-var invaders = []; // create a 2d array of space invaders
-for (c = 0; c < invaderColumnCount; c++) {
-    invaders[c] = [];
-    for (r = 0; r < invaderRowCount; r++) { //these 2 for loops go over every item in our 2d array
-        invaders[c][r] = {
-            x: 0,
-            y: 0,
-            status: 1,
-            score: 0 //Treating the 2d array like an object, we can call and change different values for each item in the array
-        }
-        if (r == 0) {
-            invaders[c][r].score = 40
-        } else if (r == 1) {
-            invaders[c][r].score = 20
-        } else if (r == 2) {
-            invaders[c][r].score = 20
-        } else if (r == 3) {
-            invaders[c][r].score = 10
-        } else if (r == 4) {
-            invaders[c][r].score = 10
-        } //Making each row of invaders have a different score value
-    }
-}
-
-document.addEventListener("keydown", keyDownHandler, false);
-document.addEventListener("keyup", keyUpHandler, false);
-document.addEventListener("keydown", spaceBarHandler, false);
-//Declaring our movement and shooting event listeners
-
-function keyDownHandler(e) {
-    if (e.keyCode == 39) {
-        rightPressed = true;
-    } else if (e.keyCode == 37) {
-        leftPressed = true;
-    }
-}
-//Function to make our ship move left or right when the corresponding key is pressed
-function keyUpHandler(e) {
-    if (e.keyCode == 39) {
-        rightPressed = false;
-    } else if (e.keyCode == 37) {
-        leftPressed = false;
-    }
-}
-//Function to stop the movement of the ship when the key is released
-function spaceBarHandler(e) {
-    if (e.keyCode == 32) {
-        spacePressed = true;
-        bulletActive = false;
-    }
-}
-//Function to shoot when soace is pressed, but only if noo bullet is currently on the screen
-function drawBall() {
-    ctx.beginPath();
-    ctx.drawImage(ship, x, y, 60, 60);
-    ctx.closePath();
-}
-//Function to draw our ship at the current X and Y position whihc are changed when the movement keys are pressed
-function drawBullet() {
-    if (bulletActive == false) { //Check to see if a bullet is already on the screen
-        ctx.beginPath();
-        ctx.rect(x2, y2, 3.5, 25);
-        ctx.fillStyle = "#9b59b6"
-        ctx.fill(); // draws the bullet on screen
-        ctx.closePath;
-        bulletCount++
-        if (y2 < 0) {
-            spacePressed = false;
-            y2 = canvas.height - 30;
-            bulletCount = 0 // makes the bullet disappear when it hits the top of the canvas
-        }
-    }
-}
-
-function delayMove() {
-    invaderOffsetChange = 5;
-}
-
-
-function moveInvaders() { // function that moves the invaders left then right at a rate which is determined
-    if (moveLeft == true && moveRight == false) { // by the variable invaderSpeed
-        invaderOffsetLeft += invaderSpeed;
-    } else if (moveLeft == false && moveRight == true) {
-        invaderOffsetLeft -= invaderSpeed;
-    }
-}
-
-
-
-function sideDetection() {
-    for (c = 0; c < invaderColumnCount; c++) {
-        for (r = 0; r < invaderRowCount; r++) { //loops over each invader in our 2d array
-            var i = invaders[c][r];
-            if (i.x + invaderWidth > canvas.width) { //Checks to see if any invader has reached the right wall 
-                moveLeft = false; //and moves them down a peg and starts moving them left
-                moveRight = true
-                invaderOffsetTop = invaderOffsetTop + 1;
-            } else if (i.x < 0) {
-                moveLeft = true
-                moveRight = false
-                invaderOffsetTop = invaderOffsetTop + 1;
-                //invaderSpeed += 0.01;
-            }
-        }
-    }
-    setTimeout(moveInvaders(), 5000);
-}
-
-function change() {
-    if (invaderChange == 0) {
-        invaderChange = 1
-    } else if (invaderChange == 1) {
-        invaderChange = 0
-    }
-}
-
-function drawGameOver() {
-    clearInterval();
-    ctx.clearRect(0, 0, canvas.width, canvas.height)
-    ctx.font = "40px Arial";
-    ctx.fillStyle = "white";
-    ctx.fillText("GAME OVER COCKMUNCHER!!", 270, 300);
-}
-
-function drawWin() {
-    clearInterval();
-    ctx.clearRect(0, 0, canvas.width, canvas.height)
-    ctx.font = "40px Arial";
-    ctx.fillStyle = "white";
-    ctx.fillText("YOU WIN FUCK BRAINS", 280, 300);
-}
-
-setInterval(change, 600)
 
 function drawShields(){
     for(s = 0; s < 5; s++){
@@ -399,11 +265,145 @@ function drawShields(){
             ctx.fill();
             ctx.closePath();
         }
-
-
     }
-
 }
+
+var invaders = []; // create a 2d array of space invaders
+
+for (c = 0; c < invaderColumnCount; c++) {
+    invaders[c] = [];
+    for (r = 0; r < invaderRowCount; r++) { //these 2 for loops go over every item in our 2d array
+        invaders[c][r] = {
+            x: 0,
+            y: 0,
+            status: 1,
+            score: 0 //Treating the 2d array like an object, we can call and change different values for each item in the array
+        }
+        if (r == 0) {
+            invaders[c][r].score = 40
+        } else if (r == 1) {
+            invaders[c][r].score = 20
+        } else if (r == 2) {
+            invaders[c][r].score = 20
+        } else if (r == 3) {
+            invaders[c][r].score = 10
+        } else if (r == 4) {
+            invaders[c][r].score = 10
+        } //Making each row of invaders have a different score value
+    }
+}
+
+document.addEventListener("keydown", keyDownHandler, false);
+document.addEventListener("keyup", keyUpHandler, false);
+document.addEventListener("keydown", spaceBarHandler, false);
+//Declaring our movement and shooting event listeners
+
+function keyDownHandler(e) {
+    if (e.keyCode == 39) {
+        rightPressed = true;
+    } else if (e.keyCode == 37) {
+        leftPressed = true;
+    }
+}
+//Function to make our ship move left or right when the corresponding key is pressed
+function keyUpHandler(e) {
+    if (e.keyCode == 39) {
+        rightPressed = false;
+    } else if (e.keyCode == 37) {
+        leftPressed = false;
+    }
+}
+//Function to stop the movement of the ship when the key is released
+function spaceBarHandler(e) {
+    if (e.keyCode == 32) {
+        spacePressed = true;
+        bulletActive = false;
+    }
+}
+//Function to shoot when soace is pressed, but only if noo bullet is currently on the screen
+function drawBall() {
+    ctx.beginPath();
+    ctx.drawImage(ship, x, y, 60, 60);
+    ctx.closePath();
+}
+//Function to draw our ship at the current X and Y position whihc are changed when the movement keys are pressed
+function drawBullet() {
+    if (bulletActive == false) { //Check to see if a bullet is already on the screen
+        ctx.beginPath();
+        ctx.rect(x2, y2, 3.5, 25);
+        ctx.fillStyle = "#9b59b6"
+        ctx.fill(); // draws the bullet on screen
+        ctx.closePath;
+        bulletCount++
+        if (y2 < 0) {
+            spacePressed = false;
+            y2 = canvas.height - 30;
+            bulletCount = 0 // makes the bullet disappear when it hits the top of the canvas
+        }
+    }
+}
+
+function delayMove() {
+    invaderOffsetChange = 5;
+}
+
+
+function moveInvaders() { // function that moves the invaders left then right at a rate which is determined
+    if (moveLeft == true && moveRight == false) { // by the variable invaderSpeed
+        invaderOffsetLeft += invaderSpeed;
+    } else if (moveLeft == false && moveRight == true) {
+        invaderOffsetLeft -= invaderSpeed;
+    }
+}
+
+
+
+function sideDetection() {
+    for (c = 0; c < invaderColumnCount; c++) {
+        for (r = 0; r < invaderRowCount; r++) { //loops over each invader in our 2d array
+            var i = invaders[c][r];
+            if (i.x + invaderWidth > canvas.width) { //Checks to see if any invader has reached the right wall 
+                moveLeft = false; //and moves them down a peg and starts moving them left
+                moveRight = true
+                invaderOffsetTop = invaderOffsetTop + 1;
+            } else if (i.x < 0) {
+                moveLeft = true
+                moveRight = false
+                invaderOffsetTop = invaderOffsetTop + 1;
+                //invaderSpeed += 0.01;
+            }
+        }
+    }
+    moveInvaders();
+}
+
+function change() {
+    if (invaderChange == 0) {
+        invaderChange = 1
+    } else if (invaderChange == 1) {
+        invaderChange = 0
+    }
+}
+
+function drawGameOver() {
+    clearInterval();
+    ctx.clearRect(0, 0, canvas.width, canvas.height)
+    ctx.font = "40px Arial";
+    ctx.fillStyle = "white";
+    ctx.fillText("GAME OVER COCKMUNCHER!!", 270, 300);
+}
+
+function drawWin() {
+    clearInterval();
+    ctx.clearRect(0, 0, canvas.width, canvas.height)
+    ctx.font = "40px Arial";
+    ctx.fillStyle = "white";
+    ctx.fillText("YOU WIN FUCK BRAINS", 280, 300);
+}
+
+setInterval(change, 600)
+
+
 
 function drawInvaders() { //create a 2 day array and paint each invader in it's location
     function switchHigh() {
