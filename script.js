@@ -70,15 +70,16 @@ var Shield2 = []
 var Shield3 = []
 var Shield4 = []
 var Shields = [Shield1, Shield2, Shield3, Shield4]
+//made an array containing the arrays for all the shields
 
 for (d = 0; d < 4; d++) {
     var currentShield = Shields[d]
-    for (s = 0; s < 5; s++) {
+    for (s = 0; s < 5; s++) { // loops over every shield part of every shield
         currentShield[s] = {
             x: 0,
             y: 0,
             status: 4
-        }
+        }//assigns an x and y and status variable to our shield array objects
 
         if (s == 0) {
             currentShield[s].x = (canvas.width / 5) * (d + 1) - boxWidth
@@ -95,16 +96,16 @@ for (d = 0; d < 4; d++) {
         } else if (s == 4) {
             currentShield[s].x = (canvas.width / 5) * (d + 1) + boxWidth
             currentShield[s].y = canvas.height - 100
-        }
+        }//sets the positions for each shield
     }
 }
 
 function drawShields() {
     for (d = 0; d < 4; d++) {
         var thisShield = Shields[d]
-        for (s = 0; s < 5; s++) {
-            if (thisShield[s].status == 4) {
-                ctx.beginPath();
+        for (s = 0; s < 5; s++) { //loops over every shield part
+            if (thisShield[s].status == 4) { // checks the status of each shield and draws them in the appropriate
+                ctx.beginPath();             // color at the correct position
                 ctx.rect(thisShield[s].x, thisShield[s].y, boxWidth, boxHeight)
                 ctx.fillStyle = "#ffffff"
                 ctx.fill();
@@ -127,14 +128,14 @@ function drawShields() {
                 ctx.fillStyle = "red"
                 ctx.fill();
                 ctx.closePath();
-            }
+            } 
         }
     }
 }
 
 
-function shipBulletShieldCollision() {
-    for (d = 0; d < 4; d++) {
+function shipBulletShieldCollision() { //function to check if ship bullet collides with any of the shield parts
+    for (d = 0; d < 4; d++) {          // and takes a point of health away from them and resets your ship bullet
         var thisShield = Shields[d]
         for (s = 0; s < 5; s++) {
             var thisShield = Shields[d]
@@ -151,8 +152,8 @@ function shipBulletShieldCollision() {
     }
 }
 
-function invaderBulletShieldCollision() {
-    for (d = 0; d < 4; d++) {
+function invaderBulletShieldCollision() { //function to check if any of the invader bullets collide with the shields
+    for (d = 0; d < 4; d++) {             //and removes a point of health and resets the invader bullet  
         var thisShield = Shields[d]
         for (s = 0; s < 5; s++) {
             var thisShield = Shields[d]
