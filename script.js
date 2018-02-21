@@ -60,6 +60,8 @@ var invaderShot = false;
 var lives = 3
 var boxWidth = 25
 var boxHeight = 15
+var Xinvader;
+var Yinvader;
 //These are all the global variables we use throughout the script in multiple functions
 
 
@@ -139,11 +141,27 @@ function shipBulletShieldCollision() {
             if (thisShield[s].status != 0) {
                 if (x2 > thisShield[s].x && x2 < thisShield[s].x + boxWidth && y2 > thisShield[s].y && y2 < thisShield[s].y + boxHeight) {
                     thisShield[s].status -=1
-                    console.log(Shield1[0])
                     bulletActive = true;
                     spacePressed = false;
                     y2 = canvas.height - 80;
                     bulletCount = 0
+                }
+            }
+        }
+    }
+}
+
+function invaderBulletShieldCollision() {
+    for (d = 0; d < 4; d++) {
+        var thisShield = Shields[d]
+        for (s = 0; s < 5; s++) {
+            var thisShield = Shields[d]
+            if (thisShield[s].status != 0) {
+                if (Xinvader > thisShield[s].x && Xinvader < thisShield[s].x + boxWidth && Yinvader < thisShield[s].y + boxHeight && Yinvader > thisShield[s].y) {
+                    thisShield[s].status -=1
+                    iShoot = false;
+                    iShootCount = 0
+                    invaderShot = false;
                 }
             }
         }
@@ -526,6 +544,7 @@ function draw() {
     invaderShoot();
     drawShields();
     shipBulletShieldCollision();
+    invaderBulletShieldCollision()
     // stops ball moving too far
 
     if (lives <= 0) {
