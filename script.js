@@ -54,7 +54,7 @@ var moveLeft = true;
 var moveRight = false;
 var invaderSpeed = 0.5;
 var invaderChange = 0;
-var iShoot;
+var iShoot = false
 
 var Shield1 = []
 var Shield2 = []
@@ -298,7 +298,10 @@ function collisionDetection() {
     }
 }
 
+var invaderShot = false;
+
 function selectRandom() {
+    invaderShot = true;
     var col = Math.floor(Math.random() * invaderColumnCount);
     if (invaders[col][4].status == 1) {
         var invaderX = (col * (invaderWidth + invaderPaddingLeft)) + invaderOffsetLeft;
@@ -308,6 +311,7 @@ function selectRandom() {
         Xinvader = invaderX + 20;
         Yinvader = invaderY + 45;
         iShoot = true;
+        invaderShoot();
     } else if (invaders[col][3].status == 1) {
         var invaderX = (col * (invaderWidth + invaderPaddingLeft)) + invaderOffsetLeft;
         var invaderY = (3 * (invaderHeight + invaderPaddingHeight)) + invaderOffsetTop;
@@ -316,6 +320,7 @@ function selectRandom() {
         Xinvader = invaderX + 20;
         Yinvader = invaderY + 45;
         iShoot = true;
+        invaderShoot();
     } else if (invaders[col][2].status == 1) {
         var invaderX = (col * (invaderWidth + invaderPaddingLeft)) + invaderOffsetLeft;
         var invaderY = (2 * (invaderHeight + invaderPaddingHeight)) + invaderOffsetTop;
@@ -324,6 +329,7 @@ function selectRandom() {
         Xinvader = invaderX + 20;
         Yinvader = invaderY + 45;
         iShoot = true;
+        invaderShoot();
     } else if (invaders[col][1].status == 1) {
         var invaderX = (col * (invaderWidth + invaderPaddingLeft)) + invaderOffsetLeft;
         var invaderY = (1 * (invaderHeight + invaderPaddingHeight)) + invaderOffsetTop;
@@ -332,6 +338,7 @@ function selectRandom() {
         Xinvader = invaderX + 20;
         Yinvader = invaderY + 45;
         iShoot = true;
+        invaderShoot();
     } else if (invaders[col][0].status == 1) {
         var invaderX = (col * (invaderWidth + invaderPaddingLeft)) + invaderOffsetLeft;
         var invaderY = (0 * (invaderHeight + invaderPaddingHeight)) + invaderOffsetTop;
@@ -340,25 +347,24 @@ function selectRandom() {
         Xinvader = invaderX + 20;
         Yinvader = invaderY + 45;
         iShoot = true;
+        invaderShoot();
     }
-    console.log(col)
 }
-setInterval(selectRandom, 500)
 
 function invaderShoot() {
-if(iShoot){
-    ctx.beginPath();
-    ctx.rect(Xinvader, Yinvader - 25, 3, 15);
-    ctx.fillStyle = "white"
-    ctx.fill();
-    ctx.closePath;
-    if (Yinvader > canvas.height) {
-        iShoot = false;
-        iShootCount = 0
+    if (iShoot) {
+        ctx.beginPath();
+        ctx.rect(Xinvader, Yinvader - 25, 3, 15);
+        ctx.fillStyle = "white"
+        ctx.fill();
+        ctx.closePath;
+        if (Yinvader > canvas.height) {
+            iShoot = false;
+            iShootCount = 0
+            invaderShot = false;
+        }
     }
 }
-}
-
 
 function drawScore() {
     ctx.font = "16px Arial";
@@ -391,12 +397,14 @@ function draw() {
         drawBullet();
 
     }
+    if (invaderShot == false) {
+        selectRandom();
+    }
+
     if (iShoot) {
-        Yinvader += 6; //bullet will travel up the screen
+        Yinvader += 6; //bullet will travel down the screen
     }
 
 }
-
-//setInterval(drawInvaders, 20)
 
 setInterval(draw, 10)
