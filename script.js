@@ -62,6 +62,81 @@ var Shield1 = []
 var Shield2 = []
 var Shield3 = []
 var Shield4 = []
+
+for(s = 0; s < 5; s++){
+    Shield1[s] = {x:0, y:0, status: 4}
+    Shield2[s] = {x:0, y:0, status: 4}
+    Shield3[s] = {x:0, y:0, status: 4}
+    Shield4[s] = {x:0, y:0, status: 4}
+
+    if(s == 0){
+        Shield1[s].x = (canvas.width/5) - 20
+        Shield1[s].y = canvas.height - 100
+
+        Shield2[s].x = (canvas.width/5)*2 - 20
+        Shield2[s].y = canvas.height - 100
+
+        Shield3[s].x = (canvas.width/5)*3 - 20
+        Shield3[s].y = canvas.height - 100
+
+        Shield4[s].x = (canvas.width/5)*4 - 20
+        Shield4[s].y = canvas.height - 100
+    }
+    else if(s == 1){
+        Shield1[s].x = (canvas.width/5) - 20
+        Shield1[s].y = canvas.height - 120
+
+        Shield2[s].x = (canvas.width/5)*2 - 20
+        Shield2[s].y = canvas.height - 120
+
+        Shield3[s].x = (canvas.width/5)*3 - 20
+        Shield3[s].y = canvas.height - 120
+
+        Shield4[s].x = (canvas.width/5)*4 - 20
+        Shield4[s].y = canvas.height - 120
+
+    }
+    else if(s == 2){
+        Shield1[s].x = (canvas.width/5)
+        Shield1[s].y = canvas.height - 120
+
+        Shield2[s].x = (canvas.width/5)*2
+        Shield2[s].y = canvas.height - 120
+
+        Shield3[s].x = (canvas.width/5)*3
+        Shield3[s].y = canvas.height - 120
+
+        Shield4[s].x = (canvas.width/5)*4
+        Shield4[s].y = canvas.height - 120
+    }
+    else if(s == 3){
+        Shield1[s].x = (canvas.width/5) + 20
+        Shield1[s].y = canvas.height - 120
+
+        Shield2[s].x = (canvas.width/5)*2 + 20
+        Shield2[s].y = canvas.height - 120
+
+        Shield3[s].x = (canvas.width/5)*3 + 20
+        Shield3[s].y = canvas.height - 120
+
+        Shield4[s].x = (canvas.width/5)*4 + 20
+        Shield4[s].y = canvas.height - 120
+    } 
+    else if (s == 4){
+        Shield1[s].x = (canvas.width/5) + 20
+        Shield1[s].y = canvas.height - 100
+
+        Shield2[s].x = (canvas.width/5)*2 + 20
+        Shield2[s].y = canvas.height - 100
+
+        Shield3[s].x = (canvas.width/5)*3 + 20
+        Shield3[s].y = canvas.height - 100
+
+        Shield4[s].x = (canvas.width/5)*4 + 20
+        Shield4[s].y = canvas.height - 100
+    }
+    
+}
 //These are all the global variables we use throughout the script in multiple functions
 
 var invaders = []; // create a 2d array of space invaders
@@ -190,6 +265,138 @@ function drawGameOver() {
 
 setInterval(change, 600)
 
+function drawShields(){
+    for(s = 0; s < 5; s++){
+        var s1 = Shield1[s]
+        var s2 = Shield2[s]
+        var s3 = Shield3[s]
+        var s4 = Shield4[s]
+
+        if (s1.status == 4){
+            ctx.beginPath();
+            ctx.rect(s1.x,s1.y,20, 20)
+            ctx.fillStyle = "#ffffff"
+            ctx.fill();
+            ctx.closePath();
+        }
+        else if (s1.status == 3){
+            ctx.beginPath();
+            ctx.rect(s1.x,s1.y,20, 20)
+            ctx.fillStyle = "green"
+            ctx.fill();
+            ctx.closePath();
+        }
+        else if (s1.status == 2){
+            ctx.beginPath();
+            ctx.rect(s1.x,s1.y,20, 20)
+            ctx.fillStyle = "yellow"
+            ctx.fill();
+            ctx.closePath();
+        }
+        else if (s1.status == 1){
+            ctx.beginPath();
+            ctx.rect(s1.x,s1.y,20, 20)
+            ctx.fillStyle = "red"
+            ctx.fill();
+            ctx.closePath();
+        }
+        
+        
+
+        if (s2.status == 4){
+            ctx.beginPath();
+            ctx.rect(s2.x,s2.y,20, 20)
+            ctx.fillStyle = "#ffffff"
+            ctx.fill();
+            ctx.closePath();
+        }
+
+        else if (s2.status == 3){
+            ctx.beginPath();
+            ctx.rect(s2.x,s2.y,20, 20)
+            ctx.fillStyle = "green"
+            ctx.fill();
+            ctx.closePath();
+        }
+        else if (s2.status == 2){
+            ctx.beginPath();
+            ctx.rect(s2.x,s2.y,20, 20)
+            ctx.fillStyle = "yellow"
+            ctx.fill();
+            ctx.closePath();
+        }
+        else if (s2.status == 1){
+            ctx.beginPath();
+            ctx.rect(s2.x,s2.y,20, 20)
+            ctx.fillStyle = "red"
+            ctx.fill();
+            ctx.closePath();
+        }
+
+        if (s3.status == 4){
+            ctx.beginPath();
+            ctx.rect(s3.x,s3.y,20, 20)
+            ctx.fillStyle = "#ffffff"
+            ctx.fill();
+            ctx.closePath();
+        }
+        else if (s3.status == 3){
+            ctx.beginPath();
+            ctx.rect(s3.x,s3.y,20, 20)
+            ctx.fillStyle = "green"
+            ctx.fill();
+            ctx.closePath();
+        }
+        else if (s3.status == 2){
+            ctx.beginPath();
+            ctx.rect(s3.x,s3.y,20, 20)
+            ctx.fillStyle = "yellow"
+            ctx.fill();
+            ctx.closePath();
+        }
+        else if (s3.status == 1){
+            ctx.beginPath();
+            ctx.rect(s3.x,s3.y,20, 20)
+            ctx.fillStyle = "red"
+            ctx.fill();
+            ctx.closePath();
+        }
+
+        if (s1.status == 4){
+            ctx.beginPath();
+            ctx.rect(s4.x,s4.y, 20, 20)
+            ctx.fillStyle = "#ffffff"
+            ctx.fill();
+            ctx.closePath();
+        }
+
+        else if (s4.status == 3){
+            ctx.beginPath();
+            ctx.rect(s4.x,s4.y,20, 20)
+            ctx.fillStyle = "green"
+            ctx.fill();
+            ctx.closePath();
+        }
+        else if (s4.status == 2){
+            ctx.beginPath();
+            ctx.rect(s4.x,s4.y,20, 20)
+            ctx.fillStyle = "yellow"
+            ctx.fill();
+            ctx.closePath();
+        }
+        else if (s4.status == 1){
+            ctx.beginPath();
+            ctx.rect(s4.x,s4.y,20, 20)
+            ctx.fillStyle = "red"
+            ctx.fill();
+            ctx.closePath();
+        }
+
+
+    }
+
+}
+
 function drawInvaders() { //create a 2 day array and paint each invader in it's location
     function switchHigh() {
         if (invaderChange == 0) {
@@ -290,7 +497,7 @@ function collisionDetection() {
                     y2 = canvas.height - 80;
                     bulletCount = 0
                     score += i.score;
-                    if (score >= 1100) {
+                    if (score >= 1500) {
                         alert("YOU WIN, CONGRATULATIONS!");
                         document.location.reload();
                     }
@@ -394,13 +601,14 @@ function draw() {
     collisionDetection();
     sideDetection();
     invaderShoot();
+    drawShields();
     // stops ball moving too far
     if (rightPressed && x < canvas.width - ballRadius || rightPressed && x < ballRadius) {
         x += 3;
     } else if (leftPressed && x > 3 || leftPressed && x > ballRadius) {
         x -= 3;
     }
-    if (lives == 0 ) {
+    if (lives <= 0 ) {
         clearInterval();
         drawGameOver();
     }
