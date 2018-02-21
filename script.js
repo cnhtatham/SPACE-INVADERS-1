@@ -30,9 +30,9 @@ var shot = document.getElementById("fireSound");
 //audio variables
 
 var x = canvas.width / 2 - 26;
-var y = canvas.height - 55
+var y = canvas.height - 70;
 var x2 = x2
-var y2 = canvas.height - 30
+var y2 = canvas.height - 80;
 var dx = 2;
 var dy = -2;
 var ballRadius = 52
@@ -45,7 +45,7 @@ var invaderRowCount = 5;
 var invaderColumnCount = 15;
 var invaderWidth = 42; //individual sizing
 var invaderHeight = 30; //individual sizing
-var invaderPaddingLeft = 10; //between columns
+var invaderPaddingLeft = 14; //between columns
 var invaderPaddingHeight = 20; //between rows
 var invaderOffsetTop = 50;
 var invaderOffsetLeft = 30;
@@ -118,15 +118,15 @@ function spaceBarHandler(e) {
 //Function to shoot when soace is pressed, but only if noo bullet is currently on the screen
 function drawBall() {
     ctx.beginPath();
-    ctx.drawImage(ship, x, y, 50, 50);
+    ctx.drawImage(ship, x, y, 60, 60);
     ctx.closePath();
 }
 //Function to draw our ship at the current X and Y position whihc are changed when the movement keys are pressed
 function drawBullet() {
     if (bulletActive == false) { //Check to see if a bullet is already on the screen
         ctx.beginPath();
-        ctx.rect(x2, y2 - 25, 1, 15);
-        ctx.fillStyle = "#ffffff"
+        ctx.rect(x2, y2, 3.5, 25);
+        ctx.fillStyle = "#9b59b6"
         ctx.fill(); // draws the bullet on screen
         ctx.closePath;
         bulletCount++
@@ -287,7 +287,7 @@ function collisionDetection() {
                     ctx.closePath();*/
                     bulletActive = true;
                     spacePressed = false;
-                    y2 = canvas.height - 30;
+                    y2 = canvas.height - 80;
                     bulletCount = 0
                     score += i.score;
                     if (score >= 1100) {
@@ -397,7 +397,7 @@ function draw() {
 
     if (spacePressed) {
         if (bulletCount === 0) { //Take the first x position of the ship at fire
-            x2 = x + 24.5;
+            x2 = x + 27.8;
             //audio
             shot.play();
         }
@@ -410,7 +410,7 @@ function draw() {
     }
 
     if (iShoot) {
-        Yinvader += 3; //bullet will travel down the screen
+        Yinvader += 2; //bullet will travel down the screen
     }
 
 }
