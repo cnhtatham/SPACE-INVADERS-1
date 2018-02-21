@@ -18,3 +18,17 @@ canvas {
     margin: 0 auto; 
     margin-top: 100px;
 }
+
+.lifeContainer {
+    position: absolute;
+    top: 18%;
+    left: 92%;
+    z-index: 1;
+    width: 65px;
+    height: auto;
+}
+
+.ship {
+    height: 60px;
+    width: 60px;
+}
