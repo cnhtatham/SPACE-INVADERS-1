@@ -188,6 +188,14 @@ function drawGameOver() {
     ctx.fillText("GAME OVER COCKMUNCHER!!", 270, 300);
 }
 
+function drawWin() {
+    clearInterval();
+    ctx.clearRect(0, 0, canvas.width, canvas.height)
+    ctx.font = "40px Arial";
+    ctx.fillStyle = "white";
+    ctx.fillText("YOU WIN FUCK BRAINS", 280, 300);
+}
+
 setInterval(change, 600)
 
 function drawInvaders() { //create a 2 day array and paint each invader in it's location
@@ -290,10 +298,6 @@ function collisionDetection() {
                     y2 = canvas.height - 80;
                     bulletCount = 0
                     score += i.score;
-                    if (score >= 1100) {
-                        alert("YOU WIN, CONGRATULATIONS!");
-                        document.location.reload();
-                    }
                 }
             }
         }
@@ -404,7 +408,12 @@ function draw() {
         clearInterval();
         drawGameOver();
     }
-    
+
+    if (score >= 1500) {
+        clearInterval();
+        drawWin();
+    }
+
     if (spacePressed) {
         if (bulletCount === 0) { //Take the first x position of the ship at fire
             x2 = x + 27.8;
