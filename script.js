@@ -1,5 +1,6 @@
-var canvas = document.getElementById("myCanvas");
-var ctx = canvas.getContext("2d");
+var canvas = document.getElementById("myCanvas"); 
+var ctx = canvas.getContext("2d"); 
+//Declaing variable to call on our canvas foir drawing all objects
 
 var ship = document.getElementById("ship");
 ship.style.display = "none";
@@ -15,16 +16,18 @@ var midInvaderB = document.getElementById("midB");
 var highInvaderA = document.getElementById("highA");
 var highInvaderB = document.getElementById("highB");
 
+
 lowInvaderA.style.display = "none";
 lowInvaderB.style.display = "none";
 midInvaderA.style.display = "none";
 midInvaderB.style.display = "none";
 highInvaderA.style.display = "none";
 highInvaderB.style.display = "none";
+//Setting all source images in HTML so they do not show in the body
 
-//audio's
 var explode = document.getElementById("explosion");
 var shot = document.getElementById("fireSound");
+//audio variables
 
 var x = canvas.width / 2 - 26;
 var y = canvas.height - 55
@@ -56,16 +59,17 @@ var Shield1 = []
 var Shield2 = []
 var Shield3 = []
 var Shield4 = []
+//These are all the global variables we use throughout the script in multiple functions
 
 var invaders = []; // create a 2d array of space invaders
 for (c = 0; c < invaderColumnCount; c++) {
     invaders[c] = [];
-    for (r = 0; r < invaderRowCount; r++) {
+    for (r = 0; r < invaderRowCount; r++) {//these 2 for loops go over every item in our 2d array
         invaders[c][r] = {
             x: 0,
             y: 0,
             status: 1,
-            score: 0
+            score: 0 //Treating the 2d array like an object, we can call and change different values for each item in the array
         }
         if (r == 0) {
             invaders[c][r].score = 40
@@ -77,13 +81,14 @@ for (c = 0; c < invaderColumnCount; c++) {
             invaders[c][r].score = 10
         } else if (r == 4) {
             invaders[c][r].score = 10
-        }
+        }//Making each row of invaders have a different score value
     }
 }
 
 document.addEventListener("keydown", keyDownHandler, false);
 document.addEventListener("keyup", keyUpHandler, false);
-document.addEventListener("keydown", spaceBarHandler, false)
+document.addEventListener("keydown", spaceBarHandler, false);
+//Declaring our movement and shooting event listeners
 
 function keyDownHandler(e) {
     if (e.keyCode == 39) {
@@ -92,7 +97,7 @@ function keyDownHandler(e) {
         leftPressed = true;
     }
 }
-
+//Function to make our ship move left or right when the corresponding key is pressed
 function keyUpHandler(e) {
     if (e.keyCode == 39) {
         rightPressed = false;
@@ -100,32 +105,32 @@ function keyUpHandler(e) {
         leftPressed = false;
     }
 }
-
+//Function to stop the movement of the ship when the key is released
 function spaceBarHandler(e) {
     if (e.keyCode == 32) {
         spacePressed = true;
         bulletActive = false;
     }
 }
-
+//Function to shoot when soace is pressed, but only if noo bullet is currently on the screen
 function drawBall() {
     ctx.beginPath();
     ctx.drawImage(ship, x, y, 50, 50);
     ctx.closePath();
 }
-
+//Function to draw our ship at the current X and Y position whihc are changed when the movement keys are pressed
 function drawBullet() {
-    if (bulletActive == false) {
+    if (bulletActive == false) { //Check to see if a bullet is already on the screen
         ctx.beginPath();
         ctx.rect(x2, y2 - 25, 1, 15);
         ctx.fillStyle = "#ffffff"
-        ctx.fill();
+        ctx.fill(); // draws the bullet on screen
         ctx.closePath;
         bulletCount++
         if (y2 < 0) {
             spacePressed = false;
             y2 = canvas.height - 30;
-            bulletCount = 0
+            bulletCount = 0 // makes the bullet disappear when it hits the top of the canvas
         }
     }
 }
@@ -134,8 +139,9 @@ function delayMove() {
     invaderOffsetChange = 5;
 }
 
-function moveInvaders() {
-    if (moveLeft == true && moveRight == false) {
+
+function moveInvaders() { // function that moves the invaders left then right at a rate which is determined
+    if (moveLeft == true && moveRight == false) {// by the variable invaderSpeed
         invaderOffsetLeft += invaderSpeed;
     } else if (moveLeft == false && moveRight == true) {
         invaderOffsetLeft -= invaderSpeed;
@@ -146,10 +152,10 @@ function moveInvaders() {
 
 function sideDetection() {
     for (c = 0; c < invaderColumnCount; c++) {
-        for (r = 0; r < invaderRowCount; r++) {
+        for (r = 0; r < invaderRowCount; r++) {//loops over each invader in our 2d array
             var i = invaders[c][r];
-            if (i.x + invaderWidth > canvas.width) {
-                moveLeft = false;
+            if (i.x + invaderWidth > canvas.width) {//Checks to see if any invader has reached the right wall 
+                moveLeft = false; //and moves them down a peg and starts moving them left
                 moveRight = true
                 invaderOffsetTop = invaderOffsetTop + 1;
             } else if (i.x < 0) {
@@ -175,9 +181,9 @@ function change() {
 function drawGameOver() {
     clearInterval();
     ctx.clearRect(0, 0, canvas.width, canvas.height)
-    ctx.font = "32px Arial";
+    ctx.font = "40px Arial";
     ctx.fillStyle = "white";
-    ctx.fillText("GAME OVER COCKMUNCHER!!", 150, 300);
+    ctx.fillText("GAME OVER COCKMUNCHER!!", 200, 300);
 }
 
 setInterval(change, 600)
@@ -252,9 +258,6 @@ function drawInvaders() { //create a 2 day array and paint each invader in it's 
                 }
             }
             if (invaderY >= canvas.height - 100) {
-                //clearInterval();
-                //ctx.clearRect(0, 0, canvas.width, canvas.height)
-                //document.location.reload();
                 drawGameOver();
             }
         }
