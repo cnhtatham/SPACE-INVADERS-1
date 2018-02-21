@@ -360,7 +360,7 @@ function invaderShoot() {
         ctx.fillStyle = "white"
         ctx.fill();
         ctx.closePath;
-        if (Xinvader > x && Xinvader < x + 50 && Yinvader < y + 24 && Yinvader > y) {
+        if (Xinvader > x && Xinvader < x + 60 && Yinvader < y + 60 && Yinvader > y) {
             iShoot = false;
             iShootCount = 0
             invaderShot = false;
