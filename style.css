@@ -32,3 +32,16 @@ canvas {
     height: 60px;
     width: 60px;
 }
+
+.title {
+    font-family: 'Press Start 2P', cursive;
+    color: white;
+    position: absolute;
+    top: 60px;
+    width: 1150px;
+    height: auto;
+    font-size: 80px;
+    left: 50%;
+    text-align: center;
+    transform: translate(-50%, -50%);
+}
