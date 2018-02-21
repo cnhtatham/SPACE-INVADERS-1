@@ -1,5 +1,5 @@
-var canvas = document.getElementById("myCanvas"); 
-var ctx = canvas.getContext("2d"); 
+var canvas = document.getElementById("myCanvas");
+var ctx = canvas.getContext("2d");
 //Declaing variable to call on our canvas foir drawing all objects
 
 var ship = document.getElementById("ship");
@@ -54,6 +54,7 @@ var moveLeft = true;
 var moveRight = false;
 var invaderSpeed = 0.5;
 var invaderChange = 0;
+var iShoot;
 
 var Shield1 = []
 var Shield2 = []
@@ -64,7 +65,7 @@ var Shield4 = []
 var invaders = []; // create a 2d array of space invaders
 for (c = 0; c < invaderColumnCount; c++) {
     invaders[c] = [];
-    for (r = 0; r < invaderRowCount; r++) {//these 2 for loops go over every item in our 2d array
+    for (r = 0; r < invaderRowCount; r++) { //these 2 for loops go over every item in our 2d array
         invaders[c][r] = {
             x: 0,
             y: 0,
@@ -81,7 +82,7 @@ for (c = 0; c < invaderColumnCount; c++) {
             invaders[c][r].score = 10
         } else if (r == 4) {
             invaders[c][r].score = 10
-        }//Making each row of invaders have a different score value
+        } //Making each row of invaders have a different score value
     }
 }
 
@@ -134,14 +135,14 @@ function drawBullet() {
         }
     }
 }
- 
+
 function delayMove() {
     invaderOffsetChange = 5;
 }
 
 
 function moveInvaders() { // function that moves the invaders left then right at a rate which is determined
-    if (moveLeft == true && moveRight == false) {// by the variable invaderSpeed
+    if (moveLeft == true && moveRight == false) { // by the variable invaderSpeed
         invaderOffsetLeft += invaderSpeed;
     } else if (moveLeft == false && moveRight == true) {
         invaderOffsetLeft -= invaderSpeed;
@@ -152,9 +153,9 @@ function moveInvaders() { // function that moves the invaders left then right at
 
 function sideDetection() {
     for (c = 0; c < invaderColumnCount; c++) {
-        for (r = 0; r < invaderRowCount; r++) {//loops over each invader in our 2d array
+        for (r = 0; r < invaderRowCount; r++) { //loops over each invader in our 2d array
             var i = invaders[c][r];
-            if (i.x + invaderWidth > canvas.width) {//Checks to see if any invader has reached the right wall 
+            if (i.x + invaderWidth > canvas.width) { //Checks to see if any invader has reached the right wall 
                 moveLeft = false; //and moves them down a peg and starts moving them left
                 moveRight = true
                 invaderOffsetTop = invaderOffsetTop + 1;
@@ -172,8 +173,7 @@ function sideDetection() {
 function change() {
     if (invaderChange == 0) {
         invaderChange = 1
-    } 
-    else if (invaderChange == 1) {
+    } else if (invaderChange == 1) {
         invaderChange = 0
     }
 }
@@ -204,6 +204,7 @@ function drawInvaders() { //create a 2 day array and paint each invader in it's 
             ctx.drawImage(midInvaderB, invaderX, invaderY, invaderWidth, invaderHeight);
         }
     }
+
     function switchMid2() {
         if (invaderChange == 0) {
             ctx.drawImage(midInvaderB, invaderX, invaderY, invaderWidth, invaderHeight);
@@ -219,6 +220,7 @@ function drawInvaders() { //create a 2 day array and paint each invader in it's 
             ctx.drawImage(lowInvaderB, invaderX, invaderY, invaderWidth, invaderHeight);
         }
     }
+
     function switchLow2() {
         if (invaderChange == 0) {
             ctx.drawImage(lowInvaderB, invaderX, invaderY, invaderWidth, invaderHeight);
@@ -296,6 +298,68 @@ function collisionDetection() {
     }
 }
 
+function selectRandom() {
+    var col = Math.floor(Math.random() * invaderColumnCount);
+    if (invaders[col][4].status == 1) {
+        var invaderX = (col * (invaderWidth + invaderPaddingLeft)) + invaderOffsetLeft;
+        var invaderY = (4 * (invaderHeight + invaderPaddingHeight)) + invaderOffsetTop;
+        invaders[col][4].x = invaderX
+        invaders[col][4].y = invaderY
+        Xinvader = invaderX + 20;
+        Yinvader = invaderY + 45;
+        iShoot = true;
+    } else if (invaders[col][3].status == 1) {
+        var invaderX = (col * (invaderWidth + invaderPaddingLeft)) + invaderOffsetLeft;
+        var invaderY = (3 * (invaderHeight + invaderPaddingHeight)) + invaderOffsetTop;
+        invaders[col][3].x = invaderX
+        invaders[col][3].y = invaderY
+        Xinvader = invaderX + 20;
+        Yinvader = invaderY + 45;
+        iShoot = true;
+    } else if (invaders[col][2].status == 1) {
+        var invaderX = (col * (invaderWidth + invaderPaddingLeft)) + invaderOffsetLeft;
+        var invaderY = (2 * (invaderHeight + invaderPaddingHeight)) + invaderOffsetTop;
+        invaders[col][2].x = invaderX
+        invaders[col][2].y = invaderY
+        Xinvader = invaderX + 20;
+        Yinvader = invaderY + 45;
+        iShoot = true;
+    } else if (invaders[col][1].status == 1) {
+        var invaderX = (col * (invaderWidth + invaderPaddingLeft)) + invaderOffsetLeft;
+        var invaderY = (1 * (invaderHeight + invaderPaddingHeight)) + invaderOffsetTop;
+        invaders[col][1].x = invaderX
+        invaders[col][1].y = invaderY
+        Xinvader = invaderX + 20;
+        Yinvader = invaderY + 45;
+        iShoot = true;
+    } else if (invaders[col][0].status == 1) {
+        var invaderX = (col * (invaderWidth + invaderPaddingLeft)) + invaderOffsetLeft;
+        var invaderY = (0 * (invaderHeight + invaderPaddingHeight)) + invaderOffsetTop;
+        invaders[col][0].x = invaderX
+        invaders[col][0].y = invaderY
+        Xinvader = invaderX + 20;
+        Yinvader = invaderY + 45;
+        iShoot = true;
+    }
+    console.log(col)
+}
+setInterval(selectRandom, 500)
+
+function invaderShoot() {
+if(iShoot){
+    ctx.beginPath();
+    ctx.rect(Xinvader, Yinvader - 25, 3, 15);
+    ctx.fillStyle = "white"
+    ctx.fill();
+    ctx.closePath;
+    if (Yinvader > canvas.height) {
+        iShoot = false;
+        iShootCount = 0
+    }
+}
+}
+
+
 function drawScore() {
     ctx.font = "16px Arial";
     ctx.fillStyle = "#0095DD";
@@ -309,6 +373,7 @@ function draw() {
     drawScore();
     collisionDetection();
     sideDetection();
+    invaderShoot();
     // stops ball moving too far
     if (rightPressed && x < canvas.width - ballRadius || rightPressed && x < ballRadius) {
         x += 3;
@@ -326,9 +391,12 @@ function draw() {
         drawBullet();
 
     }
+    if (iShoot) {
+        Yinvader += 6; //bullet will travel up the screen
+    }
 
 }
 
 //setInterval(drawInvaders, 20)
 
-setInterval(draw, 10) 
+setInterval(draw, 10)
