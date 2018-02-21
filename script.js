@@ -16,7 +16,15 @@ var midInvaderB = document.getElementById("midB");
 var highInvaderA = document.getElementById("highA");
 var highInvaderB = document.getElementById("highB");
 
+var shieldStatus4 = document.getElementById("shieldStatus4");
+var shieldStatus3 = document.getElementById("shieldStatus3");
+var shieldStatus2 = document.getElementById("shieldStatus2");
+var shieldStatus1 = document.getElementById("shieldStatus1");
 
+shieldStatus4.style.display = "none";
+shieldStatus3.style.display = "none";
+shieldStatus2.style.display = "none";
+shieldStatus1.style.display = "none";
 lowInvaderA.style.display = "none";
 lowInvaderB.style.display = "none";
 midInvaderA.style.display = "none";
@@ -106,27 +114,19 @@ function drawShields() {
         for (s = 0; s < 5; s++) { //loops over every shield part
             if (thisShield[s].status == 4) { // checks the status of each shield and draws them in the appropriate
                 ctx.beginPath();             // color at the correct position
-                ctx.rect(thisShield[s].x, thisShield[s].y, boxWidth, boxHeight)
-                ctx.fillStyle = "#ffffff"
-                ctx.fill();
+                ctx.drawImage(shieldStatus4, thisShield[s].x, thisShield[s].y, boxWidth, boxHeight);
                 ctx.closePath();
             } else if (thisShield[s].status == 3) {
                 ctx.beginPath();
-                ctx.rect(thisShield[s].x, thisShield[s].y, boxWidth, boxHeight)
-                ctx.fillStyle = "green"
-                ctx.fill();
+                ctx.drawImage(shieldStatus3, thisShield[s].x, thisShield[s].y, boxWidth, boxHeight);
                 ctx.closePath();
             } else if (thisShield[s].status == 2) {
                 ctx.beginPath();
-                ctx.rect(thisShield[s].x, thisShield[s].y, boxWidth, boxHeight)
-                ctx.fillStyle = "yellow"
-                ctx.fill();
+                ctx.drawImage(shieldStatus2, thisShield[s].x, thisShield[s].y, boxWidth, boxHeight);
                 ctx.closePath();
             } else if (thisShield[s].status == 1) {
                 ctx.beginPath();
-                ctx.rect(thisShield[s].x, thisShield[s].y, boxWidth, boxHeight)
-                ctx.fillStyle = "red"
-                ctx.fill();
+                ctx.drawImage(shieldStatus1, thisShield[s].x, thisShield[s].y, boxWidth, boxHeight);
                 ctx.closePath();
             } 
         }
