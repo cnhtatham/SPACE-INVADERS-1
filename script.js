@@ -365,7 +365,6 @@ function invaderShoot() {
             iShootCount = 0
             invaderShot = false;
             lives --;
-            console.log(lives)
         } else if (Yinvader > canvas.height) {
             iShoot = false;
             iShootCount = 0
@@ -380,11 +379,18 @@ function drawScore() {
     ctx.fillText("Score: " + score, 8, 20);
 }
 
+function drawLives() {
+    ctx.font = "16px Arial";
+    ctx.fillStyle = "#0095DD";
+    ctx.fillText("LIVES: " + lives, 600, 20);
+}
+
 function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     drawInvaders();
     drawBall();
     drawScore();
+    drawLives();
     collisionDetection();
     sideDetection();
     invaderShoot();
@@ -394,7 +400,11 @@ function draw() {
     } else if (leftPressed && x > 3 || leftPressed && x > ballRadius) {
         x -= 3;
     }
-
+    if (lives == 0 ) {
+        clearInterval();
+        drawGameOver();
+    }
+    
     if (spacePressed) {
         if (bulletCount === 0) { //Take the first x position of the ship at fire
             x2 = x + 27.8;
