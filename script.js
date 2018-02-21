@@ -185,7 +185,7 @@ function drawGameOver() {
     ctx.clearRect(0, 0, canvas.width, canvas.height)
     ctx.font = "40px Arial";
     ctx.fillStyle = "white";
-    ctx.fillText("GAME OVER COCKMUNCHER!!", 200, 300);
+    ctx.fillText("GAME OVER COCKMUNCHER!!", 270, 300);
 }
 
 setInterval(change, 600)
