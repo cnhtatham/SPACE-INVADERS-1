@@ -107,19 +107,19 @@ function drawShields() {
                 ctx.fillStyle = "#ffffff"
                 ctx.fill();
                 ctx.closePath();
-            } else if (s1.status == 3) {
+            } else if (thisShield[s].status == 3) {
                 ctx.beginPath();
                 ctx.rect(thisShield[s].x, thisShield[s].y, boxWidth, boxHeight)
                 ctx.fillStyle = "green"
                 ctx.fill();
                 ctx.closePath();
-            } else if (s1.status == 2) {
+            } else if (thisShield[s].status == 2) {
                 ctx.beginPath();
                 ctx.rect(thisShield[s].x, thisShield[s].y, boxWidth, boxHeight)
                 ctx.fillStyle = "yellow"
                 ctx.fill();
                 ctx.closePath();
-            } else if (s1.status == 1) {
+            } else if (thisShield[s].status == 1) {
                 ctx.beginPath();
                 ctx.rect(thisShield[s].x, thisShield[s].y, boxWidth, boxHeight)
                 ctx.fillStyle = "red"
@@ -131,19 +131,24 @@ function drawShields() {
 }
 
 
-/*function shipBulletShieldCollision() {
-    for(s = 0; s < 5; s++) {
-        if (Shield1[s].status != 0){
-        if(x2 > Shield1[s].x && x2 < Shield1[s].x + 20 && y2 > Shield1[s].y && y2 < Shield1[s].y + 20){
-                Shield1[s].status -= 1
+function shipBulletShieldCollision() {
+    for (d = 0; d < 4; d++) {
+        var thisShield = Shields[d]
+        for (s = 0; s < 5; s++) {
+            var thisShield = Shields[d]
+            if (thisShield[s].status != 0) {
+                if (x2 > thisShield[s].x && x2 < thisShield[s].x + boxWidth && y2 > thisShield[s].y && y2 < thisShield[s].y + boxHeight) {
+                    thisShield[s].status -=1
+                    console.log(Shield1[0])
                     bulletActive = true;
                     spacePressed = false;
                     y2 = canvas.height - 80;
                     bulletCount = 0
-        }
+                }
+            }
         }
     }
-}*/
+}
 
 var invaders = []; // create a 2d array of space invaders
 
@@ -520,7 +525,7 @@ function draw() {
     sideDetection();
     invaderShoot();
     drawShields();
-    //shipBulletShieldCollision();
+    shipBulletShieldCollision();
     // stops ball moving too far
 
     if (lives <= 0) {
