@@ -416,7 +416,7 @@ function collisionDetection() {
             var i = invaders[c][r];
             if (i.status == 1) {
                 //check to see if the bullets x value is greater than the x position of the invader including it's width, then check if the bullet has reached it's y value plus 27 for better effect.
-                if (x2 > i.x && x2 < i.x + invaderWidth && y2 > i.y && y2 < i.y + invaderHeight + 27) {
+                if (x2 > i.x && x2 < i.x + invaderWidth && y2 > i.y && y2 < i.y + invaderHeight) {
                     i.status = 0;
                     explode.play();
                     /*ctx.beginPath();
