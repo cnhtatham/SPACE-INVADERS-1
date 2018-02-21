@@ -65,13 +65,29 @@ var invaderSpeed = 0.5;
 var invaderChange = 0;
 var iShoot = false
 var invaderShot = false;
-var lives = 3
+var lives = 3   
 var boxWidth = 25
 var boxHeight = 15
 var Xinvader;
 var Yinvader;
 //These are all the global variables we use throughout the script in multiple functions
 
+function livesImg() {
+    if (lives === 2) {
+        //document.getElementById("life1").style.display = "block";
+        //document.getElementById("life2").style.display = "block";
+        document.getElementById("life3").className = "invis";
+        console.log(lives);
+    }
+    if (lives === 1) {
+        //document.getElementById("life1").style.display = "block";
+        document.getElementById("life2").className = "invis";
+        console.log(lives);
+    }
+    if (lives === 0) {
+        document.getElementById("life1").className = "invis";
+    }
+}
 
 var Shield1 = []
 var Shield2 = []
@@ -547,6 +563,8 @@ function draw() {
     shipBulletShieldCollision();
     invaderBulletShieldCollision()
     // stops ball moving too far
+    livesImg();
+
 
     if (lives <= 0) {
         clearInterval(game);

@@ -44,6 +44,12 @@ canvas {
     width: 60px;
 }
 
+.invis {
+    height: 60px;
+    width: 60px;
+    visibility: hidden;
+}
+
 .title {
     font-family: 'Press Start 2P', cursive;
     color: white;
