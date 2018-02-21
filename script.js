@@ -55,6 +55,8 @@ var moveRight = false;
 var invaderSpeed = 0.5;
 var invaderChange = 0;
 var iShoot = false
+var invaderShot = false;
+var lives = 3
 
 var Shield1 = []
 var Shield2 = []
@@ -298,8 +300,6 @@ function collisionDetection() {
     }
 }
 
-var invaderShot = false;
-
 function selectRandom() {
     invaderShot = true;
     var col = Math.floor(Math.random() * invaderColumnCount);
@@ -348,6 +348,8 @@ function selectRandom() {
         Yinvader = invaderY + 45;
         iShoot = true;
         invaderShoot();
+    } else { 
+        invaderShot = false;
     }
 }
 
@@ -358,7 +360,13 @@ function invaderShoot() {
         ctx.fillStyle = "white"
         ctx.fill();
         ctx.closePath;
-        if (Yinvader > canvas.height) {
+        if (Xinvader > x && Xinvader < x + 50 && Yinvader < y + 24 && Yinvader > y) {
+            iShoot = false;
+            iShootCount = 0
+            invaderShot = false;
+            lives --;
+            console.log(lives)
+        } else if (Yinvader > canvas.height) {
             iShoot = false;
             iShootCount = 0
             invaderShot = false;
@@ -402,7 +410,7 @@ function draw() {
     }
 
     if (iShoot) {
-        Yinvader += 6; //bullet will travel down the screen
+        Yinvader += 3; //bullet will travel down the screen
     }
 
 }
