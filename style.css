@@ -105,9 +105,40 @@
     left: 50%;
     transform: translate(-50%, -50%);
     background: transparent;
+}
 
+/* LOSE SCREEN */
+#youLose {
+    width: 100%;
+    height: 100%;
+    font-family: 'Press Start 2P', cursive;
+    z-index: 100;
+    text-align: center;
+    color: white;
+    background: transparent;
+}
+.loseText {
+    font-size: 26px;
+    width: 1100px;
+    position: absolute;
+    top: 300px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: transparent;
     }
 .nextLvl {
+    position: absolute;
+    top: 400px;
+    left: 350px;
+    height: 45px;
+    width: 300px;
+    font-size: 24px;
+    color: white;
+    text-align: center;
+    padding-top: 18px;
+    background: #10d145;
+}
+.reset {
     position: absolute;
     top: 400px;
     left: 350px;
@@ -136,6 +167,51 @@
     background: #10d145;
 
 }
+
+/* MAIN SCREEN */
+#main {
+    width: 100%;
+    height: 100%;
+    font-family: 'Press Start 2P', cursive;
+    z-index: 100;
+    text-align: center;
+    color: white;
+    background: transparent;
+}
+.menuText {
+    font-size: 26px;
+    width: 900px;
+    position: absolute;
+    top: 250px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: transparent;
+}
+.play {
+    position: absolute;
+    top: 400px;
+    left: 350px;
+    height: 45px;
+    width: 300px;
+    font-size: 24px;
+    color: white;
+    text-align: center;
+    padding-top: 18px;
+    background: #10d145;
+}
+.options {
+    position: absolute;
+    top: 400px;
+    left: 786px;
+    height: 45px;
+    width: 300px;
+    font-size: 24px;
+    color: white;
+    text-align: center;
+    padding-top: 18px;
+    background: #10d145;
+}
+
 
 /* ANIMATIONS */
 @keyframes mix {

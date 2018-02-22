@@ -1,8 +1,14 @@
 var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext("2d");
 //Declaing variable to call on our canvas foir drawing all objects
+
 var youWin = document.getElementById("youWin");
 youWin.style.display = "none";
+var youLose = document.getElementById("youLose");
+youLose.style.display = "none";
+var menu = document.getElementById("main");
+menu.style.display = "none";
+
 var ship = document.getElementById("ship");
 ship.style.display = "none";
 var kill = document.getElementById("invaderKilled");
@@ -42,6 +48,11 @@ var shot = document.getElementById("fireSound");
 var playerDead = document.getElementById("playerDead");
 var select = document.getElementById("select");
 //audio variables
+var win = false;
+var lose = false;
+var play = false;
+var options = false;
+var mainMenu = false;
 var level = 1
 var nextLvl = false
 var x = canvas.width / 2 - 26;
@@ -71,7 +82,7 @@ var invaderSpeed = 0.5 + (0.1 * level);
 var invaderChange = 0;
 var iShoot = false
 var invaderShot = false;
-var lives = 3
+var lives = 3;
 var boxWidth = 25
 var boxHeight = 15
 var Xinvader;
@@ -385,42 +396,80 @@ function change() {
 setInterval(change, 600)
 //changes the invaders img
 
-function lose() {
+function result() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    setInterval(drawGameOver, 10);
+    clearInterval(draw);
+    if (win == true) {
+        drawWin(); 
+        if (mainMenu == true) {
+            drawMainMenu();
+            youWin.style.display = "none";
+            if (play == true) {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                clearInterval(result);
+                setInterval(draw, 10)
+            }
+        }
+    } else if (lose == true) {
+        drawLose();
+        if (mainMenu == true) {
+            drawMainMenu();
+            youLose.style.display = "none";
+            if (play == true) {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                clearInterval(result);
+                setInterval(draw, 10)
+            }
+
+        }
+    }
 }
 
-function drawGameOver() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height)
-    ctx.beginPath()
-    ctx.fillStyle = "white";
-    ctx.fillRect(resetBoxLeftX, resetBoxY, resetBoxWidth, resetBoxHeight)
-    ctx.closePath()
-    ctx.beginPath()
-    ctx.fillStyle = "white";
-    ctx.fillRect(resetBoxRightX, resetBoxY, resetBoxWidth, resetBoxHeight)
-    ctx.closePath()
+setInterval(result, 10);
+
+function drawLose() {
+    youLose.style.display = "inLine";
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    drawRbox();
+    drawMMbox();
     alternateLose();
-}
-
-
-function win() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    var winInterval = setInterval(drawWin, 10);
-}
+    console.log(mainMenu)
+} 
 
 function drawWin() {
     youWin.style.display = "inLine";
-    ctx.clearRect(0, 0, canvas.width, canvas.height)
+    //menu.style.display = "none";
+    //ctx.clearRect(0, 0, canvas.width, canvas.height);
+    drawMMbox();
+    drawNLbox();
+    alternateWin();
+    console.log(mainMenu)
+}
+
+function drawMMbox() {
+    //ctx.clearRect(0, 0, canvas.width, canvas.height)
     ctx.beginPath()
     ctx.fillStyle = "white";
     ctx.fillRect(resetBoxLeftX, resetBoxY, resetBoxWidth, resetBoxHeight)
     ctx.closePath()
+    mainMenuCollision()
+}
+
+function drawNLbox() {
+    //ctx.clearRect(0, 0, canvas.width, canvas.height)
     ctx.beginPath()
     ctx.fillStyle = "white";
     ctx.fillRect(resetBoxRightX, resetBoxY, resetBoxWidth, resetBoxHeight)
     ctx.closePath()
-    alternateWin();
+    nextLvlCollision()
+}
+
+function drawRbox() {
+    restartCollision()
+    ctx.beginPath()
+    ctx.fillStyle = "white";
+    ctx.fillRect(resetBoxRightX, resetBoxY, resetBoxWidth, resetBoxHeight)
+    ctx.closePath()
 }
 
 function mainMenuCollision() {
@@ -432,6 +481,7 @@ function mainMenuCollision() {
         select.currentTime = 0;
         select.play();
         //draw mainMenu function here
+        mainMenu = true;
     }
 }
 
@@ -441,14 +491,14 @@ function nextLvlCollision() {
         spacePressed = false;
         y2 = canvas.height - 80;
         bulletCount = 0;
-        nextLvl = true;
+        //nextLvl = true;
         select.currentTime = 0;
         select.play();
-        if (level == 1){
+        /*if (level == 1){
             level = 2
         } else if (level == 2) {
             level = 3
-        }
+        }*/
     }
 }
 
@@ -469,15 +519,82 @@ function restartCollision() {
 function alternateLose() {
     drawBall();
     fire();
-    mainMenuCollision();
-    restartCollision();
+    //drawMMbox();
+    //mainMenuCollision();
+    //restartCollision();
 }
 
 function alternateWin() {
     drawBall();
     fire();
-    mainMenuCollision();
-    nextLvlCollision();
+    //mainMenuCollision();
+    //nextLvlCollision();
+    //drawMMbox();
+    //drawNLbox();
+}
+
+function alternateMain() {
+    drawBall();
+    fire();
+}
+
+
+
+
+/*
+function goMainMenu() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    setInterval(drawMainMenu, 10);
+}
+*/
+function drawMainMenu() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    menu.style.display = "inLine";
+    //youWin.style.display = "none";
+    //ctx.clearRect(0, 0, canvas.width, canvas.height);
+    drawPlay();
+    drawOptions();
+    alternateMain();
+}
+
+function drawPlay() {
+    ctx.beginPath()
+    ctx.fillStyle = "white";
+    ctx.fillRect(resetBoxLeftX, resetBoxY, resetBoxWidth, resetBoxHeight)
+    ctx.closePath()
+    playCollision();
+}
+
+function drawOptions() {
+    ctx.beginPath()
+    ctx.fillStyle = "white";
+    ctx.fillRect(resetBoxRightX, resetBoxY, resetBoxWidth, resetBoxHeight)
+    ctx.closePath()
+}
+
+
+function playCollision() {
+    if (x2 > resetBoxLeftX && x2 < resetBoxLeftX + resetBoxWidth && y2 > resetBoxY && y2 < resetBoxY + resetBoxHeight) {
+        bulletActive = true;
+        spacePressed = false;
+        y2 = canvas.height - 80;
+        bulletCount = 0;
+        select.currentTime = 0;
+        select.play();
+        mainMenu = false;
+    }
+}
+
+function optionsCollision() {
+    if (x2 > resetBoxRightX && x2 < resetBoxRightX + resetBoxWidth && y2 > resetBoxY && y2 < resetBoxY + resetBoxHeight) {
+        bulletActive = true;
+        spacePressed = false;
+        y2 = canvas.height - 80;
+        bulletCount = 0
+        select.currentTime = 0;
+        select.play();
+        //options = true;
+    }
 }
 
 
@@ -700,6 +817,7 @@ function fire() {
 
 function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    menu.style.display = "none";
     drawInvaders();
     drawBall();
     fire();
@@ -714,14 +832,14 @@ function draw() {
     // stops ball moving too far
     livesImg();
 
-    if (lives <= 0) {
+    if (lives <= 2) {
         clearInterval(game);
-        lose();
+        lose = true;
     }
 
-    if (score >= 1500) {
+    if (score >= 1) {
         clearInterval(game);
-        win();
+        win = true;
     }
 
     if (invaderShot == false) {
