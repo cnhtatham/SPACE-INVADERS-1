@@ -509,11 +509,7 @@ function nextLvlCollision() {
         //nextLvl = true;
         select.currentTime = 0;
         select.play();
-<<<<<<< HEAD
         /*if (level == 1){
-=======
-        if (level == 1) {
->>>>>>> d59d416116961ab4572f0e185c8b543d1c588ffc
             level = 2
         } else if (level == 2) {
             level = 3
@@ -860,11 +856,8 @@ function draw() {
         lose = true;
     }
 
-<<<<<<< HEAD
-    if (score >= 1) {
-=======
+    //if (score >= 1) {
     if (death == 65) {
->>>>>>> d59d416116961ab4572f0e185c8b543d1c588ffc
         clearInterval(game);
         win = true;
     }
