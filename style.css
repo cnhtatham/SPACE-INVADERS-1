@@ -4,6 +4,16 @@
     background: black;
 }
 
+@font-face {
+    font-family: '04b-30';
+    src:url('webfonts_04b-30/04b-30.ttf.woff') format('woff'),
+        url('webfonts_04b-30/04b-30.ttf.svg#04b-30') format('svg'),
+        url('webfonts_04b-30/04b-30.ttf.eot'),
+        url('webfonts_04b-30/04b-30.ttf.eot?#iefix') format('embedded-opentype'); 
+    font-weight: normal;
+    font-style: normal;
+}
+
 /* GAME CANVAS */
 .gameCanvas { 
     background:transparent; 
@@ -36,13 +46,13 @@
 }
 
 .iGTitle {
-    font-family: 'Press Start 2P', cursive;
+    font-family: '04b-30', cursive;
     color: white;
     position: absolute;
-    top: 60px;
+    top: 50px;
     width: 1150px;
     height: auto;
-    font-size: 80px;
+    font-size: 90px;
     left: 50%;
     text-align: center;
     transform: translate(-50%, -50%);
@@ -101,19 +111,31 @@
     position: absolute;
     top: 400px;
     left: 350px;
-    background: blue;
-    height: 60px;
+    height: 45px;
     width: 300px;
+    font-size: 24px;
+    color: white;
+    text-align: center;
+    padding-top: 18px;
+    background: #10d145;
 }
 .menu {
     position: absolute;
     top: 400px;
     left: 786px;
-    background: blue;
-    height: 60px;
+    height: 45px;
     width: 300px;
+    font-size: 24px;
+    color: white;
+    text-align: center;
+    padding-top: 18px;
+    background: #10d145;
 }
 
+.button {
+    background: #10d145;
+
+}
 
 /* ANIMATIONS */
 @keyframes mix {
