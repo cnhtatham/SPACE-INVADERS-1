@@ -66,11 +66,16 @@ var invaderSpeed = 0.5 + (0.1 * level);
 var invaderChange = 0;
 var iShoot = false
 var invaderShot = false;
-var lives = 3   
+var lives = 3
 var boxWidth = 25
 var boxHeight = 15
 var Xinvader;
 var Yinvader;
+var resetBoxHeight = 60;
+var resetBoxWidth = 300;
+var resetBoxY = 297;
+var resetBoxLeftX = 205;
+var resetBoxRightX = 641;
 //These are all the global variables we use throughout the script in multiple functions
 
 function livesImg() {
@@ -90,8 +95,8 @@ function livesImg() {
     }
 }
 //made a function for lives counter to take away ships from the side 
-        //side note
-        //thoughts for a wrecked/exploded ship instead of nothing?
+//side note
+//thoughts for a wrecked/exploded ship instead of nothing?
 
 var Shield1 = []
 var Shield2 = []
@@ -107,7 +112,7 @@ for (d = 0; d < 4; d++) {
             x: 0,
             y: 0,
             status: 4
-        }//assigns an x and y and status variable to our shield array objects
+        } //assigns an x and y and status variable to our shield array objects
 
         if (s == 0) {
             currentShield[s].x = (canvas.width / 5) * (d + 1) - boxWidth
@@ -124,7 +129,7 @@ for (d = 0; d < 4; d++) {
         } else if (s == 4) {
             currentShield[s].x = (canvas.width / 5) * (d + 1) + boxWidth
             currentShield[s].y = canvas.height - 100
-        }//sets the positions for each shield
+        } //sets the positions for each shield
     }
 }
 
@@ -133,7 +138,7 @@ function drawShields() {
         var thisShield = Shields[d]
         for (s = 0; s < 5; s++) { //loops over every shield part
             if (thisShield[s].status == 4) { // checks the status of each shield and draws them in the appropriate
-                ctx.beginPath();             // color at the correct position
+                ctx.beginPath(); // color at the correct position
                 ctx.drawImage(shieldStatus4, thisShield[s].x, thisShield[s].y, boxWidth, boxHeight);
                 ctx.closePath();
             } else if (thisShield[s].status == 3) {
@@ -148,20 +153,20 @@ function drawShields() {
                 ctx.beginPath();
                 ctx.drawImage(shieldStatus1, thisShield[s].x, thisShield[s].y, boxWidth, boxHeight);
                 ctx.closePath();
-            } 
+            }
         }
     }
 }
 
 
 function shipBulletShieldCollision() { //function to check if ship bullet collides with any of the shield parts
-    for (d = 0; d < 4; d++) {          // and takes a point of health away from them and resets your ship bullet
+    for (d = 0; d < 4; d++) { // and takes a point of health away from them and resets your ship bullet
         var thisShield = Shields[d]
         for (s = 0; s < 5; s++) {
             var thisShield = Shields[d]
             if (thisShield[s].status != 0) {
                 if (x2 > thisShield[s].x && x2 < thisShield[s].x + boxWidth && y2 > thisShield[s].y && y2 < thisShield[s].y + boxHeight) {
-                    thisShield[s].status -=1
+                    thisShield[s].status -= 1
                     bulletActive = true;
                     spacePressed = false;
                     y2 = canvas.height - 80;
@@ -173,13 +178,13 @@ function shipBulletShieldCollision() { //function to check if ship bullet collid
 }
 
 function invaderBulletShieldCollision() { //function to check if any of the invader bullets collide with the shields
-    for (d = 0; d < 4; d++) {             //and removes a point of health and resets the invader bullet  
+    for (d = 0; d < 4; d++) { //and removes a point of health and resets the invader bullet  
         var thisShield = Shields[d]
         for (s = 0; s < 5; s++) {
             var thisShield = Shields[d]
             if (thisShield[s].status != 0) {
                 if (Xinvader > thisShield[s].x && Xinvader < thisShield[s].x + boxWidth && Yinvader < thisShield[s].y + boxHeight && Yinvader > thisShield[s].y) {
-                    thisShield[s].status -=1
+                    thisShield[s].status -= 1
                     iShoot = false;
                     iShootCount = 0
                     invaderShot = false;
@@ -320,10 +325,15 @@ function lose() {
 
 function drawGameOver() {
     ctx.clearRect(0, 0, canvas.width, canvas.height)
-    ctx.font = "40px 'Press Start 2P', cursive";
+    ctx.beginPath()
     ctx.fillStyle = "white";
-    ctx.fillText("GAME OVER COCKMUNCHER", 150, 300);
-    alternate();
+    ctx.fillRect(resetBoxLeftX, resetBoxY, resetBoxWidth, resetBoxHeight)
+    ctx.closePath()
+    ctx.beginPath()
+    ctx.fillStyle = "white";
+    ctx.fillRect(resetBoxRightX, resetBoxY, resetBoxWidth, resetBoxHeight)
+    ctx.closePath()
+    alternateLose();
 }
 
 function win() {
@@ -336,18 +346,59 @@ function drawWin() {
     ctx.clearRect(0, 0, canvas.width, canvas.height)
     ctx.beginPath()
     ctx.fillStyle = "white";
-    ctx.fillRect(205, 297 ,300 ,60)
+    ctx.fillRect(resetBoxLeftX, resetBoxY, resetBoxWidth, resetBoxHeight)
     ctx.closePath()
     ctx.beginPath()
     ctx.fillStyle = "white";
-    ctx.fillRect(641, 297 ,300 ,60)
+    ctx.fillRect(resetBoxRightX, resetBoxY, resetBoxWidth, resetBoxHeight)
     ctx.closePath()
-    alternate();
+    alternateWin();
 }
 
-function alternate() {
+function mainMenuCollision() {
+    if (x2 > resetBoxRightX && x2 < resetBoxRightX + resetBoxWidth && y2 > resetBoxY && y2 < resetBoxY + resetBoxHeight) {
+        bulletActive = true;
+        spacePressed = false;
+        y2 = canvas.height - 80;
+        bulletCount = 0
+        //draw mainMenu function here
+    }
+}
+
+function nextLvlCollision() {
+    if (x2 > resetBoxLeftX && x2 < resetBoxLeftX + resetBoxWidth && y2 > resetBoxY && y2 < resetBoxY + resetBoxHeight) {
+        bulletActive = true;
+        spacePressed = false;
+        y2 = canvas.height - 80;
+        bulletCount = 0
+        level += 1
+        //draw nextLvl function here
+    }
+}
+
+function restartCollision() {
+    if (x2 > resetBoxLeftX && x2 < resetBoxLeftX + resetBoxWidth && y2 > resetBoxY && y2 < resetBoxY + resetBoxHeight) {
+        bulletActive = true;
+        spacePressed = false;
+        y2 = canvas.height - 80;
+        bulletCount = 0
+        level = 1
+        //draw restart function here
+    }
+}
+
+function alternateLose() {
     drawBall();
     fire();
+    mainMenuCollision();
+    restartCollision();
+}
+
+function alternateWin() {
+    drawBall();
+    fire();
+    mainMenuCollision();
+    nextLvlCollision();
 }
 
 
@@ -599,10 +650,8 @@ function draw() {
     }
 
     if (iShoot) {
-        Yinvader += 2 + (0.5 * (level-1)); //bullet will travel down the screen
+        Yinvader += 2 + (0.5 * (level - 1)); //bullet will travel down the screen
     }
 
 }
 var game = setInterval(draw, 10)
-
-
