@@ -57,7 +57,7 @@ var spacePressed = false
 var bulletCount = 0
 var bulletActive = false;
 var invaderRowCount = 5;
-var invaderColumnCount = 12;
+var invaderColumnCount = 13;
 var invaderWidth = 42; //individual sizing
 var invaderHeight = 30; //individual sizing
 var invaderPaddingLeft = 14; //between columns
@@ -366,12 +366,12 @@ function sideDetection() {
                 moveLeft = false; //and moves them down a peg and starts moving them left
                 moveRight = true
                 invaderOffsetTop = invaderOffsetTop + 5;
-                invaderSpeed += 0.5;
+                invaderSpeed += 0.02;
             } else if (i.x < 0) {
                 moveLeft = true
                 moveRight = false
                 invaderOffsetTop = invaderOffsetTop + 5;
-                invaderSpeed += 0.5;
+                invaderSpeed += 0.02;
             }
         }
     }
@@ -723,7 +723,7 @@ function draw() {
         lose();
     }
 
-    if (death == 75) {
+    if (death == 65) {
         clearInterval(game);
         win();
     }
