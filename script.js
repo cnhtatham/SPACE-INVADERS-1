@@ -1,7 +1,8 @@
 var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext("2d");
 //Declaing variable to call on our canvas foir drawing all objects
-
+var youWin = document.getElementById("youWin");
+youWin.style.display = "none";
 var ship = document.getElementById("ship");
 ship.style.display = "none";
 var kill = document.getElementById("invaderKilled");
@@ -331,11 +332,12 @@ function win() {
 }
 
 function drawWin() {
+    youWin.style.display = "inLine";
     ctx.clearRect(0, 0, canvas.width, canvas.height)
     ctx.beginPath()
     ctx.font = "40px 'Press Start 2P', cursive";
     ctx.fillStyle = "white";
-    ctx.fillText("YOU WIN FUCK BRAINS", 150, 300);
+    //ctx.fillText("YOU WIN FUCK BRAINS", 150, 300);
     ctx.closePath()
     ctx.beginPath()
     ctx.fillStyle = "white";
@@ -587,7 +589,7 @@ function draw() {
         lose();
     }
 
-    if (score >= 1500) {
+    if (score >= 1) {
         clearInterval(game);
         win();
     }
