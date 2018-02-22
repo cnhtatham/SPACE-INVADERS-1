@@ -17,11 +17,14 @@ var midInvaderB = document.getElementById("midB");
 var highInvaderA = document.getElementById("highA");
 var highInvaderB = document.getElementById("highB");
 
+var redInvader = document.getElementById("red");
+
 var shieldStatus4 = document.getElementById("shieldStatus4");
 var shieldStatus3 = document.getElementById("shieldStatus3");
 var shieldStatus2 = document.getElementById("shieldStatus2");
 var shieldStatus1 = document.getElementById("shieldStatus1");
 
+redInvader.style.display = "none";
 shieldStatus4.style.display = "none";
 shieldStatus3.style.display = "none";
 shieldStatus2.style.display = "none";
@@ -78,6 +81,12 @@ var resetBoxWidth = 300;
 var resetBoxY = 297;
 var resetBoxLeftX = 205;
 var resetBoxRightX = 641;
+var invaderOffsetTop2 = 30;
+var invaderOffsetLeft2 = 1200;
+var redSpeed = 1;
+var go = false;
+var invaderRedX = 0;
+var invaderRedY = 0;
 //These are all the global variables we use throughout the script in multiple functions
 
 function livesImg() {
@@ -280,6 +289,62 @@ function delayMove() {
     invaderOffsetChange = 5;
 }
 
+var redI = {
+    x: 0,
+    y: 0,
+    status: 1,
+    score: 150
+}
+
+function drawRed() {
+    if (redI.status == 1) {
+        redI.x = redInvaderX
+        redI.y = redInvaderY
+        ctx.drawImage(redInvader, redI.x, redI.y, 32, invaderHeight);
+    }
+}
+
+function turnTrue() {
+    invaderOffsetLeft2 = 1200;
+    redInvaderX = 1200;
+    redInvaderY = 30;
+    redI.status = 1
+    go = true;
+}
+setInterval(turnTrue, Math.floor(Math.random() * 10000) + 20000);
+
+function moveRed() {
+    if (go == true) {
+        redInvaderX -= redSpeed;
+    }
+}
+
+function redDetection() {
+    if (go) {
+        if (redI.status == 1) {
+            if (x2 > redInvaderX && x2 < redInvaderX + invaderWidth && y2 > redInvaderY && y2 < redInvaderY + invaderHeight) {
+                explode.play();
+                /*ctx.beginPath();
+                ctx.drawImage(kill, i.x + 10, i.y, 20, 20);
+                ctx.closePath();*/
+                bulletActive = true;
+                spacePressed = false;
+                y2 = canvas.height - 80;
+                bulletCount = 0
+                score += redI.score;
+                go = false;
+                redInvaderX = 1200
+                redInvaderY = 30
+                redI.status = 0
+            } else if (redInvaderX + invaderWidth <= 0) {
+                go = false;
+                redInvaderX = 1200
+                redInvaderY = 30
+            }
+        }
+    }
+}
+
 
 function moveInvaders() { // function that moves the invaders left then right at a rate which is determined
     if (moveLeft == true && moveRight == false) { // by the variable invaderSpeed
@@ -379,7 +444,6 @@ function nextLvlCollision() {
         nextLvl = true;
         select.currentTime = 0;
         select.play();
-
         if (level == 1){
             level = 2
         } else if (level == 2) {
@@ -655,7 +719,7 @@ function draw() {
         lose();
     }
 
-    if (score >= 1) {
+    if (score >= 1500) {
         clearInterval(game);
         win();
     }
@@ -666,6 +730,12 @@ function draw() {
 
     if (iShoot) {
         Yinvader += 2 + (0.5 * (level - 1)); //bullet will travel down the screen
+    }
+
+    if (go) {
+        drawRed();
+        moveRed();
+        redDetection();
     }
 
 }
