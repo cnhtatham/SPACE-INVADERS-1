@@ -584,8 +584,7 @@ function draw() {
 
     if (lives <= 0) {
         clearInterval(game);
-        //lose();
-        GO();
+        lose();
     }
 
     if (score >= 1500) {
