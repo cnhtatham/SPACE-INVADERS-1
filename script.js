@@ -444,7 +444,6 @@ function nextLvlCollision() {
         nextLvl = true;
         select.currentTime = 0;
         select.play();
-
         if (level == 1){
             level = 2
         } else if (level == 2) {
