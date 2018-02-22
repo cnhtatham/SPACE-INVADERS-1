@@ -41,6 +41,9 @@ var explode = document.getElementById("explosion");
 var shot = document.getElementById("fireSound");
 var playerDead = document.getElementById("playerDead");
 var select = document.getElementById("select");
+var moveSound = document.getElementById("faster");
+var rSound = document.getElementById("redSound")
+var rGSound = document.getElementById("redGo")
 //audio variables
 var level = 1
 var nextLvl = false
@@ -88,6 +91,7 @@ var go = false;
 var invaderRedX = 0;
 var invaderRedY = 0;
 var death = 0;
+var soundtouse = 0
 
 //These are all the global variables we use throughout the script in multiple functions
 
@@ -312,6 +316,7 @@ function turnTrue() {
     redInvaderY = 30;
     redI.status = 1
     go = true;
+    rGSound.play();
 }
 setInterval(turnTrue, Math.floor(Math.random() * 10000) + 20000);
 
@@ -325,7 +330,7 @@ function redDetection() {
     if (go) {
         if (redI.status == 1) {
             if (x2 > redInvaderX && x2 < redInvaderX + invaderWidth && y2 > redInvaderY && y2 < redInvaderY + invaderHeight) {
-                explode.play();
+                rSound.play();
                 /*ctx.beginPath();
                 ctx.drawImage(kill, i.x + 10, i.y, 20, 20);
                 ctx.closePath();*/
@@ -347,16 +352,22 @@ function redDetection() {
     }
 }
 
-
 function moveInvaders() { // function that moves the invaders left then right at a rate which is determined
     if (moveLeft == true && moveRight == false) { // by the variable invaderSpeed
         invaderOffsetLeft += invaderSpeed;
+        soundtouse = invaderOffsetLeft;
     } else if (moveLeft == false && moveRight == true) {
         invaderOffsetLeft -= invaderSpeed;
+        soundtouse = invaderOffsetLeft;
     }
 }
 
+function invaderSound() {
+    moveSound.play();
+}
 
+invaderSound();
+setInterval(invaderSound, 600);
 
 function sideDetection() {
     for (c = 0; c < invaderColumnCount; c++) {
@@ -447,7 +458,7 @@ function nextLvlCollision() {
         nextLvl = true;
         select.currentTime = 0;
         select.play();
-        if (level == 1){
+        if (level == 1) {
             level = 2
         } else if (level == 2) {
             level = 3
@@ -586,7 +597,7 @@ function collisionDetection() {
                     y2 = canvas.height - 80;
                     bulletCount = 0
                     score += i.score;
-                    death ++;
+                    death++;
                 }
             }
         }
