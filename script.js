@@ -76,18 +76,21 @@ function livesImg() {
     if (lives === 2) {
         //document.getElementById("life1").style.display = "block";
         //document.getElementById("life2").style.display = "block";
-        document.getElementById("life3").className = "invis";
+        document.getElementById("life3").className = "iGInvis";
         console.log(lives);
     }
     if (lives === 1) {
         //document.getElementById("life1").style.display = "block";
-        document.getElementById("life2").className = "invis";
+        document.getElementById("life2").className = "iGInvis";
         console.log(lives);
     }
     if (lives === 0) {
-        document.getElementById("life1").className = "invis";
+        document.getElementById("life1").className = "iGInvis";
     }
 }
+//made a function for lives counter to take away ships from the side 
+        //side note
+        //thoughts for a wrecked/exploded ship instead of nothing?
 
 var Shield1 = []
 var Shield2 = []
@@ -306,6 +309,8 @@ function change() {
         invaderChange = 0
     }
 }
+setInterval(change, 600)
+//changes the invaders img
 
 function lose() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -316,13 +321,8 @@ function drawGameOver() {
     ctx.clearRect(0, 0, canvas.width, canvas.height)
     ctx.font = "40px 'Press Start 2P', cursive";
     ctx.fillStyle = "white";
-    ctx.fillText("GAME OVER COCKMUNCHER!!", 150, 300);
+    ctx.fillText("GAME OVER", 150, 300); //cockmuncher
     alternate();
-}
-
-function alternate() {
-    drawBall();
-    fire();
 }
 
 function win() {
@@ -343,8 +343,10 @@ function drawWin() {
     alternate();
 }
 
-setInterval(change, 600)
-
+function alternate() {
+    drawBall();
+    fire();
+}
 
 
 function drawInvaders() { //create a 2 day array and paint each invader in it's location
@@ -420,7 +422,8 @@ function drawInvaders() { //create a 2 day array and paint each invader in it's 
             }
             if (invaderY >= canvas.height - 100) {
                 clearInterval();
-                drawGameOver();
+                //lose();
+                GO();
             }
         }
     }
@@ -530,6 +533,15 @@ function invaderShoot() {
     }
 }
 
+var time = 0;
+
+function timer() {
+    time++
+}
+setInterval(timer, 100)
+
+//timer test the active status of canvas... i think...
+
 function drawScore() {
     ctx.font = "16px 'Press Start 2P', cursive";
     ctx.fillStyle = "#0095DD";
@@ -570,10 +582,10 @@ function draw() {
     // stops ball moving too far
     livesImg();
 
-
     if (lives <= 0) {
         clearInterval(game);
-        lose();
+        //lose();
+        GO();
     }
 
     if (score >= 1500) {
@@ -591,3 +603,5 @@ function draw() {
 
 }
 var game = setInterval(draw, 10)
+
+
