@@ -101,25 +101,31 @@
     position: absolute;
     top: 400px;
     left: 350px;
-    height: 60px;
+    height: 45px;
     width: 300px;
     font-size: 24px;
     color: white;
     text-align: center;
     padding-top: 18px;
+    background: #10d145;
 }
 .menu {
     position: absolute;
     top: 400px;
     left: 786px;
-    height: 60px;
+    height: 45px;
     width: 300px;
     font-size: 24px;
     color: white;
     text-align: center;
     padding-top: 18px;
+    background: #10d145;
 }
 
+.button {
+    background: #10d145;
+
+}
 
 /* ANIMATIONS */
 @keyframes mix {

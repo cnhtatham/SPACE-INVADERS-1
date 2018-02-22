@@ -37,6 +37,7 @@ highInvaderB.style.display = "none";
 var explode = document.getElementById("explosion");
 var shot = document.getElementById("fireSound");
 var playerDead = document.getElementById("playerDead");
+var select = document.getElementById("select");
 //audio variables
 var level = 1
 var nextLvl = false
@@ -363,6 +364,8 @@ function mainMenuCollision() {
         spacePressed = false;
         y2 = canvas.height - 80;
         bulletCount = 0
+        select.currentTime = 0;
+        select.play();
         //draw mainMenu function here
     }
 }
@@ -374,6 +377,9 @@ function nextLvlCollision() {
         y2 = canvas.height - 80;
         bulletCount = 0;
         nextLvl = true;
+        select.currentTime = 0;
+        select.play();
+
         if (level == 1){
             level = 2
         } else if (level == 2) {
@@ -389,6 +395,9 @@ function restartCollision() {
         y2 = canvas.height - 80;
         bulletCount = 0
         level = 1
+        select.currentTime = 0;
+        select.play();
+
         //draw restart function here
     }
 }
