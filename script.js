@@ -2,6 +2,11 @@ var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext("2d");
 //Declaing variable to call on our canvas foir drawing all objects
 
+var gameOver = document.getElementById("gameOver");
+var ctxGO = gameOver.getContext("2d");
+gameOver.style.display = "none";
+//alternate to canvas after action
+
 var ship = document.getElementById("ship");
 ship.style.display = "none";
 var kill = document.getElementById("invaderKilled");
@@ -76,18 +81,21 @@ function livesImg() {
     if (lives === 2) {
         //document.getElementById("life1").style.display = "block";
         //document.getElementById("life2").style.display = "block";
-        document.getElementById("life3").className = "invis";
+        document.getElementById("life3").className = "iGInvis";
         console.log(lives);
     }
     if (lives === 1) {
         //document.getElementById("life1").style.display = "block";
-        document.getElementById("life2").className = "invis";
+        document.getElementById("life2").className = "iGInvis";
         console.log(lives);
     }
     if (lives === 0) {
-        document.getElementById("life1").className = "invis";
+        document.getElementById("life1").className = "iGInvis";
     }
 }
+//made a function for lives counter to take away ships from the side 
+        //side note
+        //thoughts for a wrecked/exploded ship instead of nothing?
 
 var Shield1 = []
 var Shield2 = []
@@ -306,23 +314,49 @@ function change() {
         invaderChange = 0
     }
 }
+setInterval(change, 600)
+//changes the invaders img
 
 function lose() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     setInterval(drawGameOver, 10);
 }
 
+function GO() {
+    ctxGO.clearRect(0,0, gameOver.width, gameOver.height);
+    setInterval(drawGameOver, 10)
+    
+}
+
+function drawGameOver() {
+    canvas.style.display = "none";
+    gameOver.style.display = "block";
+    ctxGO.clearRect(0,0, gameOver.width, gameOver.height);
+    //alternate();
+    drawBallGO();
+    fire();
+    console.log(time);
+
+}
+
+/*
 function drawGameOver() {
     ctx.clearRect(0, 0, canvas.width, canvas.height)
     ctx.font = "40px 'Press Start 2P', cursive";
     ctx.fillStyle = "white";
-    ctx.fillText("GAME OVER COCKMUNCHER!!", 150, 300);
+    ctx.fillText("GAME OVER", 150, 300); //cockmuncher
     alternate();
-}
+} */
 
-function alternate() {
-    drawBall();
-    fire();
+function drawBallGO() {
+    ctxGO.beginPath();
+    ctxGO.drawImage(ship, x, y, 60, 60);
+    ctxGO.closePath();
+    if (rightPressed && x < canvas.width - ballRadius || rightPressed && x < ballRadius) {
+        x += 3;
+    } else if (leftPressed && x > 3 || leftPressed && x > ballRadius) {
+        x -= 3;
+    }
 }
 
 function win() {
@@ -334,12 +368,9 @@ function drawWin() {
     ctx.clearRect(0, 0, canvas.width, canvas.height)
     ctx.font = "40px 'Press Start 2P', cursive";
     ctx.fillStyle = "white";
-    ctx.fillText("YOU WIN FUCK BRAINS", 150, 300);
+    ctx.fillText("YOU WIN", 150, 300); //fuck brains
     alternate();
 }
-
-setInterval(change, 600)
-
 
 
 function drawInvaders() { //create a 2 day array and paint each invader in it's location
@@ -415,7 +446,8 @@ function drawInvaders() { //create a 2 day array and paint each invader in it's 
             }
             if (invaderY >= canvas.height - 100) {
                 clearInterval();
-                drawGameOver();
+                //lose();
+                GO();
             }
         }
     }
@@ -525,6 +557,15 @@ function invaderShoot() {
     }
 }
 
+var time = 0;
+
+function timer() {
+    time++
+}
+setInterval(timer, 100)
+
+//timer test the active status of canvas... i think...
+
 function drawScore() {
     ctx.font = "16px 'Press Start 2P', cursive";
     ctx.fillStyle = "#0095DD";
@@ -564,11 +605,12 @@ function draw() {
     invaderBulletShieldCollision()
     // stops ball moving too far
     livesImg();
-
+    console.log(time);
 
     if (lives <= 0) {
         clearInterval(game);
-        lose();
+        //lose();
+        GO();
     }
 
     if (score >= 1500) {
@@ -586,3 +628,5 @@ function draw() {
 
 }
 var game = setInterval(draw, 10)
+
+

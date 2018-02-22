@@ -4,33 +4,18 @@
     background: black;
 }
 
-canvas { 
+/* GAME CANVAS */
+.gameCanvas { 
     background:transparent; 
     display: block; 
     margin: 0 auto; 
     margin-top: 100px;
-    border: 5px solid #9b59b6;
+    border: 3px solid #10d145;
     border-radius: 4px;
-    animation: mix 10s linear infinite alternate;
+    
 }
 
-@keyframes mix {
-    0% {border-color: #9b59b6}
-    20% {border-color: pink}
-    40% {border-color: yellow}
-    60% {border-color: green}
-    80% {border-color: cyan}
-    100% {border-color: blue}
-}
-
-.canvas2 {
-    background: transparent;
-    display: block;
-    margin: 0 auto; 
-    margin-top: 100px;
-}
-
-.lifeContainer {
+.iGLifeContainer {
     position: absolute;
     top: 74px;
     left: 92%;
@@ -39,18 +24,18 @@ canvas {
     height: auto;
 }
 
-.ship {
+.iGShip {
     height: 60px;
     width: 60px;
 }
 
-.invis {
+.iGInvis {
     height: 60px;
     width: 60px;
     visibility: hidden;
 }
 
-.title {
+.iGTitle {
     font-family: 'Press Start 2P', cursive;
     color: white;
     position: absolute;
@@ -61,4 +46,43 @@ canvas {
     left: 50%;
     text-align: center;
     transform: translate(-50%, -50%);
+}
+
+.gameOverCanvas {
+    background:transparent; 
+    display: block; 
+    margin: 0 auto; 
+    margin-top: 100px;
+    border: 3px solid red;
+    border-radius: 4px;
+}
+
+/* MENU CANVAS  */
+.menuCanvas {
+
+    animation: mix 10s linear infinite alternate;
+}
+
+
+/* 
+.vsCanvas {
+
+}
+*/
+
+.canvas2 {
+    background: transparent;
+    display: block;
+    margin: 0 auto; 
+    margin-top: 100px;
+}
+
+/* ANIMATIONS */
+@keyframes mix {
+    0% {border-color: #9b59b6}
+    20% {border-color: pink}
+    40% {border-color: yellow}
+    60% {border-color: #10d145}
+    80% {border-color: cyan}
+    100% {border-color: blue}
 }
