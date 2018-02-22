@@ -57,7 +57,7 @@ var spacePressed = false
 var bulletCount = 0
 var bulletActive = false;
 var invaderRowCount = 5;
-var invaderColumnCount = 15;
+var invaderColumnCount = 12;
 var invaderWidth = 42; //individual sizing
 var invaderHeight = 30; //individual sizing
 var invaderPaddingLeft = 14; //between columns
@@ -365,12 +365,13 @@ function sideDetection() {
             if (i.x + invaderWidth > canvas.width) { //Checks to see if any invader has reached the right wall 
                 moveLeft = false; //and moves them down a peg and starts moving them left
                 moveRight = true
-                invaderOffsetTop = invaderOffsetTop + 1;
+                invaderOffsetTop = invaderOffsetTop + 5;
+                invaderSpeed += 0.5;
             } else if (i.x < 0) {
                 moveLeft = true
                 moveRight = false
-                invaderOffsetTop = invaderOffsetTop + 1;
-                //invaderSpeed += 0.01;
+                invaderOffsetTop = invaderOffsetTop + 5;
+                invaderSpeed += 0.5;
             }
         }
     }
