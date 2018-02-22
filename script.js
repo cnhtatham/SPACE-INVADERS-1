@@ -87,6 +87,8 @@ var redSpeed = 1;
 var go = false;
 var invaderRedX = 0;
 var invaderRedY = 0;
+var death = 0;
+
 //These are all the global variables we use throughout the script in multiple functions
 
 function livesImg() {
@@ -583,6 +585,7 @@ function collisionDetection() {
                     y2 = canvas.height - 80;
                     bulletCount = 0
                     score += i.score;
+                    death ++;
                 }
             }
         }
@@ -719,7 +722,7 @@ function draw() {
         lose();
     }
 
-    if (score >= 1500) {
+    if (death == 75) {
         clearInterval(game);
         win();
     }
