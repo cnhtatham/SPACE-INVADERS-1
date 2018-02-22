@@ -39,6 +39,7 @@ var shot = document.getElementById("fireSound");
 var playerDead = document.getElementById("playerDead");
 //audio variables
 var level = 1
+var nextLvl = false
 var x = canvas.width / 2 - 26;
 var y = canvas.height - 70;
 var x2 = x2
@@ -336,9 +337,10 @@ function drawGameOver() {
     alternateLose();
 }
 
+
 function win() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    setInterval(drawWin, 10);
+    var winInterval = setInterval(drawWin, 10);
 }
 
 function drawWin() {
@@ -370,9 +372,13 @@ function nextLvlCollision() {
         bulletActive = true;
         spacePressed = false;
         y2 = canvas.height - 80;
-        bulletCount = 0
-        level += 1
-        //draw nextLvl function here
+        bulletCount = 0;
+        nextLvl = true;
+        if (level == 1){
+            level = 2
+        } else if (level == 2) {
+            level = 3
+        }
     }
 }
 
