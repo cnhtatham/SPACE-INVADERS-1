@@ -2,14 +2,6 @@ var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext("2d");
 //Declaing variable to call on our canvas foir drawing all objects
 
-var gameOver = document.getElementById("gameOver");
-var ctxGO = gameOver.getContext("2d");
-gameOver.style.display = "none";
-
-var alt = document.getElementById("alt1");
-alt.style.display = "none"
-//alternate to canvas after action
-
 var ship = document.getElementById("ship");
 ship.style.display = "none";
 var kill = document.getElementById("invaderKilled");
@@ -73,7 +65,7 @@ var invaderSpeed = 0.5;
 var invaderChange = 0;
 var iShoot = false
 var invaderShot = false;
-var lives = 1   
+var lives = 3   
 var boxWidth = 25
 var boxHeight = 15
 var Xinvader;
@@ -325,42 +317,12 @@ function lose() {
     setInterval(drawGameOver, 10);
 }
 
-function GO() {
-    //ctxGO.clearRect(0,0, gameOver.width, gameOver.height);
-    //setInterval(drawGameOver, 10)
-    canvas.style.display = "none";
-    alt.style.display = "block";
-}
-
-function drawGameOver() {
-    canvas.style.display = "none";
-    alt.style.display = "block";
-    ctxGO.clearRect(0,0, gameOver.width, gameOver.height);
-    //alternate();
-    drawBallGO();
-    fire();
-    console.log(time);
-
-}
-
-/*
 function drawGameOver() {
     ctx.clearRect(0, 0, canvas.width, canvas.height)
     ctx.font = "40px 'Press Start 2P', cursive";
     ctx.fillStyle = "white";
     ctx.fillText("GAME OVER", 150, 300); //cockmuncher
     alternate();
-} */
-
-function drawBallGO() {
-    ctxGO.beginPath();
-    ctxGO.drawImage(ship, x, y, 60, 60);
-    ctxGO.closePath();
-    if (rightPressed && x < canvas.width - ballRadius || rightPressed && x < ballRadius) {
-        x += 3;
-    } else if (leftPressed && x > 3 || leftPressed && x > ballRadius) {
-        x -= 3;
-    }
 }
 
 function win() {
@@ -374,6 +336,11 @@ function drawWin() {
     ctx.fillStyle = "white";
     ctx.fillText("YOU WIN", 150, 300); //fuck brains
     alternate();
+}
+
+function alternate() {
+    drawBall();
+    fire();
 }
 
 
@@ -609,7 +576,6 @@ function draw() {
     invaderBulletShieldCollision()
     // stops ball moving too far
     livesImg();
-    console.log(time);
 
     if (lives <= 0) {
         clearInterval(game);
