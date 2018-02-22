@@ -37,7 +37,7 @@ var explode = document.getElementById("explosion");
 var shot = document.getElementById("fireSound");
 var playerDead = document.getElementById("playerDead");
 //audio variables
-
+var level = 1
 var x = canvas.width / 2 - 26;
 var y = canvas.height - 70;
 var x2 = x2
@@ -61,7 +61,7 @@ var invaderOffsetLeft = 30;
 var score = 0;
 var moveLeft = true;
 var moveRight = false;
-var invaderSpeed = 0.5;
+var invaderSpeed = 0.5 + (0.1 * level);
 var invaderChange = 0;
 var iShoot = false
 var invaderShot = false;
@@ -332,9 +332,14 @@ function win() {
 
 function drawWin() {
     ctx.clearRect(0, 0, canvas.width, canvas.height)
+    ctx.beginPath()
     ctx.font = "40px 'Press Start 2P', cursive";
     ctx.fillStyle = "white";
     ctx.fillText("YOU WIN FUCK BRAINS", 150, 300);
+    ctx.closePath()
+    ctx.beginPath()
+    ctx.fillStyle = "white";
+    ctx.closePath()
     alternate();
 }
 
@@ -581,7 +586,7 @@ function draw() {
     }
 
     if (iShoot) {
-        Yinvader += 2; //bullet will travel down the screen
+        Yinvader += 2 + (0.5 * (level-1)); //bullet will travel down the screen
     }
 
 }
