@@ -5,6 +5,9 @@ var ctx = canvas.getContext("2d");
 var gameOver = document.getElementById("gameOver");
 var ctxGO = gameOver.getContext("2d");
 gameOver.style.display = "none";
+
+var alt = document.getElementById("alt1");
+alt.style.display = "none"
 //alternate to canvas after action
 
 var ship = document.getElementById("ship");
@@ -70,7 +73,7 @@ var invaderSpeed = 0.5;
 var invaderChange = 0;
 var iShoot = false
 var invaderShot = false;
-var lives = 3   
+var lives = 1   
 var boxWidth = 25
 var boxHeight = 15
 var Xinvader;
@@ -323,14 +326,15 @@ function lose() {
 }
 
 function GO() {
-    ctxGO.clearRect(0,0, gameOver.width, gameOver.height);
-    setInterval(drawGameOver, 10)
-    
+    //ctxGO.clearRect(0,0, gameOver.width, gameOver.height);
+    //setInterval(drawGameOver, 10)
+    canvas.style.display = "none";
+    alt.style.display = "block";
 }
 
 function drawGameOver() {
     canvas.style.display = "none";
-    gameOver.style.display = "block";
+    alt.style.display = "block";
     ctxGO.clearRect(0,0, gameOver.width, gameOver.height);
     //alternate();
     drawBallGO();

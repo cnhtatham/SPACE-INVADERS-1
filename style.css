@@ -63,7 +63,20 @@
     animation: mix 10s linear infinite alternate;
 }
 
+.playerContainer {
+    background:transparent; 
+    display: block; 
+    margin: 0 auto; 
+    margin-top: 100px;
+    border: 3px solid red;
+    border-radius: 4px;
+    width: 1150px;
+    height: 700px;
+}
 
+.ALTtitle {
+    color: white;
+}
 /* 
 .vsCanvas {
 
