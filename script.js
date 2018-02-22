@@ -321,7 +321,7 @@ function drawGameOver() {
     ctx.clearRect(0, 0, canvas.width, canvas.height)
     ctx.font = "40px 'Press Start 2P', cursive";
     ctx.fillStyle = "white";
-    ctx.fillText("GAME OVER", 150, 300); //cockmuncher
+    ctx.fillText("GAME OVER COCKMUNCHER", 150, 300);
     alternate();
 }
 
@@ -423,7 +423,7 @@ function drawInvaders() { //create a 2 day array and paint each invader in it's 
             if (invaderY >= canvas.height - 100) {
                 clearInterval();
                 //lose();
-                GO();
+                lose();
             }
         }
     }
