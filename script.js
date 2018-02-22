@@ -44,6 +44,8 @@ var select = document.getElementById("select");
 var moveSound = document.getElementById("faster");
 var rSound = document.getElementById("redSound")
 var rGSound = document.getElementById("redGo")
+var laser = document.getElementById("invaderlaser")
+
 //audio variables
 var level = 1
 var nextLvl = false
@@ -92,6 +94,7 @@ var invaderRedX = 0;
 var invaderRedY = 0;
 var death = 0;
 var soundtouse = 0
+var invaderBulletCount = 0;
 
 //These are all the global variables we use throughout the script in multiple functions
 
@@ -100,12 +103,10 @@ function livesImg() {
         //document.getElementById("life1").style.display = "block";
         //document.getElementById("life2").style.display = "block";
         document.getElementById("life3").className = "iGInvis";
-        console.log(lives);
     }
     if (lives === 1) {
         //document.getElementById("life1").style.display = "block";
         document.getElementById("life2").className = "iGInvis";
-        console.log(lives);
     }
     if (lives === 0) {
         document.getElementById("life1").className = "iGInvis";
@@ -362,13 +363,6 @@ function moveInvaders() { // function that moves the invaders left then right at
     }
 }
 
-function invaderSound() {
-    moveSound.play();
-}
-
-invaderSound();
-setInterval(invaderSound, 600);
-
 function sideDetection() {
     for (c = 0; c < invaderColumnCount; c++) {
         for (r = 0; r < invaderRowCount; r++) { //loops over each invader in our 2d array
@@ -378,11 +372,14 @@ function sideDetection() {
                 moveRight = true
                 invaderOffsetTop = invaderOffsetTop + 5;
                 invaderSpeed += 0.02;
+                soundChangespeed = 300;
+                console.log(soundChangespeed)
             } else if (i.x < 0) {
                 moveLeft = true
                 moveRight = false
                 invaderOffsetTop = invaderOffsetTop + 5;
                 invaderSpeed += 0.02;
+                soundChangespeed = 300;
             }
         }
     }
@@ -392,11 +389,15 @@ function sideDetection() {
 function change() {
     if (invaderChange == 0) {
         invaderChange = 1
+        moveSound.play();
     } else if (invaderChange == 1) {
         invaderChange = 0
+        moveSound.play();
     }
 }
-setInterval(change, 600)
+
+var soundChangespeed = 1000
+setInterval(change, soundChangespeed)
 //changes the invaders img
 
 function lose() {
@@ -659,6 +660,7 @@ function selectRandom() {
 
 function invaderShoot() {
     if (iShoot) {
+        invaderBulletCount ++;
         ctx.beginPath();
         ctx.rect(Xinvader, Yinvader - 25, 3, 15);
         ctx.fillStyle = "white"
@@ -672,10 +674,12 @@ function invaderShoot() {
             playerDead.play();
             x = canvas.width / 2 - 26;
             y = canvas.height - 70;
+            invaderBulletCount = 0
         } else if (Yinvader > canvas.height) {
             iShoot = false;
             iShootCount = 0
             invaderShot = false;
+            invaderBulletCount = 0
         }
     }
 }
@@ -745,6 +749,9 @@ function draw() {
 
     if (iShoot) {
         Yinvader += 2 + (0.5 * (level - 1)); //bullet will travel down the screen
+        if (invaderBulletCount == 1) {
+            laser.play();
+        }
     }
 
     if (go) {
