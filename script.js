@@ -325,9 +325,14 @@ function lose() {
 
 function drawGameOver() {
     ctx.clearRect(0, 0, canvas.width, canvas.height)
-    ctx.font = "40px 'Press Start 2P', cursive";
+    ctx.beginPath()
     ctx.fillStyle = "white";
-    ctx.fillText("GAME OVER COCKMUNCHER", 150, 300);
+    ctx.fillRect(resetBoxLeftX, resetBoxY, resetBoxWidth, resetBoxHeight)
+    ctx.closePath()
+    ctx.beginPath()
+    ctx.fillStyle = "white";
+    ctx.fillRect(resetBoxRightX, resetBoxY, resetBoxWidth, resetBoxHeight)
+    ctx.closePath()
     alternateLose();
 }
 
