@@ -335,12 +335,12 @@ function drawWin() {
     youWin.style.display = "inLine";
     ctx.clearRect(0, 0, canvas.width, canvas.height)
     ctx.beginPath()
-    ctx.font = "40px 'Press Start 2P', cursive";
     ctx.fillStyle = "white";
-    //ctx.fillText("YOU WIN FUCK BRAINS", 150, 300);
+    ctx.fillRect(205, 297 ,300 ,60)
     ctx.closePath()
     ctx.beginPath()
     ctx.fillStyle = "white";
+    ctx.fillRect(641, 297 ,300 ,60)
     ctx.closePath()
     alternate();
 }
