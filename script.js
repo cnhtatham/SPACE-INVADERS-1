@@ -367,10 +367,8 @@ function redDetection() {
 function moveInvaders() { // function that moves the invaders left then right at a rate which is determined
     if (moveLeft == true && moveRight == false) { // by the variable invaderSpeed
         invaderOffsetLeft += invaderSpeed;
-        soundtouse = invaderOffsetLeft;
     } else if (moveLeft == false && moveRight == true) {
         invaderOffsetLeft -= invaderSpeed;
-        soundtouse = invaderOffsetLeft;
     }
 }
 
@@ -381,16 +379,17 @@ function sideDetection() {
             if (i.x + invaderWidth > canvas.width) { //Checks to see if any invader has reached the right wall 
                 moveLeft = false; //and moves them down a peg and starts moving them left
                 moveRight = true
-                invaderOffsetTop = invaderOffsetTop + 5;
-                invaderSpeed += 0.02;
-                soundChangespeed = 300;
-                console.log(soundChangespeed)
+                if (invaderOffsetTop < 390) {
+                    invaderOffsetTop = invaderOffsetTop + 5;
+                    invaderSpeed += 0.02;
+                }
             } else if (i.x < 0) {
                 moveLeft = true
                 moveRight = false
-                invaderOffsetTop = invaderOffsetTop + 5;
-                invaderSpeed += 0.02;
-                soundChangespeed = 300;
+                if (invaderOffsetTop < 390) {
+                    invaderOffsetTop = invaderOffsetTop + 5;
+                    invaderSpeed += 0.02;
+                }
             }
         }
     }
@@ -401,21 +400,33 @@ function change() {
     if (invaderChange == 0) {
         invaderChange = 1
         moveSound.play();
+        if (soundChangespeed > 240) {
+            soundChangespeed -= 20;
+            setTimeout(change, soundChangespeed);
+        } else {
+            setTimeout(change, soundChangespeed);
+        }
     } else if (invaderChange == 1) {
         invaderChange = 0
         moveSound.play();
+        if (soundChangespeed > 240) {
+            soundChangespeed -= 20;
+            setTimeout(change, soundChangespeed);
+        } else {
+            setTimeout(change, soundChangespeed);
+        }
     }
 }
 
-var soundChangespeed = 1000
-setInterval(change, soundChangespeed)
+var soundChangespeed = 1500;
+var Interval = setTimeout(change, soundChangespeed);
 //changes the invaders img
 
 function result() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     clearInterval(draw);
     if (win == true) {
-        drawWin(); 
+        drawWin();
         if (mainMenu == true) {
             drawMainMenu();
             youWin.style.display = "none";
@@ -440,8 +451,6 @@ function result() {
     }
 }
 
-setInterval(result, 10);
-
 function drawLose() {
     youLose.style.display = "inLine";
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -449,7 +458,7 @@ function drawLose() {
     drawMMbox();
     alternateLose();
     console.log(mainMenu)
-} 
+}
 
 function drawWin() {
     youWin.style.display = "inLine";
@@ -717,6 +726,17 @@ function collisionDetection() {
                     score += i.score;
                     death++;
                 }
+                for (d = 0; d < 4; d++) {
+                    var thisShield = Shields[d]
+                    for (s = 0; s < 5; s++) {
+                        var thisShield = Shields[d]
+                        if (thisShield[s].status != 0) {
+                            if (i.x > thisShield[s].x && i.x < thisShield[s].x + boxWidth && i.y - 30 < thisShield[s].y + boxHeight && i.y > thisShield[s].y - 30) {
+                                thisShield[s].status = 0
+                            }
+                        }
+                    }
+                }
             }
         }
     }
@@ -777,7 +797,7 @@ function selectRandom() {
 
 function invaderShoot() {
     if (iShoot) {
-        invaderBulletCount ++;
+        invaderBulletCount++;
         ctx.beginPath();
         ctx.rect(Xinvader, Yinvader - 25, 3, 15);
         ctx.fillStyle = "white"
@@ -854,12 +874,14 @@ function draw() {
     if (lives <= 2) {
         clearInterval(game);
         lose = true;
+        result();
     }
 
     //if (score >= 1) {
     if (death == 65) {
         clearInterval(game);
         win = true;
+        result();
     }
 
     if (invaderShot == false) {
@@ -868,9 +890,9 @@ function draw() {
 
     if (iShoot) {
         Yinvader += 2 + (0.5 * (level - 1)); //bullet will travel down the screen
-        if (invaderBulletCount == 1) {
-            laser.play();
-        }
+        /* if (invaderBulletCount == 1) {
+             laser.play();
+         } */
     }
 
     if (go) {
