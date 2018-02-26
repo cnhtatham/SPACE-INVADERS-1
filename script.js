@@ -526,6 +526,8 @@ function drawRbox() {
 }
 */
 
+var start = true;
+
 function mainMenuCollision() {
     if (winActive == true || loseActive == true) {
         if (x2 > resetBoxRightX && x2 < resetBoxRightX + resetBoxWidth && y2 > resetBoxY && y2 < resetBoxY + resetBoxHeight) {
@@ -643,6 +645,12 @@ function playCollision() {
         select.play();
         play ++;
         console.log(play)
+        clearInterval(result)
+        clearInterval(alt)
+        win = false;
+        lose = false;
+        start = true;
+        menu.style.display = "none";
     }
 }
 
@@ -895,6 +903,7 @@ function fire() {
 }
 
 function draw() {
+    if (start = true) {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     //menu.style.display = "none";
     drawInvaders();
@@ -941,5 +950,5 @@ function draw() {
         redDetection();
     }
 }
-
+}
     var game = setInterval(draw, 10) 
