@@ -332,7 +332,7 @@ function turnTrue() {
     go = true;
     rGSound.play();
 }
-setInterval(turnTrue, Math.floor(Math.random() * 10000) + 20000);
+var trueInterval = setInterval(turnTrue, Math.floor(Math.random() * 10000) + 20000);
 
 function moveRed() {
     if (go == true) {
@@ -429,7 +429,11 @@ function result() {
     clearInterval(draw);
     if (win == true) {
         drawWin(); 
+        go = false;
+        window.turnTrue;
+        invaderChange = 3;
         winActive = true;
+        clearInterval(trueInterval);
         if (mainMenu == true) {
             drawMainMenu();
             winActive = false;
@@ -437,8 +441,12 @@ function result() {
             
         }
     } else if (lose == true) {
+        go = false;
+        window.turnTrue;
+        invaderChange = 3;
         drawLose();
         loseActive = true;
+        clearInterval(trueInterval);
         if (mainMenu == true) {
             drawMainMenu();
             loseActive = false;
@@ -593,9 +601,6 @@ function alternateMain() {
     drawBall();
     fire();
 }
-
-
-
 
 /*
 function goMainMenu() {
