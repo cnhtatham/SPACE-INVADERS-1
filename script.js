@@ -870,7 +870,6 @@ function draw() {
         if (lives <= 2) {
             start = false;
             lose = true;
-            invaderChange = 3;
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             result();
         }
@@ -878,7 +877,6 @@ function draw() {
         if (death == 10) {
             win = true;
             start = false;
-            invaderChange = 3;
             ctx.clearRect(0, 0, canvas.width, canvas.height);   
             result();
         }
