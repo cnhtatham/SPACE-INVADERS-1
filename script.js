@@ -114,17 +114,25 @@ var invaderBulletCount = 0;
 //These are all the global variables we use throughout the script in multiple functions
 
 function livesImg() {
+    if (lives === 3) {
+        document.getElementById("life1").className = "iGShip";
+        document.getElementById("life2").className = "iGShip";
+        document.getElementById("life3").className = "iGShip";
+    }
     if (lives === 2) {
-        //document.getElementById("life1").style.display = "block";
-        //document.getElementById("life2").style.display = "block";
+        document.getElementById("life1").className = "iGShip";
+        document.getElementById("life2").className = "iGShip";
         document.getElementById("life3").className = "iGInvis";
     }
     if (lives === 1) {
-        //document.getElementById("life1").style.display = "block";
+        document.getElementById("life1").className = "iGShip";
         document.getElementById("life2").className = "iGInvis";
+        document.getElementById("life3").className = "iGInvis";
     }
     if (lives === 0) {
         document.getElementById("life1").className = "iGInvis";
+        document.getElementById("life2").className = "iGInvis";
+        document.getElementById("life3").className = "iGInvis";
     }
 }
 //made a function for lives counter to take away ships from the side 
@@ -774,6 +782,9 @@ function nextLvlCollision() {
         lose = false
         win = false;
         console.log(level)
+        if (lives < 3) {
+            lives++
+        }
     }
 }
 
@@ -872,10 +883,10 @@ function drawScore() {
     ctx.fillText("Score: " + score, 8, 20);
 }
 
-function drawLives() {
+function drawLevel() {
     ctx.font = "16px 'Press Start 2P', cursive";
     ctx.fillStyle = "#0095DD";
-    ctx.fillText("LIVES: " + lives, 1000, 20);
+    ctx.fillText("LEVEL: " + level, 1000, 20);
 }
 
 function draw() {
@@ -885,7 +896,7 @@ function draw() {
         drawShip();
         fire();
         drawScore();
-        drawLives();
+        drawLevel();
         collisionDetection();
         sideDetection();
         invaderShoot();
@@ -893,6 +904,7 @@ function draw() {
         shipBulletShieldCollision();
         invaderBulletShieldCollision()
         livesImg();
+        console.log(lives);
 
         if (lives <= 0) {
             start = false;
@@ -901,7 +913,7 @@ function draw() {
             result();
         }
 
-        if (death == 65) {
+        if (death == 1) {
             win = true;
             start = false;
             ctx.clearRect(0, 0, canvas.width, canvas.height);
