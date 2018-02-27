@@ -78,7 +78,9 @@ var move4 = document.getElementById("move4");
 
 
 //audio variables
-var insult = ["LANDLOVER", "COCKMUNCHER", "DOUCHENOZZLE", "WANKER", "SHITHEAD", "SON OF A BITCH", "IMBECILE", "SALAMI SMOKER", "ASSCLOWN", "FUCKFACE", "COCK JOCKEY", "CUM DUMPSTER", "TWAT WAFFLE", "COCK GOBBLER", "PIG FUCKER", "FANNY BANDIT", "FUCKTARD", "IDIOT SANDWHICH", "YOU FUCKING DONKEY"];
+var insult = ["LANDLOVER", "COCKMUNCHER", "DOUCHENOZZLE", "WANKER", "SHITHEAD", "SON OF A BITCH", "IMBECILE"
+,"SALAMI SMOKER", "ASSCLOWN", "FUCKFACE", "COCK JOCKEY", "CUM DUMPSTER", "TWAT WAFFLE", "COCK GOBBLER"
+, "PIG FUCKER", "FANNY BANDIT", "FUCKTARD", "IDIOT SANDWHICH", "YOU FUCKING DONKEY", "PENIS BREATH"];
 var insultNo = Math.floor(Math.random() * insult.length);
 var gameStart = false;
 var start = true;
@@ -124,10 +126,10 @@ var boxHeight = 15
 var Xinvader;
 var Yinvader;
 var resetBoxHeight = 60;
-var resetBoxWidth = 300;
+var resetBoxWidth = 295;
 var resetBoxY = 297;
-var resetBoxLeftX = 205;
-var resetBoxRightX = 641;
+var resetBoxLeftX = 212;
+var resetBoxRightX = 648;
 var invaderOffsetTop2 = 30;
 var invaderOffsetLeft2 = 1200;
 var redSpeed = 1;
@@ -586,7 +588,7 @@ function change() {
 
     if (invaderChange == 0) {
         invaderChange = 1
-        changeCount ++
+        changeCount++
         console.log(changeCount);
 
         if (changeCount == 0) {
@@ -608,7 +610,7 @@ function change() {
         }
     } else if (invaderChange == 1) {
         invaderChange = 0
-        changeCount ++
+        changeCount++
         console.log(changeCount);
         if (changeCount == 0) {
             move1.play();
@@ -666,8 +668,8 @@ function turnTrue() {
     rGSound.play();
 }
 
-if(start == true) {
-setInterval(turnTrue, Math.floor(Math.random() * 10000) + 20000);
+if (start == true) {
+    setInterval(turnTrue, Math.floor(Math.random() * 10000) + 20000);
 }
 
 function moveRed() {
@@ -809,7 +811,7 @@ function result() {
         invaderOffsetTop = 50;
         score = 0;
         death = 0;
-        moveLeft = true;  
+        moveLeft = true;
         moveRight = false;
         invaderSpeed = 0.5 + (0.1 * level);
         if (mainMenu == true) {
@@ -1019,7 +1021,7 @@ function draw() {
         livesImg();
         drawDeath();
         console.log(lives);
-        
+
         if (lives <= 0) {
             start = false;
             lose = true;
@@ -1058,12 +1060,12 @@ function draw() {
 
 function startMenuDraw() {
     if (gameStart == false) {
-    drawMainMenu();
-    drawShip();
-    fire();
-    playCollision();
-    optionsCollision();
-    console.log(gameStart)
+        drawMainMenu();
+        drawShip();
+        fire();
+        playCollision();
+        optionsCollision();
+        console.log(gameStart)
     } else if (gameStart == true) {
         clearInterval(mmenu);
         ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -1071,6 +1073,6 @@ function startMenuDraw() {
     }
 }
 
-if(gameStart == false) {
+if (gameStart == false) {
     var mmenu = setInterval(startMenuDraw, 10);
 }
