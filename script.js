@@ -261,65 +261,6 @@ function delayMove() {
     invaderOffsetChange = 5;
 }
 
-<<<<<<< HEAD
-=======
-var redI = {
-    x: 0,
-    y: 0,
-    status: 1,
-    score: 150
-}
-
-function drawRed() {
-    if (redI.status == 1) {
-        redI.x = redInvaderX
-        redI.y = redInvaderY
-        ctx.drawImage(redInvader, redI.x, redI.y, 32, invaderHeight);
-    }
-}
-
-function turnTrue() {
-    invaderOffsetLeft2 = 1200;
-    redInvaderX = 1200;
-    redInvaderY = 30;
-    redI.status = 1
-    go = true;
-    rGSound.play();
-}
-var trueInterval = setInterval(turnTrue, Math.floor(Math.random() * 10000) + 20000);
-
-function moveRed() {
-    if (go == true) {
-        redInvaderX -= redSpeed;
-    }
-}
-
-function redDetection() {
-    if (go) {
-        if (redI.status == 1) {
-            if (x2 > redInvaderX && x2 < redInvaderX + invaderWidth && y2 > redInvaderY && y2 < redInvaderY + invaderHeight) {
-                rSound.play();
-                /*ctx.beginPath();
-                ctx.drawImage(kill, i.x + 10, i.y, 20, 20);
-                ctx.closePath();*/
-                bulletActive = true;
-                spacePressed = false;
-                y2 = canvas.height - 80;
-                bulletCount = 0
-                score += redI.score;
-                go = false;
-                redInvaderX = 1200
-                redInvaderY = 30
-                redI.status = 0
-            } else if (redInvaderX + invaderWidth <= 0) {
-                go = false;
-                redInvaderX = 1200
-                redInvaderY = 30
-            }
-        }
-    }
-}
->>>>>>> 5c912e56d96a63d6618ffbce9a668945036a60ed
 
 function moveInvaders() { // function that moves the invaders left then right at a rate which is determined
     if (moveLeft == true && moveRight == false) { // by the variable invaderSpeed
@@ -378,7 +319,6 @@ function drawInvaders() { //create a 2 day array and paint each invader in it's 
         }
     }
 
-<<<<<<< HEAD
     function switchLow() {
         if (invaderChange == 0) {
             ctx.drawImage(lowInvaderA, invaderX, invaderY, invaderWidth, invaderHeight);
@@ -430,35 +370,6 @@ function drawInvaders() { //create a 2 day array and paint each invader in it's 
                 //lose();
                 lose();
             }
-=======
-function result() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    clearInterval(draw);
-    if (win == true) {
-        drawWin(); 
-        go = false;
-        window.turnTrue;
-        invaderChange = 3;
-        winActive = true;
-        clearInterval(trueInterval);
-        if (mainMenu == true) {
-            drawMainMenu();
-            winActive = false;
-            youWin.style.display = "none";
-            
-        }
-    } else if (lose == true) {
-        go = false;
-        window.turnTrue;
-        invaderChange = 3;
-        drawLose();
-        loseActive = true;
-        clearInterval(trueInterval);
-        if (mainMenu == true) {
-            drawMainMenu();
-            loseActive = false;
-            youLose.style.display = "none";
->>>>>>> 5c912e56d96a63d6618ffbce9a668945036a60ed
         }
     }
 }
@@ -859,37 +770,6 @@ function restartCollision() {
     }
 }
 
-<<<<<<< HEAD
-=======
-function alternateLose() {
-    drawBall();
-    fire();
-    //drawMMbox();
-    //mainMenuCollision();
-    //restartCollision();
-}
-
-function alternateWin() {
-    drawBall();
-    fire();
-    //mainMenuCollision();
-    //nextLvlCollision();
-    //drawMMbox();
-    //drawNLbox();
-}
-
-function alternateMain() {
-    drawBall();
-    fire();
-}
-
-/*
-function goMainMenu() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    setInterval(drawMainMenu, 10);
-}
-*/
->>>>>>> 5c912e56d96a63d6618ffbce9a668945036a60ed
 function drawMainMenu() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     menu.style.display = "inLine";
