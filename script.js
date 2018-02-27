@@ -53,6 +53,7 @@ var rGSound = document.getElementById("redGo")
 var laser = document.getElementById("invaderlaser")
 
 //audio variables
+var gameStart = false;
 var start = true;
 var winActive = false;
 var loseActive = false;
@@ -60,7 +61,7 @@ var win = false;
 var lose = false;
 var play = 0;
 var options = false;
-var mainMenu = false;
+var mainMenu = true;
 var level = 1
 var nextLvl = false
 var x = canvas.width / 2 - 26;
@@ -113,17 +114,25 @@ var invaderBulletCount = 0;
 //These are all the global variables we use throughout the script in multiple functions
 
 function livesImg() {
+    if (lives === 3) {
+        document.getElementById("life1").className = "iGShip";
+        document.getElementById("life2").className = "iGShip";
+        document.getElementById("life3").className = "iGShip";
+    }
     if (lives === 2) {
-        //document.getElementById("life1").style.display = "block";
-        //document.getElementById("life2").style.display = "block";
+        document.getElementById("life1").className = "iGShip";
+        document.getElementById("life2").className = "iGShip";
         document.getElementById("life3").className = "iGInvis";
     }
     if (lives === 1) {
-        //document.getElementById("life1").style.display = "block";
+        document.getElementById("life1").className = "iGShip";
         document.getElementById("life2").className = "iGInvis";
+        document.getElementById("life3").className = "iGInvis";
     }
     if (lives === 0) {
         document.getElementById("life1").className = "iGInvis";
+        document.getElementById("life2").className = "iGInvis";
+        document.getElementById("life3").className = "iGInvis";
     }
 }
 //made a function for lives counter to take away ships from the side 
@@ -773,6 +782,9 @@ function nextLvlCollision() {
         lose = false
         win = false;
         console.log(level)
+        if (lives < 3) {
+            lives++
+        }
     }
 }
 
@@ -827,6 +839,7 @@ function drawOptions() {
 function playCollision() {
     if (mainMenu == true && x2 > resetBoxLeftX && x2 < resetBoxLeftX + resetBoxWidth && y2 > resetBoxY && y2 < resetBoxY + resetBoxHeight) {
         bulletActive = true;
+        gameStart = true;
         spacePressed = false;
         y2 = canvas.height - 80;
         bulletCount = 0;
@@ -839,7 +852,7 @@ function playCollision() {
         start = true;
         menu.style.display = "none";
         mainMenu = false;
-        console.log(start)
+        console.log(gameStart)
         ctx.clearRect(0, 0, canvas.width, canvas.height);
     }
 }
@@ -870,10 +883,10 @@ function drawScore() {
     ctx.fillText("Score: " + score, 8, 20);
 }
 
-function drawLives() {
+function drawLevel() {
     ctx.font = "16px 'Press Start 2P', cursive";
     ctx.fillStyle = "#0095DD";
-    ctx.fillText("LIVES: " + lives, 1000, 20);
+    ctx.fillText("LEVEL: " + level, 1000, 20);
 }
 
 function draw() {
@@ -883,7 +896,7 @@ function draw() {
         drawShip();
         fire();
         drawScore();
-        drawLives();
+        drawLevel();
         collisionDetection();
         sideDetection();
         invaderShoot();
@@ -891,6 +904,7 @@ function draw() {
         shipBulletShieldCollision();
         invaderBulletShieldCollision()
         livesImg();
+        console.log(lives);
 
         if (lives <= 0) {
             start = false;
@@ -899,7 +913,7 @@ function draw() {
             result();
         }
 
-        if (death == 65) {
+        if (death == 1) {
             win = true;
             start = false;
             ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -926,4 +940,22 @@ function draw() {
         result();
     }
 }
-var game = setInterval(draw, 10)
+
+function startMenuDraw() {
+    if (gameStart == false) {
+    drawMainMenu();
+    drawShip();
+    fire();
+    playCollision();
+    optionsCollision();
+    console.log(gameStart)
+    } else if (gameStart == true) {
+        clearInterval(mmenu);
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        var game = setInterval(draw, 10);
+    }
+}
+
+if(gameStart == false) {
+    var mmenu = setInterval(startMenuDraw, 10);
+}
