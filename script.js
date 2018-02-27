@@ -58,6 +58,8 @@ var move4 = document.getElementById("move4");
 
 
 //audio variables
+var insult = ["LANDLOVER", "COCKMUNCHER", "DOUCHENOZZLE", "WANKER", "SHITHEAD", "SON OF A BITCH", "IMBECILE"];
+var insultNo = Math.floor(Math.random() * insult.length);
 var gameStart = false;
 var start = true;
 var winActive = false;
@@ -748,6 +750,7 @@ function result() {
 }
 
 function drawLose() {
+    document.getElementById("loseText").textContent = "GAME OVER " + insult[insultNo];
     youLose.style.display = "inLine";
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     //alternateLose();
@@ -769,6 +772,7 @@ function drawLose() {
 
 function drawWin() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    document.getElementById("winText").textContent = "YOU BEAT LEVEL " + level;
     youWin.style.display = "inLine";
 
     /* This is the menu box */

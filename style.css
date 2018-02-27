@@ -98,7 +98,7 @@
     background: transparent;
 }
 .winText {
-    font-size: 26px;
+    font-size: 50px;
     width: 1100px;
     position: absolute;
     top: 300px;
@@ -118,7 +118,7 @@
     background: transparent;
 }
 .loseText {
-    font-size: 26px;
+    font-size: 50px;
     width: 1100px;
     position: absolute;
     top: 300px;
