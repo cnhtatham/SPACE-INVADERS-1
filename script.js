@@ -63,7 +63,7 @@ var insult = ["LANDLOVER", "COCKMUNCHER", "DOUCHENOZZLE", "WANKER", "SHITHEAD", 
 , "PIG FUCKER", "FANNY BANDIT", "FUCKTARD", "IDIOT SANDWHICH", "YOU FUCKING DONKEY", "PENIS BREATH"];
 var insultNo = Math.floor(Math.random() * insult.length);
 var gameStart = false;
-var start = true;
+var start = false;
 var winActive = false;
 var loseActive = false;
 var win = false;
@@ -565,9 +565,7 @@ function change() {
 
 var soundChangespeed = 1500;
 
-if (start == true) {
-    change();
-}
+
 //var Interval = setTimeout(change, soundChangespeed);
 
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -845,6 +843,7 @@ function restartCollision() {
         select.play();
         console.log(level)
         youLose.style.display = "none";
+        insultNo = Math.floor(Math.random() * insult.length);
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         //draw restart function here
     }
@@ -951,7 +950,7 @@ function draw() {
         livesImg();
         console.log(lives);
 
-        if (lives <= 0) {
+        if (lives <= 2) {
             start = false;
             lose = true;
             ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -978,6 +977,7 @@ function draw() {
             moveRed();
             redDetection();
         }
+
     } else if (start == false) {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         drawShip();
