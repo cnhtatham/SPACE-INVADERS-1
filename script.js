@@ -676,7 +676,6 @@ function result() {
         drawShip();
         fire();
         makeInvaders();
-        makeShields()
         invaderOffsetLeft = 30;
         invaderOffsetTop = 70;
         death = 0;
