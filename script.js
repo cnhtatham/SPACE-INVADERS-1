@@ -205,6 +205,7 @@ function drawShields() {
 }
 
 
+
 function shipBulletShieldCollision() { //function to check if ship bullet collides with any of the shield parts
     for (d = 0; d < 4; d++) { // and takes a point of health away from them and resets your ship bullet
         var thisShield = Shields[d]
