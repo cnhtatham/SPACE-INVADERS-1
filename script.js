@@ -47,10 +47,15 @@ var explode = document.getElementById("explosion");
 var shot = document.getElementById("fireSound");
 var playerDead = document.getElementById("playerDead");
 var select = document.getElementById("select");
-var moveSound = document.getElementById("faster");
-var rSound = document.getElementById("redSound")
-var rGSound = document.getElementById("redGo")
-var laser = document.getElementById("invaderlaser")
+var rSound = document.getElementById("redSound");
+var rGSound = document.getElementById("redGo");
+var laser = document.getElementById("invaderlaser");
+
+var move1 = document.getElementById("move1");
+var move2 = document.getElementById("move2");
+var move3 = document.getElementById("move3");
+var move4 = document.getElementById("move4");
+
 
 //audio variables
 var gameStart = false;
@@ -110,6 +115,8 @@ var invaderRedY = 0;
 var death = 0;
 var soundtouse = 0
 var invaderBulletCount = 0;
+
+var changeCount = 0;
 
 //These are all the global variables we use throughout the script in multiple functions
 
@@ -503,9 +510,23 @@ function invaderShoot() {
 }
 
 function change() {
+
     if (invaderChange == 0) {
         invaderChange = 1
-        moveSound.play();
+        changeCount ++
+        console.log(changeCount);
+
+        if (changeCount == 0) {
+            move1.play();
+        } else if (changeCount == 1) {
+            move2.play();
+        } else if (changeCount == 2) {
+            move3.play();
+        } else if (changeCount == 3) {
+            move4.play();
+            changeCount = 0;
+        }
+        //moveSound.play();
         if (soundChangespeed > 240) {
             soundChangespeed -= 20;
             setTimeout(change, soundChangespeed);
@@ -514,7 +535,19 @@ function change() {
         }
     } else if (invaderChange == 1) {
         invaderChange = 0
-        moveSound.play();
+        changeCount ++
+        console.log(changeCount);
+        if (changeCount == 0) {
+            move1.play();
+        } else if (changeCount == 1) {
+            move2.play();
+        } else if (changeCount == 2) {
+            move3.play();
+        } else if (changeCount == 3) {
+            move4.play();
+            changeCount = 0;
+        }
+        //moveSound.play();
         if (soundChangespeed > 240) {
             soundChangespeed -= 20;
             setTimeout(change, soundChangespeed);
@@ -524,8 +557,13 @@ function change() {
     }
 }
 
+
 var soundChangespeed = 1500;
-var Interval = setTimeout(change, soundChangespeed);
+
+if (start == true) {
+    change();
+}
+//var Interval = setTimeout(change, soundChangespeed);
 
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
@@ -854,6 +892,7 @@ function playCollision() {
         mainMenu = false;
         console.log(gameStart)
         ctx.clearRect(0, 0, canvas.width, canvas.height);
+
     }
 }
 
@@ -905,7 +944,7 @@ function draw() {
         invaderBulletShieldCollision()
         livesImg();
         console.log(lives);
-
+        
         if (lives <= 0) {
             start = false;
             lose = true;
