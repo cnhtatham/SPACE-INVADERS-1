@@ -81,7 +81,7 @@ var invaderWidth = 42; //individual sizing
 var invaderHeight = 30; //individual sizing
 var invaderPaddingLeft = 14; //between columns
 var invaderPaddingHeight = 20; //between rows
-var invaderOffsetTop = 50;
+var invaderOffsetTop = 70;
 var invaderOffsetLeft = 30;
 var score = 0;
 var moveLeft = true;
@@ -98,8 +98,8 @@ var Yinvader;
 var resetBoxHeight = 60;
 var resetBoxWidth = 300;
 var resetBoxY = 297;
-var resetBoxLeftX = 205;
-var resetBoxRightX = 641;
+var resetBoxLeftX = 212;
+var resetBoxRightX = 648;
 var invaderOffsetTop2 = 30;
 var invaderOffsetLeft2 = 1200;
 var redSpeed = 1;
@@ -138,34 +138,37 @@ var Shield3 = []
 var Shield4 = []
 var Shields = [Shield1, Shield2, Shield3, Shield4]
 //made an array containing the arrays for all the shields
+function makeShields() {
+    for (d = 0; d < 4; d++) {
+        var currentShield = Shields[d]
+        for (s = 0; s < 5; s++) { // loops over every shield part of every shield
+            currentShield[s] = {
+                x: 0,
+                y: 0,
+                status: 4
+            } //assigns an x and y and status variable to our shield array objects
 
-for (d = 0; d < 4; d++) {
-    var currentShield = Shields[d]
-    for (s = 0; s < 5; s++) { // loops over every shield part of every shield
-        currentShield[s] = {
-            x: 0,
-            y: 0,
-            status: 4
-        } //assigns an x and y and status variable to our shield array objects
-
-        if (s == 0) {
-            currentShield[s].x = (canvas.width / 5) * (d + 1) - boxWidth
-            currentShield[s].y = canvas.height - 100
-        } else if (s == 1) {
-            currentShield[s].x = (canvas.width / 5) * (d + 1) - boxWidth
-            currentShield[s].y = canvas.height - 115
-        } else if (s == 2) {
-            currentShield[s].x = (canvas.width / 5) * (d + 1)
-            currentShield[s].y = canvas.height - 115
-        } else if (s == 3) {
-            currentShield[s].x = (canvas.width / 5) * (d + 1) + boxWidth
-            currentShield[s].y = canvas.height - 115
-        } else if (s == 4) {
-            currentShield[s].x = (canvas.width / 5) * (d + 1) + boxWidth
-            currentShield[s].y = canvas.height - 100
-        } //sets the positions for each shield
+            if (s == 0) {
+                currentShield[s].x = (canvas.width / 5) * (d + 1) - boxWidth
+                currentShield[s].y = canvas.height - 100
+            } else if (s == 1) {
+                currentShield[s].x = (canvas.width / 5) * (d + 1) - boxWidth
+                currentShield[s].y = canvas.height - 115
+            } else if (s == 2) {
+                currentShield[s].x = (canvas.width / 5) * (d + 1)
+                currentShield[s].y = canvas.height - 115
+            } else if (s == 3) {
+                currentShield[s].x = (canvas.width / 5) * (d + 1) + boxWidth
+                currentShield[s].y = canvas.height - 115
+            } else if (s == 4) {
+                currentShield[s].x = (canvas.width / 5) * (d + 1) + boxWidth
+                currentShield[s].y = canvas.height - 100
+            } //sets the positions for each shield
+        }
     }
 }
+
+makeShields()
 
 function drawShields() {
     for (d = 0; d < 4; d++) {
@@ -233,29 +236,32 @@ function invaderBulletShieldCollision() { //function to check if any of the inva
 
 // INVADERS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 var invaders = []; // create a 2d array of space invaders
-
-for (c = 0; c < invaderColumnCount; c++) {
-    invaders[c] = [];
-    for (r = 0; r < invaderRowCount; r++) { //these 2 for loops go over every item in our 2d array
-        invaders[c][r] = {
-            x: 0,
-            y: 0,
-            status: 1,
-            score: 0 //Treating the 2d array like an object, we can call and change different values for each item in the array
+function makeInvaders() {
+    for (c = 0; c < invaderColumnCount; c++) {
+        invaders[c] = [];
+        for (r = 0; r < invaderRowCount; r++) { //these 2 for loops go over every item in our 2d array
+            invaders[c][r] = {
+                x: 0,
+                y: 0,
+                status: 1,
+                score: 0 //Treating the 2d array like an object, we can call and change different values for each item in the array
+            }
+            if (r == 0) {
+                invaders[c][r].score = 40
+            } else if (r == 1) {
+                invaders[c][r].score = 20
+            } else if (r == 2) {
+                invaders[c][r].score = 20
+            } else if (r == 3) {
+                invaders[c][r].score = 10
+            } else if (r == 4) {
+                invaders[c][r].score = 10
+            } //Making each row of invaders have a different score value
         }
-        if (r == 0) {
-            invaders[c][r].score = 40
-        } else if (r == 1) {
-            invaders[c][r].score = 20
-        } else if (r == 2) {
-            invaders[c][r].score = 20
-        } else if (r == 3) {
-            invaders[c][r].score = 10
-        } else if (r == 4) {
-            invaders[c][r].score = 10
-        } //Making each row of invaders have a different score value
     }
 }
+
+makeInvaders()
 
 function delayMove() {
     invaderOffsetChange = 5;
@@ -366,8 +372,6 @@ function drawInvaders() { //create a 2 day array and paint each invader in it's 
                 }
             }
             if (invaderY >= canvas.height - 100) {
-                clearInterval();
-                //lose();
                 lose();
             }
         }
@@ -542,7 +546,9 @@ function turnTrue() {
     rGSound.play();
 }
 
+if(start == true) {
 setInterval(turnTrue, Math.floor(Math.random() * 10000) + 20000);
+}
 
 function moveRed() {
     if (go == true) {
@@ -659,6 +665,14 @@ function result() {
         winActive = true;
         drawShip();
         fire();
+        makeInvaders();
+        makeShields()
+        invaderOffsetLeft = 30;
+        invaderOffsetTop = 70;
+        death = 0;
+        moveLeft = true;
+        moveRight = false;
+        invaderSpeed = 0.5 + (0.1 * level);
         if (mainMenu == true) {
             drawMainMenu();
             winActive = false;
@@ -670,9 +684,17 @@ function result() {
         loseActive = true;
         drawShip();
         fire();
-        if (mainMenu == true && lose == true) {
+        makeInvaders();
+        makeShields();
+        invaderOffsetLeft = 30;
+        invaderOffsetTop = 50;
+        score = 0;
+        death = 0;
+        moveLeft = true;  
+        moveRight = false;
+        invaderSpeed = 0.5 + (0.1 * level);
+        if (mainMenu == true) {
             drawMainMenu();
-            loseActive = false;
             youLose.style.display = "none";
         }
     }
@@ -727,6 +749,7 @@ function mainMenuCollision() {
             bulletCount = 0
             select.currentTime = 0;
             select.play();
+            loseActive = false;
             //draw mainMenu function here
             mainMenu = true;
             console.log(mainMenu)
@@ -737,6 +760,7 @@ function mainMenuCollision() {
 function nextLvlCollision() {
     if (winActive == true && x2 > resetBoxLeftX && x2 < resetBoxLeftX + resetBoxWidth && y2 > resetBoxY && y2 < resetBoxY + resetBoxHeight) {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
+        youWin.style.display = "none";
         bulletActive = true;
         spacePressed = false;
         y2 = canvas.height - 80;
@@ -773,7 +797,8 @@ function restartCollision() {
 function drawMainMenu() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     menu.style.display = "inLine";
-    //youWin.style.display = "none";
+    //youWin.style.display = "none"
+    //youLose.style.display = "none";
     //ctx.clearRect(0, 0, canvas.width, canvas.height);
     drawShip();
     fire();
@@ -852,7 +877,7 @@ function drawLives() {
 }
 
 function draw() {
-    if (start = true) {
+    if (start == true) {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         drawInvaders();
         drawShip();
@@ -867,17 +892,17 @@ function draw() {
         invaderBulletShieldCollision()
         livesImg();
 
-        if (lives <= 2) {
+        if (lives <= 0) {
             start = false;
             lose = true;
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             result();
         }
 
-        if (death == 10) {
+        if (death == 65) {
             win = true;
             start = false;
-            ctx.clearRect(0, 0, canvas.width, canvas.height);   
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
             result();
         }
 
@@ -894,6 +919,11 @@ function draw() {
             moveRed();
             redDetection();
         }
+    } else if (start == false) {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        drawShip();
+        fire();
+        result();
     }
 }
 var game = setInterval(draw, 10)
