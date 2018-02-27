@@ -30,6 +30,26 @@ var shieldStatus3 = document.getElementById("shieldStatus3");
 var shieldStatus2 = document.getElementById("shieldStatus2");
 var shieldStatus1 = document.getElementById("shieldStatus1");
 
+var deathA1 = document.getElementById("deathAnimation1")
+var deathA2 = document.getElementById("deathAnimation2")
+var deathA3 = document.getElementById("deathAnimation3")
+var deathA4 = document.getElementById("deathAnimation4")
+var deathA5 = document.getElementById("deathAnimation5")
+var deathA6 = document.getElementById("deathAnimation6")
+var deathA7 = document.getElementById("deathAnimation7")
+var deathA8 = document.getElementById("deathAnimation8")
+var deathA9 = document.getElementById("deathAnimation9")
+
+deathA1.style.display = "none";
+deathA2.style.display = "none";
+deathA3.style.display = "none";
+deathA4.style.display = "none";
+deathA5.style.display = "none";
+deathA6.style.display = "none";
+deathA7.style.display = "none";
+deathA8.style.display = "none";
+deathA9.style.display = "none"; 
+
 redInvader.style.display = "none";
 shieldStatus4.style.display = "none";
 shieldStatus3.style.display = "none";
@@ -486,6 +506,50 @@ function selectRandom() {
     }
 }
 
+var deathb = false
+var deathX
+var deathY
+var deathFrame = 0
+
+function deathChange(){
+    deathFrame++
+}
+
+setInterval(deathChange, 100)
+
+function drawDeath(){
+    if(deathb){
+        if(deathFrame == 1){
+            ctx.drawImage(deathA1, deathX, deathY, 65, 65)
+        }
+        else if(deathFrame == 2){
+            ctx.drawImage(deathA2, deathX, deathY, 65, 65)
+        }
+        else if(deathFrame == 3){
+            ctx.drawImage(deathA3, deathX, deathY, 65, 65)
+        }
+        else if(deathFrame == 4){
+            ctx.drawImage(deathA4, deathX, deathY, 65, 65)
+        }
+        else if(deathFrame == 5){
+            ctx.drawImage(deathA5, deathX, deathY, 65, 65)
+        }
+        else if(deathFrame == 6){
+            ctx.drawImage(deathA6, deathX, deathY, 65, 65)
+        } 
+        else if(deathFrame == 7){
+            ctx.drawImage(deathA7, deathX, deathY, 65, 65)
+        } 
+        else if(deathFrame == 8){
+            ctx.drawImage(deathA8, deathX, deathY, 65, 65)
+        } 
+        else if(deathFrame == 9){
+            ctx.drawImage(deathA9, deathX, deathY, 65, 65)
+        }    
+
+    }
+}
+
 function invaderShoot() {
     if (iShoot) {
         invaderBulletCount++;
@@ -500,6 +564,12 @@ function invaderShoot() {
             invaderShot = false;
             lives--;
             playerDead.play();
+
+            deathX = x
+            deathY = y
+            deathFrame = 0
+            deathb = true
+
             x = canvas.width / 2 - 26;
             y = canvas.height - 70;
             invaderBulletCount = 0
@@ -947,6 +1017,7 @@ function draw() {
         shipBulletShieldCollision();
         invaderBulletShieldCollision()
         livesImg();
+        drawDeath();
         console.log(lives);
         
         if (lives <= 0) {
@@ -975,6 +1046,7 @@ function draw() {
             drawRed();
             moveRed();
             redDetection();
+            
         }
     } else if (start == false) {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
