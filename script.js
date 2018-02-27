@@ -58,7 +58,7 @@ var move4 = document.getElementById("move4");
 
 
 //audio variables
-var insult = ["LANDLOVER", "COCKMUNCHER", "DOUCHENOZZLE", "WANKER", "SHITHEAD", "SON OF A BITCH", "IMBECILE"];
+var insult = ["LANDLOVER", "COCKMUNCHER", "DOUCHENOZZLE", "WANKER", "SHITHEAD", "SON OF A BITCH", "IMBECILE", "SALAMI SMOKER", "ASSCLOWN", "FUCKFACE", "COCK JOCKEY", "CUM DUMPSTER", "TWAT WAFFLE", "COCK GOBBLER", "PIG FUCKER", "FANNY BANDIT", "FUCKTARD", "IDIOT SANDWHICH", "YOU FUCKING DONKEY"];
 var insultNo = Math.floor(Math.random() * insult.length);
 var gameStart = false;
 var start = true;
@@ -106,8 +106,8 @@ var Yinvader;
 var resetBoxHeight = 60;
 var resetBoxWidth = 300;
 var resetBoxY = 297;
-var resetBoxLeftX = 212;
-var resetBoxRightX = 648;
+var resetBoxLeftX = 205;
+var resetBoxRightX = 641;
 var invaderOffsetTop2 = 30;
 var invaderOffsetLeft2 = 1200;
 var redSpeed = 1;
