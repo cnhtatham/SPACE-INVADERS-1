@@ -53,6 +53,7 @@ var rGSound = document.getElementById("redGo")
 var laser = document.getElementById("invaderlaser")
 
 //audio variables
+var gameStart = false;
 var start = true;
 var winActive = false;
 var loseActive = false;
@@ -60,7 +61,7 @@ var win = false;
 var lose = false;
 var play = 0;
 var options = false;
-var mainMenu = false;
+var mainMenu = true;
 var level = 1
 var nextLvl = false
 var x = canvas.width / 2 - 26;
@@ -827,6 +828,7 @@ function drawOptions() {
 function playCollision() {
     if (mainMenu == true && x2 > resetBoxLeftX && x2 < resetBoxLeftX + resetBoxWidth && y2 > resetBoxY && y2 < resetBoxY + resetBoxHeight) {
         bulletActive = true;
+        gameStart = true;
         spacePressed = false;
         y2 = canvas.height - 80;
         bulletCount = 0;
@@ -839,7 +841,7 @@ function playCollision() {
         start = true;
         menu.style.display = "none";
         mainMenu = false;
-        console.log(start)
+        console.log(gameStart)
         ctx.clearRect(0, 0, canvas.width, canvas.height);
     }
 }
@@ -926,4 +928,22 @@ function draw() {
         result();
     }
 }
-var game = setInterval(draw, 10)
+
+function startMenuDraw() {
+    if (gameStart == false) {
+    drawMainMenu();
+    drawShip();
+    fire();
+    playCollision();
+    optionsCollision();
+    console.log(gameStart)
+    } else if (gameStart == true) {
+        clearInterval(mmenu);
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        var game = setInterval(draw, 10);
+    }
+}
+
+if(gameStart == false) {
+    var mmenu = setInterval(startMenuDraw, 10);
+}
