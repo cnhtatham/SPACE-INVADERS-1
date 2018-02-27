@@ -53,6 +53,7 @@ var rGSound = document.getElementById("redGo")
 var laser = document.getElementById("invaderlaser")
 
 //audio variables
+var start = true;
 var winActive = false;
 var loseActive = false;
 var win = false;
@@ -129,6 +130,8 @@ function livesImg() {
 //side note
 //thoughts for a wrecked/exploded ship instead of nothing?
 
+
+// SHIELD >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 var Shield1 = []
 var Shield2 = []
 var Shield3 = []
@@ -225,6 +228,10 @@ function invaderBulletShieldCollision() { //function to check if any of the inva
     }
 }
 
+
+//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+// INVADERS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 var invaders = []; // create a 2d array of space invaders
 
 for (c = 0; c < invaderColumnCount; c++) {
@@ -250,65 +257,12 @@ for (c = 0; c < invaderColumnCount; c++) {
     }
 }
 
-document.addEventListener("keydown", keyDownHandler, false);
-document.addEventListener("keyup", keyUpHandler, false);
-document.addEventListener("keydown", spaceBarHandler, false);
-//Declaring our movement and shooting event listeners
-
-function keyDownHandler(e) {
-    if (e.keyCode == 39) {
-        rightPressed = true;
-    } else if (e.keyCode == 37) {
-        leftPressed = true;
-    }
-}
-//Function to make our ship move left or right when the corresponding key is pressed
-function keyUpHandler(e) {
-    if (e.keyCode == 39) {
-        rightPressed = false;
-    } else if (e.keyCode == 37) {
-        leftPressed = false;
-    }
-}
-//Function to stop the movement of the ship when the key is released
-function spaceBarHandler(e) {
-    if (e.keyCode == 32) {
-        spacePressed = true;
-        bulletActive = false;
-    }
-}
-//Function to shoot when soace is pressed, but only if noo bullet is currently on the screen
-function drawBall() {
-    ctx.beginPath();
-    ctx.drawImage(ship, x, y, 60, 60);
-    ctx.closePath();
-    if (rightPressed && x < canvas.width - ballRadius || rightPressed && x < ballRadius) {
-        x += 3;
-    } else if (leftPressed && x > 3 || leftPressed && x > ballRadius) {
-        x -= 3;
-    }
-}
-//Function to draw our ship at the current X and Y position whihc are changed when the movement keys are pressed
-function drawBullet() {
-    if (bulletActive == false) { //Check to see if a bullet is already on the screen
-        ctx.beginPath();
-        ctx.rect(x2, y2, 3.5, 25);
-        ctx.fillStyle = "#9b59b6"
-        ctx.fill(); // draws the bullet on screen
-        ctx.closePath;
-        bulletCount++
-        if (y2 < 0) {
-            spacePressed = false;
-            y2 = canvas.height - 80;
-            bulletCount = 0 // makes the bullet disappear when it hits the top of the canvas
-        }
-    }
-}
-
 function delayMove() {
     invaderOffsetChange = 5;
 }
 
+<<<<<<< HEAD
+=======
 var redI = {
     x: 0,
     y: 0,
@@ -365,6 +319,7 @@ function redDetection() {
         }
     }
 }
+>>>>>>> 5c912e56d96a63d6618ffbce9a668945036a60ed
 
 function moveInvaders() { // function that moves the invaders left then right at a rate which is determined
     if (moveLeft == true && moveRight == false) { // by the variable invaderSpeed
@@ -398,283 +353,6 @@ function sideDetection() {
     moveInvaders();
 }
 
-function change() {
-    if (invaderChange == 0) {
-        invaderChange = 1
-        moveSound.play();
-        if (soundChangespeed > 240) {
-            soundChangespeed -= 20;
-            setTimeout(change, soundChangespeed);
-        } else {
-            setTimeout(change, soundChangespeed);
-        }
-    } else if (invaderChange == 1) {
-        invaderChange = 0
-        moveSound.play();
-        if (soundChangespeed > 240) {
-            soundChangespeed -= 20;
-            setTimeout(change, soundChangespeed);
-        } else {
-            setTimeout(change, soundChangespeed);
-        }
-    }
-}
-
-var soundChangespeed = 1500;
-var Interval = setTimeout(change, soundChangespeed);
-//changes the invaders img
-
-function result() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    clearInterval(draw);
-    if (win == true) {
-        drawWin(); 
-        go = false;
-        window.turnTrue;
-        invaderChange = 3;
-        winActive = true;
-        clearInterval(trueInterval);
-        if (mainMenu == true) {
-            drawMainMenu();
-            winActive = false;
-            youWin.style.display = "none";
-            
-        }
-    } else if (lose == true) {
-        go = false;
-        window.turnTrue;
-        invaderChange = 3;
-        drawLose();
-        loseActive = true;
-        clearInterval(trueInterval);
-        if (mainMenu == true) {
-            drawMainMenu();
-            loseActive = false;
-            youLose.style.display = "none";
-        }
-    }
-}
-
-function alt() {
-    setInterval(result, 10);
-}
-
-function drawLose() {
-    youLose.style.display = "inLine";
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    //drawRbox();
-    //drawMMbox();
-    alternateLose();
-
-    /* This is the menu box */
-    ctx.beginPath()
-    ctx.fillStyle = "white";
-    ctx.fillRect(resetBoxLeftX, resetBoxY, resetBoxWidth, resetBoxHeight)
-    ctx.closePath()
-    mainMenuCollision()
-
-    /* This is the restart box */
-    ctx.beginPath();
-    ctx.fillStyle = "white";
-    ctx.fillRect(resetBoxRightX, resetBoxY, resetBoxWidth, resetBoxHeight)
-    ctx.closePath();
-    restartCollision();
-} 
-
-function drawWin() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    youWin.style.display = "inLine";
-    //menu.style.display = "none";
-    //ctx.clearRect(0, 0, canvas.width, canvas.height);
-    //drawMMbox();
-    //drawNLbox();
-    alternateWin();
-
-    /* This is the menu box */
-    ctx.beginPath()
-    ctx.fillStyle = "white";
-    ctx.fillRect(resetBoxLeftX, resetBoxY, resetBoxWidth, resetBoxHeight)
-    ctx.closePath()
-    mainMenuCollision()
-
-    /* This is the level box */
-    ctx.beginPath()
-    ctx.fillStyle = "white";
-    ctx.fillRect(resetBoxRightX, resetBoxY, resetBoxWidth, resetBoxHeight)
-    ctx.closePath()
-    nextLvlCollision()
-    //console.log(mainMenu)
-}
-/*
-function drawMMbox() {
-    //ctx.clearRect(0, 0, canvas.width, canvas.height)
-    ctx.beginPath()
-    ctx.fillStyle = "white";
-    ctx.fillRect(resetBoxLeftX, resetBoxY, resetBoxWidth, resetBoxHeight)
-    ctx.closePath()
-    mainMenuCollision()
-    console.log(mainMenu)
-}
-
-function drawNLbox() {
-    //ctx.clearRect(0, 0, canvas.width, canvas.height)
-    ctx.beginPath()
-    ctx.fillStyle = "white";
-    ctx.fillRect(resetBoxRightX, resetBoxY, resetBoxWidth, resetBoxHeight)
-    ctx.closePath()
-    nextLvlCollision()
-}
-
-function drawRbox() {
-    restartCollision();
-    ctx.beginPath();
-    ctx.fillStyle = "white";
-    ctx.fillRect(resetBoxRightX, resetBoxY, resetBoxWidth, resetBoxHeight)
-    ctx.closePath();
-}
-*/
-
-var start = true;
-
-function mainMenuCollision() {
-    if (winActive == true || loseActive == true) {
-        if (x2 > resetBoxRightX && x2 < resetBoxRightX + resetBoxWidth && y2 > resetBoxY && y2 < resetBoxY + resetBoxHeight) {
-            bulletActive = true;
-            spacePressed = false;
-            y2 = canvas.height - 80;
-            bulletCount = 0
-            select.currentTime = 0;
-            select.play();
-            //draw mainMenu function here
-            mainMenu = true;
-            console.log(mainMenu)
-        }
-    }
-}
-
-function nextLvlCollision() {
-    if (winActive == true && x2 > resetBoxLeftX && x2 < resetBoxLeftX + resetBoxWidth && y2 > resetBoxY && y2 < resetBoxY + resetBoxHeight) {
-        bulletActive = true;
-        spacePressed = false;
-        y2 = canvas.height - 80;
-        bulletCount = 0;
-        //nextLvl = true;
-        select.currentTime = 0;
-        select.play();
-        level ++
-        console.log(level)
-    }
-}
-
-function restartCollision() {
-    if (loseActive == true && x2 > resetBoxLeftX && x2 < resetBoxLeftX + resetBoxWidth && y2 > resetBoxY && y2 < resetBoxY + resetBoxHeight) {
-        bulletActive = true;
-        spacePressed = false;
-        y2 = canvas.height - 80;
-        bulletCount = 0
-        level = 1
-        select.currentTime = 0;
-        select.play();
-        console.log(level)
-        //draw restart function here
-    }
-}
-
-function alternateLose() {
-    drawBall();
-    fire();
-    //drawMMbox();
-    //mainMenuCollision();
-    //restartCollision();
-}
-
-function alternateWin() {
-    drawBall();
-    fire();
-    //mainMenuCollision();
-    //nextLvlCollision();
-    //drawMMbox();
-    //drawNLbox();
-}
-
-function alternateMain() {
-    drawBall();
-    fire();
-}
-
-/*
-function goMainMenu() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    setInterval(drawMainMenu, 10);
-}
-*/
-function drawMainMenu() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    menu.style.display = "inLine";
-    //youWin.style.display = "none";
-    //ctx.clearRect(0, 0, canvas.width, canvas.height);
-    drawPlay();
-    drawOptions();
-
-    if (win == true) {
-        alternateWin();
-    } else if (lose == true) {
-        alternateLose();
-    }
-}
-
-function drawPlay() {
-    ctx.beginPath();
-    ctx.fillStyle = "white";
-    ctx.fillRect(resetBoxLeftX, resetBoxY, resetBoxWidth, resetBoxHeight)
-    ctx.closePath();
-    playCollision();
-}
-
-function drawOptions() {
-    ctx.beginPath();
-    ctx.fillStyle = "white";
-    ctx.fillRect(resetBoxRightX, resetBoxY, resetBoxWidth, resetBoxHeight)
-    ctx.closePath();
-    optionsCollision();
-}
-//Play collision and options collision copied from menuC and nextlvlC -> dont work independently
- 
-function playCollision() {
-    if (mainMenu == true && x2 > resetBoxLeftX && x2 < resetBoxLeftX + resetBoxWidth && y2 > resetBoxY && y2 < resetBoxY + resetBoxHeight) {
-        bulletActive = true;
-        spacePressed = false;
-        y2 = canvas.height - 80;
-        bulletCount = 0;
-        select.currentTime = 0;
-        select.play();
-        play ++;
-        console.log(play)
-        clearInterval(result)
-        clearInterval(alt)
-        win = false;
-        lose = false;
-        start = true;
-        menu.style.display = "none";
-    }
-}
-
-function optionsCollision() {
-    if (mainMenu == true && x2 > resetBoxRightX && x2 < resetBoxRightX + resetBoxWidth && y2 > resetBoxY && y2 < resetBoxY + resetBoxHeight) {
-        bulletActive = true;
-        spacePressed = false;
-        y2 = canvas.height - 80;
-        bulletCount = 0
-        select.currentTime = 0;
-        select.play();
-        //options = true;
-        //console.log(options)
-        play --;
-        console.log(play)
-    }
-}
-
-
 function drawInvaders() { //create a 2 day array and paint each invader in it's location
     function switchHigh() {
         if (invaderChange == 0) {
@@ -700,6 +378,7 @@ function drawInvaders() { //create a 2 day array and paint each invader in it's 
         }
     }
 
+<<<<<<< HEAD
     function switchLow() {
         if (invaderChange == 0) {
             ctx.drawImage(lowInvaderA, invaderX, invaderY, invaderWidth, invaderHeight);
@@ -751,12 +430,37 @@ function drawInvaders() { //create a 2 day array and paint each invader in it's 
                 //lose();
                 lose();
             }
+=======
+function result() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    clearInterval(draw);
+    if (win == true) {
+        drawWin(); 
+        go = false;
+        window.turnTrue;
+        invaderChange = 3;
+        winActive = true;
+        clearInterval(trueInterval);
+        if (mainMenu == true) {
+            drawMainMenu();
+            winActive = false;
+            youWin.style.display = "none";
+            
+        }
+    } else if (lose == true) {
+        go = false;
+        window.turnTrue;
+        invaderChange = 3;
+        drawLose();
+        loseActive = true;
+        clearInterval(trueInterval);
+        if (mainMenu == true) {
+            drawMainMenu();
+            loseActive = false;
+            youLose.style.display = "none";
+>>>>>>> 5c912e56d96a63d6618ffbce9a668945036a60ed
         }
     }
-}
-
-function disapear() {
-    i.style.display = "none";
 }
 
 // check each invader if the bullet has hit
@@ -874,25 +578,134 @@ function invaderShoot() {
     }
 }
 
-var time = 0;
-
-function timer() {
-    time++
+function change() {
+    if (invaderChange == 0) {
+        invaderChange = 1
+        moveSound.play();
+        if (soundChangespeed > 240) {
+            soundChangespeed -= 20;
+            setTimeout(change, soundChangespeed);
+        } else {
+            setTimeout(change, soundChangespeed);
+        }
+    } else if (invaderChange == 1) {
+        invaderChange = 0
+        moveSound.play();
+        if (soundChangespeed > 240) {
+            soundChangespeed -= 20;
+            setTimeout(change, soundChangespeed);
+        } else {
+            setTimeout(change, soundChangespeed);
+        }
+    }
 }
-setInterval(timer, 100)
 
-//timer test the active status of canvas... i think...
+var soundChangespeed = 1500;
+var Interval = setTimeout(change, soundChangespeed);
 
-function drawScore() {
-    ctx.font = "16px 'Press Start 2P', cursive";
-    ctx.fillStyle = "#0095DD";
-    ctx.fillText("Score: " + score, 8, 20);
+// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+//RED INVADER>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+var redI = {
+    x: 0,
+    y: 0,
+    status: 1,
+    score: 150
 }
 
-function drawLives() {
-    ctx.font = "16px 'Press Start 2P', cursive";
-    ctx.fillStyle = "#0095DD";
-    ctx.fillText("LIVES: " + lives, 1000, 20);
+function drawRed() {
+    if (redI.status == 1) {
+        redI.x = redInvaderX
+        redI.y = redInvaderY
+        ctx.drawImage(redInvader, redI.x, redI.y, 32, invaderHeight);
+    }
+}
+
+function turnTrue() {
+    invaderOffsetLeft2 = 1200;
+    redInvaderX = 1200;
+    redInvaderY = 30;
+    redI.status = 1
+    go = true;
+    rGSound.play();
+}
+
+setInterval(turnTrue, Math.floor(Math.random() * 10000) + 20000);
+
+function moveRed() {
+    if (go == true) {
+        redInvaderX -= redSpeed;
+    }
+}
+
+function redDetection() {
+    if (go) {
+        if (redI.status == 1) {
+            if (x2 > redInvaderX && x2 < redInvaderX + invaderWidth && y2 > redInvaderY && y2 < redInvaderY + invaderHeight) {
+                rSound.play();
+                /*ctx.beginPath();
+                ctx.drawImage(kill, i.x + 10, i.y, 20, 20);
+                ctx.closePath();*/
+                bulletActive = true;
+                spacePressed = false;
+                y2 = canvas.height - 80;
+                bulletCount = 0
+                score += redI.score;
+                go = false;
+                redInvaderX = 1200
+                redInvaderY = 30
+                redI.status = 0
+            } else if (redInvaderX + invaderWidth <= 0) {
+                go = false;
+                redInvaderX = 1200
+                redInvaderY = 30
+            }
+        }
+    }
+}
+
+//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+
+//SHIP>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+document.addEventListener("keydown", keyDownHandler, false);
+document.addEventListener("keyup", keyUpHandler, false);
+document.addEventListener("keydown", spaceBarHandler, false);
+//Declaring our movement and shooting event listeners
+
+function keyDownHandler(e) {
+    if (e.keyCode == 39) {
+        rightPressed = true;
+    } else if (e.keyCode == 37) {
+        leftPressed = true;
+    }
+}
+//Function to make our ship move left or right when the corresponding key is pressed
+function keyUpHandler(e) {
+    if (e.keyCode == 39) {
+        rightPressed = false;
+    } else if (e.keyCode == 37) {
+        leftPressed = false;
+    }
+}
+//Function to stop the movement of the ship when the key is released
+function spaceBarHandler(e) {
+    if (e.keyCode == 32) {
+        spacePressed = true;
+        bulletActive = false;
+    }
+}
+//Function to shoot when soace is pressed, but only if noo bullet is currently on the screen
+function drawShip() {
+    ctx.beginPath();
+    ctx.drawImage(ship, x, y, 60, 60);
+    ctx.closePath();
+    if (rightPressed && x < canvas.width - ballRadius || rightPressed && x < ballRadius) {
+        x += 3;
+    } else if (leftPressed && x > 3 || leftPressed && x > ballRadius) {
+        x -= 3;
+    }
 }
 
 function fire() {
@@ -907,53 +720,302 @@ function fire() {
     }
 }
 
-function draw() {
-    if (start = true) {
+//Function to draw our ship at the current X and Y position whihc are changed when the movement keys are pressed
+function drawBullet() {
+    if (bulletActive == false) { //Check to see if a bullet is already on the screen
+        ctx.beginPath();
+        ctx.rect(x2, y2, 3.5, 25);
+        ctx.fillStyle = "#9b59b6"
+        ctx.fill(); // draws the bullet on screen
+        ctx.closePath;
+        bulletCount++
+        if (y2 < 0) {
+            spacePressed = false;
+            y2 = canvas.height - 80;
+            bulletCount = 0 // makes the bullet disappear when it hits the top of the canvas
+        }
+    }
+}
+
+//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+//changes the invaders img
+
+//MENU FUNCTIONS>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+function result() {
+    if (win == true) {
+        drawWin();
+        winActive = true;
+        drawShip();
+        fire();
+        if (mainMenu == true) {
+            drawMainMenu();
+            winActive = false;
+            youWin.style.display = "none";
+
+        }
+    } else if (lose == true) {
+        drawLose();
+        loseActive = true;
+        drawShip();
+        fire();
+        if (mainMenu == true && lose == true) {
+            drawMainMenu();
+            loseActive = false;
+            youLose.style.display = "none";
+        }
+    }
+}
+
+function drawLose() {
+    youLose.style.display = "inLine";
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    //menu.style.display = "none";
-    drawInvaders();
+    //alternateLose();
+
+    /* This is the menu box */
+    ctx.beginPath()
+    ctx.fillStyle = "white";
+    ctx.fillRect(resetBoxLeftX, resetBoxY, resetBoxWidth, resetBoxHeight)
+    ctx.closePath()
+    mainMenuCollision()
+
+    /* This is the restart box */
+    ctx.beginPath();
+    ctx.fillStyle = "white";
+    ctx.fillRect(resetBoxRightX, resetBoxY, resetBoxWidth, resetBoxHeight)
+    ctx.closePath();
+    restartCollision();
+}
+
+function drawWin() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    youWin.style.display = "inLine";
+
+    /* This is the menu box */
+    ctx.beginPath()
+    ctx.fillStyle = "white";
+    ctx.fillRect(resetBoxLeftX, resetBoxY, resetBoxWidth, resetBoxHeight)
+    ctx.closePath()
+    mainMenuCollision()
+
+    /* This is the level box */
+    ctx.beginPath()
+    ctx.fillStyle = "white";
+    ctx.fillRect(resetBoxRightX, resetBoxY, resetBoxWidth, resetBoxHeight)
+    ctx.closePath()
+    nextLvlCollision()
+    //console.log(mainMenu)
+}
+
+function mainMenuCollision() {
+    if (winActive == true || loseActive == true) {
+        if (x2 > resetBoxRightX && x2 < resetBoxRightX + resetBoxWidth && y2 > resetBoxY && y2 < resetBoxY + resetBoxHeight) {
+            bulletActive = true;
+            spacePressed = false;
+            y2 = canvas.height - 80;
+            bulletCount = 0
+            select.currentTime = 0;
+            select.play();
+            //draw mainMenu function here
+            mainMenu = true;
+            console.log(mainMenu)
+        }
+    }
+}
+
+function nextLvlCollision() {
+    if (winActive == true && x2 > resetBoxLeftX && x2 < resetBoxLeftX + resetBoxWidth && y2 > resetBoxY && y2 < resetBoxY + resetBoxHeight) {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        bulletActive = true;
+        spacePressed = false;
+        y2 = canvas.height - 80;
+        bulletCount = 0;
+        //nextLvl = true;
+        select.currentTime = 0;
+        select.play();
+        level++
+        start = true;
+        lose = false
+        win = false;
+        console.log(level)
+    }
+}
+
+function restartCollision() {
+    if (loseActive == true && x2 > resetBoxLeftX && x2 < resetBoxLeftX + resetBoxWidth && y2 > resetBoxY && y2 < resetBoxY + resetBoxHeight) {
+        bulletActive = true;
+        spacePressed = false;
+        y2 = canvas.height - 80;
+        bulletCount = 0
+        level = 1
+        lives = 3
+        start = true;
+        select.currentTime = 0;
+        select.play();
+        console.log(level)
+        youLose.style.display = "none";
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        //draw restart function here
+    }
+}
+
+<<<<<<< HEAD
+=======
+function alternateLose() {
     drawBall();
     fire();
-    drawScore();
-    drawLives();
-    collisionDetection();
-    sideDetection();
-    invaderShoot();
-    drawShields();
-    shipBulletShieldCollision();
-    invaderBulletShieldCollision()
-    // stops ball moving too far
-    livesImg();
+    //drawMMbox();
+    //mainMenuCollision();
+    //restartCollision();
+}
 
-    if (lives <= 2) {
-        clearInterval(game);
-        lose = true;
-        alt();
-    }
+function alternateWin() {
+    drawBall();
+    fire();
+    //mainMenuCollision();
+    //nextLvlCollision();
+    //drawMMbox();
+    //drawNLbox();
+}
 
-    //if (score >= 1) {
-    if (death == 10) {
-        clearInterval(game);
-        win = true;
-        alt();
-    }
+function alternateMain() {
+    drawBall();
+    fire();
+}
 
-    if (invaderShot == false) {
-        selectRandom();
-    }
+/*
+function goMainMenu() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    setInterval(drawMainMenu, 10);
+}
+*/
+>>>>>>> 5c912e56d96a63d6618ffbce9a668945036a60ed
+function drawMainMenu() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    menu.style.display = "inLine";
+    //youWin.style.display = "none";
+    //ctx.clearRect(0, 0, canvas.width, canvas.height);
+    drawShip();
+    fire();
+    playCollision();
+    drawPlay();
+    drawOptions();
+}
 
-    if (iShoot) {
-        Yinvader += 2 + (0.5 * (level - 1)); //bullet will travel down the screen
-        /* if (invaderBulletCount == 1) {
-             laser.play();
-         } */
-    }
+function drawPlay() {
+    ctx.beginPath();
+    ctx.fillStyle = "white";
+    ctx.fillRect(resetBoxLeftX, resetBoxY, resetBoxWidth, resetBoxHeight)
+    ctx.closePath();
+    playCollision();
+}
 
-    if (go) {
-        drawRed();
-        moveRed();
-        redDetection();
+function drawOptions() {
+    ctx.beginPath();
+    ctx.fillStyle = "white";
+    ctx.fillRect(resetBoxRightX, resetBoxY, resetBoxWidth, resetBoxHeight)
+    ctx.closePath();
+    optionsCollision();
+}
+
+//Play collision and options collision copied from menuC and nextlvlC -> dont work independently 
+function playCollision() {
+    if (mainMenu == true && x2 > resetBoxLeftX && x2 < resetBoxLeftX + resetBoxWidth && y2 > resetBoxY && y2 < resetBoxY + resetBoxHeight) {
+        bulletActive = true;
+        spacePressed = false;
+        y2 = canvas.height - 80;
+        bulletCount = 0;
+        select.currentTime = 0;
+        select.play();
+        play++;
+        lose = false;
+        winActive = false;
+        lives = 3
+        start = true;
+        menu.style.display = "none";
+        mainMenu = false;
+        console.log(start)
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
     }
 }
+
+function optionsCollision() {
+    if (mainMenu == true && x2 > resetBoxRightX && x2 < resetBoxRightX + resetBoxWidth && y2 > resetBoxY && y2 < resetBoxY + resetBoxHeight) {
+        bulletActive = true;
+        spacePressed = false;
+        y2 = canvas.height - 80;
+        bulletCount = 0
+        select.currentTime = 0;
+        select.play();
+        //options = true;
+        //console.log(options)
+        play--;
+        console.log(play)
+    }
 }
-    var game = setInterval(draw, 10) 
+
+
+function disapear() {
+    i.style.display = "none";
+}
+
+function drawScore() {
+    ctx.font = "16px 'Press Start 2P', cursive";
+    ctx.fillStyle = "#0095DD";
+    ctx.fillText("Score: " + score, 8, 20);
+}
+
+function drawLives() {
+    ctx.font = "16px 'Press Start 2P', cursive";
+    ctx.fillStyle = "#0095DD";
+    ctx.fillText("LIVES: " + lives, 1000, 20);
+}
+
+function draw() {
+    if (start = true) {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        drawInvaders();
+        drawShip();
+        fire();
+        drawScore();
+        drawLives();
+        collisionDetection();
+        sideDetection();
+        invaderShoot();
+        drawShields();
+        shipBulletShieldCollision();
+        invaderBulletShieldCollision()
+        livesImg();
+
+        if (lives <= 2) {
+            start = false;
+            lose = true;
+            invaderChange = 3;
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            result();
+        }
+
+        if (death == 10) {
+            win = true;
+            start = false;
+            invaderChange = 3;
+            ctx.clearRect(0, 0, canvas.width, canvas.height);   
+            result();
+        }
+
+        if (invaderShot == false) {
+            selectRandom();
+        }
+
+        if (iShoot) {
+            Yinvader += 2 + (0.5 * (level - 1)); //bullet will travel down the screen
+        }
+
+        if (go) {
+            drawRed();
+            moveRed();
+            redDetection();
+        }
+    }
+}
+var game = setInterval(draw, 10)
