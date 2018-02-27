@@ -731,6 +731,7 @@ function drawLose() {
 
 function drawWin() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    document.getElementById("winText").textContent = "YOU BEAT LEVEL " + level;
     youWin.style.display = "inLine";
 
     /* This is the menu box */
