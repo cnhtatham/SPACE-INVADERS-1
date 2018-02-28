@@ -48,7 +48,7 @@ deathA5.style.display = "none";
 deathA6.style.display = "none";
 deathA7.style.display = "none";
 deathA8.style.display = "none";
-deathA9.style.display = "none"; 
+deathA9.style.display = "none";
 
 redInvader.style.display = "none";
 shieldStatus4.style.display = "none";
@@ -78,9 +78,10 @@ var move4 = document.getElementById("move4");
 
 
 //audio variables
-var insult = ["LANDLOVER", "COCKMUNCHER", "DOUCHENOZZLE", "WANKER", "SHITHEAD", "SON OF A BITCH", "IMBECILE"
-,"SALAMI SMOKER", "ASSCLOWN", "FUCKFACE", "COCK JOCKEY", "CUM DUMPSTER", "TWAT WAFFLE", "COCK GOBBLER"
-, "PIG FUCKER", "FANNY BANDIT", "FUCKTARD", "IDIOT SANDWHICH", "YOU FUCKING DONKEY", "PENIS BREATH"];
+var parentalControl = false;
+var insult = ["LANDLOVER", "COCKMUNCHER", "DOUCHENOZZLE", "WANKER", "SHITHEAD", "SON OF A BITCH", "IMBECILE", "SALAMI SMOKER", "ASSCLOWN", "FUCKFACE", "COCK JOCKEY", "CUM DUMPSTER", "TWAT WAFFLE", "COCK GOBBLER", "PIG FUCKER", "FANNY BANDIT", "FUCKTARD", "IDIOT SANDWHICH", "YOU FUCKING DONKEY", "PENIS BREATH"];
+var compliment = ["BETTER LUCK NEXT TIME", "UNLUCKY", "BUT YOU ARE STILL AWESOME", "BUT NOT THE END OF THE WORLD"]
+var complimentNo = Math.floor(Math.random() * compliment.length);
 var insultNo = Math.floor(Math.random() * insult.length);
 var gameStart = false;
 var start = false;
@@ -513,41 +514,33 @@ var deathX
 var deathY
 var deathFrame = 0
 
-function deathChange(){
+function deathChange() {
     deathFrame++
 }
 
 setInterval(deathChange, 100)
 
-function drawDeath(){
-    if(deathb){
-        if(deathFrame == 1){
+function drawDeath() {
+    if (deathb) {
+        if (deathFrame == 1) {
             ctx.drawImage(deathA1, deathX, deathY, 65, 65)
-        }
-        else if(deathFrame == 2){
+        } else if (deathFrame == 2) {
             ctx.drawImage(deathA2, deathX, deathY, 65, 65)
-        }
-        else if(deathFrame == 3){
+        } else if (deathFrame == 3) {
             ctx.drawImage(deathA3, deathX, deathY, 65, 65)
-        }
-        else if(deathFrame == 4){
+        } else if (deathFrame == 4) {
             ctx.drawImage(deathA4, deathX, deathY, 65, 65)
-        }
-        else if(deathFrame == 5){
+        } else if (deathFrame == 5) {
             ctx.drawImage(deathA5, deathX, deathY, 65, 65)
-        }
-        else if(deathFrame == 6){
+        } else if (deathFrame == 6) {
             ctx.drawImage(deathA6, deathX, deathY, 65, 65)
-        } 
-        else if(deathFrame == 7){
+        } else if (deathFrame == 7) {
             ctx.drawImage(deathA7, deathX, deathY, 65, 65)
-        } 
-        else if(deathFrame == 8){
+        } else if (deathFrame == 8) {
             ctx.drawImage(deathA8, deathX, deathY, 65, 65)
-        } 
-        else if(deathFrame == 9){
+        } else if (deathFrame == 9) {
             ctx.drawImage(deathA9, deathX, deathY, 65, 65)
-        }    
+        }
 
     }
 }
@@ -820,7 +813,11 @@ function result() {
 }
 
 function drawLose() {
+    if (parentalControl == false){
     document.getElementById("loseText").textContent = "GAME OVER " + insult[insultNo];
+    } else if (parentalControl == true) {
+        document.getElementById("loseText").textContent = "GAME OVER, " + compliment[complimentNo];
+    }
     youLose.style.display = "inLine";
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     //alternateLose();
@@ -859,6 +856,31 @@ function drawWin() {
     ctx.closePath()
     nextLvlCollision()
     //console.log(mainMenu)
+}
+
+function ParentalControlButton() {
+    if (x2 > 0 && x2 < 85 && y2 > 0 && y2 < 35) {
+        bulletActive = true;
+        spacePressed = false;
+        y2 = canvas.height - 80;
+        bulletCount = 0
+        select.currentTime = 0;
+        select.play();
+        console.log(parentalControl)
+        if (parentalControl == true) {
+            parentalControl = false;
+        } else if (parentalControl == false) {
+            parentalControl = true
+        }
+    }
+    ctx.beginPath();
+    if (parentalControl == false) {
+        ctx.fillStyle = "red";
+    } else if (parentalControl == true) {
+        ctx.fillStyle = "#10d145";
+    }
+    ctx.fillRect(0, 0, 85, 35)
+    ctx.closePath();
 }
 
 function mainMenuCollision() {
@@ -914,6 +936,7 @@ function restartCollision() {
         console.log(level)
         youLose.style.display = "none";
         insultNo = Math.floor(Math.random() * insult.length);
+        complimentNo = Math.floor(Math.random() * compliment.length)
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         //draw restart function here
     }
@@ -930,6 +953,7 @@ function drawMainMenu() {
     playCollision();
     drawPlay();
     drawOptions();
+    ParentalControlButton()
 }
 
 function drawPlay() {
@@ -1047,7 +1071,6 @@ function draw() {
             drawRed();
             moveRed();
             redDetection();
-            
         }
 
     } else if (start == false) {
@@ -1065,7 +1088,7 @@ function startMenuDraw() {
         fire();
         playCollision();
         optionsCollision();
-        console.log(gameStart)
+        ParentalControlButton();
     } else if (gameStart == true) {
         clearInterval(mmenu);
         ctx.clearRect(0, 0, canvas.width, canvas.height);

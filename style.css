@@ -212,6 +212,14 @@
     background: #10d145;
 }
 
+.pControlText {
+    position: absolute;
+    background: none;
+    font-size: 9px;
+    left: 14%;
+    top: 13%
+}
+
 
 /* ANIMATIONS */
 @keyframes mix {
